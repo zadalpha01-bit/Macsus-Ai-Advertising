@@ -217,8 +217,10 @@ body {
   height: 100dvh;
   height: 100svh;
   margin: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
 }
 
 button { font-family: var(--font-sans); cursor: pointer; border: none; background: none; }
@@ -228,7 +230,10 @@ textarea { resize: vertical; }
 /* ── APP LAYOUT ──────────────────────────────────────────────── */
 .app-layout {
   display: flex;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 /* ── MAIN AREA ────────────────────────────────────────────── */
@@ -498,12 +503,11 @@ textarea { resize: vertical; }
 .content-area {
   flex: 1;
   min-height: 0;
-    padding: 8px 12px 80px;
+  padding: 8px 12px 24px;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  max-width: 960px;
   width: 100%;
   position: relative;
 }
@@ -1483,6 +1487,32 @@ a.btn-use-mode {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.notes-card-chevron {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  transition: transform 0.25s ease;
+}
+
+@media (min-width: 1024px) {
+  .notes-card-header {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .notes-card-header:hover {
+    background: var(--bg-hover);
+  }
+
+  .notes-card.expanded .notes-card-chevron {
+    transform: rotate(180deg);
+  }
+
+  .notes-card:not(.expanded) .notes-card-body {
+    display: none;
+  }
 }
 
 /* ── FIELDS & INPUTS ────────────────────────────────────────── */
@@ -3094,8 +3124,7 @@ body.theme-tt .btn-generate:hover {
 /* ── DESKTOP LARGE ──────────────────────────────────────────── */
 @media (min-width: 1024px) {
   .content-area {
-    padding: 8px 32px 32px;
-    max-width: 1100px;
+    padding: 20px 32px 32px;
   }
 }
 
@@ -3762,7 +3791,6 @@ body.light-mode .splash-brand {
   /* ── MAIN AREA — shift right ───────────────────────────────── */
   .app-layout {
     display: flex;
-    height: 100vh;
     overflow: hidden;
     position: relative;
   }

@@ -254,9 +254,10 @@
 
         <!-- Notes Card -->
         <div class="notes-card" id="notes-card">
-          <div class="notes-card-header">
+          <div class="notes-card-header" onclick="toggleNotesCard()">
             <span class="notes-card-title">Catatan Tambahan</span>
             <span class="field-optional">opsional</span>
+            <i class="fas fa-chevron-down notes-card-chevron"></i>
           </div>
           <div class="notes-card-body">
             <input type="text" id="command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" />
@@ -857,6 +858,13 @@
       }, 200);
     });
   })();
+</script>
+
+<script>
+  function toggleNotesCard() {
+    var card = document.getElementById('notes-card');
+    if (card) card.classList.toggle('expanded');
+  }
 </script>
 
 <script>
