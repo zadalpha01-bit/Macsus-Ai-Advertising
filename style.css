@@ -707,6 +707,21 @@ textarea { resize: none; overflow: hidden; }
   align-items: center;
   justify-content: center;
   z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: min-width 0.3s ease, padding 0.3s ease, width 0.3s ease, right 0.3s ease, transform 0.3s ease;
+}
+
+.dock-item .badge-count.expanded {
+  min-width: auto;
+  width: auto;
+  padding: 0 6px;
+  height: 18px;
+  border-radius: 9px;
+  font-size: 10px;
+  top: 0;
+  right: 9px;
+  transform: translateX(50%);
 }
 
 /* ── EXPANDABLE TABS ── */
@@ -3352,6 +3367,28 @@ body.has-output .content-area {
   align-items: center;
   justify-content: center;
   line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: min-width 0.3s ease, padding 0.3s ease, width 0.3s ease;
+}
+
+/* PC sidebar badge — expand ke kanan */
+.pc-nav-link .badge-count {
+  left: 36px;
+  right: auto;
+  top: 2px;
+  z-index: 9999;
+}
+
+.pc-nav-link .badge-count.expanded {
+  position: fixed;
+  min-width: auto;
+  width: auto;
+  padding: 0 8px;
+  height: 20px;
+  border-radius: 10px;
+  font-size: 11px;
+  z-index: 9999;
 }
 
 /* ── MESSAGES PAGE ────────────────────────────────────────── */
@@ -3880,7 +3917,7 @@ body.light-mode .splash-brand {
     border-right: 1px solid var(--border);
     flex-direction: column;
     z-index: 200;
-    overflow: hidden;
+    overflow: visible;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -3915,7 +3952,7 @@ body.light-mode .splash-brand {
   .pc-sidebar:not(.expanded) .pc-brand { display: none; }
 
   /* Nav */
-  .pc-nav { flex: 1; padding: 4px 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; }
+  .pc-nav { flex: 1; padding: 4px 0; overflow-y: auto; overflow-x: visible; display: flex; flex-direction: column; }
   .pc-nav::-webkit-scrollbar { display: none; }
 
   .pc-nav-group {

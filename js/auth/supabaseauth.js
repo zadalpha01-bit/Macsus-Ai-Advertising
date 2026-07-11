@@ -402,8 +402,19 @@ async function logoutUser() {
     localStorage.removeItem(CACHE_KEYS.CACHE_TIMESTAMP);
     localStorage.removeItem(CACHE_KEYS.DEVICE_ID);
     localStorage.removeItem('macsus_history');
+    localStorage.removeItem('macsus_gemini_api_key');
+    localStorage.removeItem('macsus_gemini_model');
+    localStorage.removeItem('macsus_sync_queue');
+    localStorage.removeItem('macsus_current_version');
+    localStorage.removeItem('macsus_version_last_check');
+    localStorage.removeItem('macsus_update_available');
 
     sessionStorage.clear();
+
+    // Clear IndexedDB history
+    if (typeof HistoryDB !== 'undefined' && HistoryDB.remove) {
+      await HistoryDB.remove('macsus_history');
+    }
 
     console.log('✅ Logout berhasil');
     return { success: true, message: 'Logout berhasil' };

@@ -11,6 +11,7 @@ let _supabaseClient = null;
 let _msgChannel = null;
 let _currentConversationId = null;
 let _msgPollInterval = null;
+let _convoPollInterval = null;
 
 function getMsgHeaders() {
   return {
@@ -127,6 +128,7 @@ function openChat(conversationId, otherUserId, otherEmail) {
 
 function closeChat() {
   _currentConversationId = null;
+  _lastChatMsgId = null;
   unsubscribeMessages();
 
   const page = document.getElementById('chat-page') || document.getElementById('page-chat');
@@ -265,9 +267,11 @@ async function loadConversations() {
     });
     const convos = await res.json();
     if (!res.ok || !Array.isArray(convos) || convos.length === 0) {
+      _lastConvoCount = 0;
       listEl.innerHTML = '<div class="msg-empty">Belum ada percakapan.<br>Cari user berdasarkan email untuk memulai chat.</div>';
       return;
     }
+    _lastConvoCount = convos.length;
 
     const otherIds = convos.map(c => c.user1_id === myId ? c.user2_id : c.user1_id);
     const uniqueIds = [...new Set(otherIds)];
@@ -339,6 +343,9 @@ async function loadMessages(conversationId) {
       return;
     }
     renderMessages(messages);
+    if (messages.length > 0) {
+      _lastChatMsgId = messages[messages.length - 1].id;
+    }
     scrollChatToBottom();
   } catch (e) {
     console.error('Load messages error:', e);
@@ -391,6 +398,7 @@ async function sendMessage() {
     if (tempEl) tempEl.remove();
     if (created && created[0]) {
       appendSingleMessage(created[0]);
+      _lastChatMsgId = created[0].id;
     }
   } catch (e) {
     console.error('Send message error:', e);
@@ -403,6 +411,7 @@ async function sendMessage() {
 }
 
 function appendSingleMessage(m) {
+  if (document.querySelector('.chat-bubble[data-id="' + m.id + '"]')) return;
   const msgEl = document.getElementById('chat-messages');
   const myId = getMsgUserId();
   const isMine = m.sender_id === myId;
@@ -638,26 +647,77 @@ async function updateBadgeCount() {
     });
     const unread = await msgRes.json();
     const count = unread ? unread.length : 0;
-    const badge = document.getElementById('dock-msg-badge');
-    if (badge) {
+    const countIncreased = !_badgeFirstRun && count > _prevUnreadCount;
+    _prevUnreadCount = count;
+    _badgeFirstRun = false;
+
+    ['dock-msg-badge', 'pc-sidebar-msg-badge'].forEach(function(id) {
+      const badge = document.getElementById(id);
+      if (!badge) return;
       if (count > 0) {
-        badge.textContent = count > 99 ? '99+' : count;
         badge.style.display = '';
+        if (countIncreased) {
+          expandBadge(badge, count);
+        } else {
+          badge.textContent = count > 99 ? '99+' : count;
+          badge.classList.remove('expanded');
+        }
       } else {
         badge.style.display = 'none';
+        badge.classList.remove('expanded');
       }
-    }
+    });
   } catch (e) {}
 }
 
 function hideBadge() {
-  const badge = document.getElementById('dock-msg-badge');
-  if (badge) badge.style.display = 'none';
+  ['dock-msg-badge', 'pc-sidebar-msg-badge'].forEach(function(id) {
+    const badge = document.getElementById(id);
+    if (badge) {
+      badge.style.display = 'none';
+      badge.classList.remove('expanded');
+    }
+  });
+}
+
+function expandBadge(badge, count) {
+  if (_badgeCollapseTimer) clearTimeout(_badgeCollapseTimer);
+
+  var sidebarBadge = document.getElementById('pc-sidebar-msg-badge');
+  if (sidebarBadge) {
+    var rect = sidebarBadge.getBoundingClientRect();
+    sidebarBadge.textContent = count + ' pesan baru';
+    sidebarBadge.style.top = rect.top + 'px';
+    sidebarBadge.style.left = rect.left + 'px';
+    sidebarBadge.classList.add('expanded');
+  }
+
+  var dockBadge = document.getElementById('dock-msg-badge');
+  if (dockBadge) {
+    dockBadge.textContent = count + ' pesan baru';
+    dockBadge.classList.add('expanded');
+  }
+
+  _badgeCollapseTimer = setTimeout(function() {
+    var sb = document.getElementById('pc-sidebar-msg-badge');
+    if (sb) {
+      sb.textContent = count > 99 ? '99+' : count;
+      sb.classList.remove('expanded');
+      sb.style.top = '';
+      sb.style.left = '';
+    }
+    var db = document.getElementById('dock-msg-badge');
+    if (db) {
+      db.textContent = count > 99 ? '99+' : count;
+      db.classList.remove('expanded');
+    }
+  }, 3000);
 }
 
 /* ── SUBSCRIBE GLOBAL (unread dari semua percakapan) ──────── */
 
 function subscribeGlobalMessages() {
+  startConvoPolling();
   const client = initSupabaseClient();
   if (!client) return;
   try {
@@ -675,6 +735,10 @@ function subscribeGlobalMessages() {
             markAsRead(_currentConversationId);
           } else {
             updateBadgeCount();
+            var msgsPage = document.getElementById('messages-page') || document.getElementById('page-pesan');
+            if (msgsPage && msgsPage.style.display !== 'none') {
+              loadConversations();
+            }
           }
         }
       })
@@ -696,6 +760,77 @@ function subscribeGlobalMessages() {
       })
       .subscribe();
   } catch (e) {}
+}
+
+let _lastConvoMsgCount = 0;
+let _lastConvoCount = 0;
+let _lastChatMsgId = null;
+let _prevUnreadCount = 0;
+let _badgeCollapseTimer = null;
+let _badgeFirstRun = true;
+
+function startConvoPolling() {
+  stopConvoPolling();
+  _convoPollInterval = setInterval(async () => {
+    const myId = getMsgUserId();
+    if (!myId) return;
+    try {
+      const convRes = await fetch(MSG_CONFIG.SUPABASE_URL + '/rest/v1/conversations?or=(user1_id.eq.' + myId + ',user2_id.eq.' + myId + ')&select=id', {
+        headers: getMsgHeaders()
+      });
+      const convos = await convRes.json();
+      if (!convRes.ok || !Array.isArray(convos)) return;
+      const convIds = convos.map(c => c.id);
+
+      if (convIds.length !== _lastConvoCount) {
+        _lastConvoCount = convIds.length;
+        updateBadgeCount();
+        var msgsPage = document.getElementById('messages-page') || document.getElementById('page-pesan');
+        if (msgsPage && msgsPage.style.display !== 'none') {
+          loadConversations();
+        }
+      }
+
+      if (convIds.length === 0) return;
+      const msgRes = await fetch(MSG_CONFIG.SUPABASE_URL + '/rest/v1/messages?conversation_id=in.(' + convIds.join(',') + ')&sender_id=neq.' + myId + '&read=eq.false&select=id', {
+        headers: getMsgHeaders()
+      });
+      const unread = await msgRes.json();
+      const count = unread ? unread.length : 0;
+      if (count !== _lastConvoMsgCount) {
+        _lastConvoMsgCount = count;
+        updateBadgeCount();
+        var msgsPage = document.getElementById('messages-page') || document.getElementById('page-pesan');
+        if (msgsPage && msgsPage.style.display !== 'none') {
+          loadConversations();
+        }
+      }
+      if (_currentConversationId) {
+        const latestRes = await fetch(MSG_CONFIG.SUPABASE_URL + '/rest/v1/messages?conversation_id=eq.' + _currentConversationId + '&select=id&order=created_at.desc&limit=1', {
+          headers: getMsgHeaders()
+        });
+        const latestArr = await latestRes.json();
+        if (Array.isArray(latestArr) && latestArr.length > 0 && latestArr[0].id !== _lastChatMsgId) {
+          const allRes = await fetch(MSG_CONFIG.SUPABASE_URL + '/rest/v1/messages?conversation_id=eq.' + _currentConversationId + '&select=*&order=created_at.asc', {
+            headers: getMsgHeaders()
+          });
+          const allMsgs = await allRes.json();
+          if (Array.isArray(allMsgs)) {
+            allMsgs.forEach(m => {
+              if (!document.querySelector('.chat-bubble[data-id="' + m.id + '"]') && m.sender_id !== myId) {
+                appendSingleMessage(m);
+              }
+            });
+            _lastChatMsgId = allMsgs[allMsgs.length - 1].id;
+          }
+        }
+      }
+    } catch (e) {}
+  }, 3000);
+}
+
+function stopConvoPolling() {
+  if (_convoPollInterval) { clearInterval(_convoPollInterval); _convoPollInterval = null; }
 }
 
 /* ── HELPERS ──────────────────────────────────────────────── */
