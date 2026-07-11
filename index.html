@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Macsus AI Advertising</title>
+  <meta property="og:url" content="https://macsus-ai-advertising-version.netlify.app/IkonBrand/teks-gelap/og-1200x630.png" />
+  <meta property="og:title" content="Macsus AI Advertising" />
+  <meta property="og:description" content="Generator Konten AI Cerdas untuk Macsus Company" />
+  <meta property="og:image" content="https://macsus-ai-advertising-version.netlify.app/IkonBrand/teks-gelap/og-1200x630.png" />
+  <meta property="og:type" content="website" />
+  
+  <link rel="icon" href="IkonBrand/ikon-gelap/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="IkonBrand/ikon-gelap/apple-touch-180.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+</head>
+
+<body>
+
+<!-- Custom Splash Screen -->
+<div id="custom-splash" class="splash-screen">
+  <div class="splash-content">
+    <img src="ikon.png" alt="Macsus" class="splash-logo" />
+  </div>
+  <div class="splash-brand">from ZERO</div>
+</div>
+
+<div class="app-layout">
+
+  <!-- ══ SIDEBAR (Desktop ≥1024px only) ══ -->
+  <nav class="pc-sidebar" id="pc-sidebar">
+    <div class="pc-sidebar-head">
+      <div class="pc-sidebar-logo-wrap">
+        <img src="ikon.png" class="pc-sidebar-logo-img" alt="Macsus" />
+        <span class="pc-brand">MACSUS AI</span>
+      </div>
+
+    </div>
+    <div class="pc-nav">
+      <div class="pc-nav-group">MENU</div>
+      <a class="pc-nav-link active" data-page="beranda" onclick="sidebarNav('beranda')"><span class="pc-nav-icon"><i class="fas fa-home"></i></span><span class="pc-nav-text">Beranda</span></a>
+      <a class="pc-nav-link" data-page="mode" onclick="sidebarNav('mode')"><span class="pc-nav-icon"><i class="fas fa-layer-group"></i></span><span class="pc-nav-text">Mode</span></a>
+      <a class="pc-nav-link" data-page="pesan" onclick="sidebarNav('pesan')"><span class="pc-nav-icon"><i class="fas fa-comment-dots"></i></span><span class="pc-nav-text">Pesan</span></a>
+      <a class="pc-nav-link" data-page="akun" onclick="sidebarNav('akun')"><span class="pc-nav-icon"><i class="fas fa-user"></i></span><span class="pc-nav-text">Akun</span></a>
+      <div class="pc-nav-group">LAINNYA</div>
+      <a class="pc-nav-link" data-page="pengaturan" onclick="sidebarNav('pengaturan')"><span class="pc-nav-icon"><i class="fas fa-cog"></i></span><span class="pc-nav-text">Pengaturan</span></a>
+    </div>
+    <div class="pc-sidebar-foot">
+      <button class="pc-nav-btn-primary" onclick="sidebarNav('mode')"><span class="pc-nav-icon" style="color:#fff;"><i class="fas fa-plus"></i></span><span class="pc-nav-text">Buat Konten Baru</span></button>
+    </div>
+  </nav>
+
+  <!-- MAIN AREA -->
+  <div class="main-area">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-title" id="topbar-page-title">
+        <i class="topbar-icon topbar-icon-img" id="topbar-icon"></i>
+        <span>Macsus AI</span>
+      </div>
+    </header>
+
+    <!-- ACCOUNT DROPDOWN -->
+    <div class="account-dropdown" id="account-dropdown">
+      <div class="account-header">
+        <div class="account-icon">
+          <i data-lucide="circle-user"></i>
+        </div>
+        <div>
+          <div class="account-name" id="account-display-name">Loading...</div>
+          <div class="account-email" id="account-display-email">Email</div>
+        </div>
+      </div>
+      <div class="account-actions">
+        <button class="account-btn" onclick="handleSwitchAccount()">
+          <i class="fas fa-sign-in-alt"></i> Ganti Akun
+        </button>
+        <button class="account-btn" onclick="handleAddAccount()">
+          <i class="fas fa-user-plus"></i> Tambah Akun
+        </button>
+      </div>
+    </div>
+    <div class="account-overlay" id="account-overlay" onclick="toggleAccountMenu()"></div>
+
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+      <!-- INPUT CONTAINER -->
+      <div id="input-container">
+        <!-- BERANDA VIEW -->
+        <div id="beranda-view">
+          <!-- MODE INFO TABS -->
+          <p class="section-eyebrow">Info Mode</p>
+          <div class="mode-tabs">
+            <button class="mode-tab ig" data-mode="ig" onclick="toggleModeInfo('ig')">
+              <i class="fab fa-instagram"></i><span>Instagram</span>
+            </button>
+            <button class="mode-tab gb" data-mode="gbisnis" onclick="toggleModeInfo('gbisnis')">
+              <i class="fas fa-store"></i><span>G-Bisnis</span>
+            </button>
+            <button class="mode-tab wa" data-mode="wa" onclick="toggleModeInfo('wa')">
+              <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+            </button>
+            <button class="mode-tab fb" data-mode="fb" onclick="toggleModeInfo('fb')">
+              <i class="fab fa-facebook"></i><span>Facebook</span>
+            </button>
+            <button class="mode-tab tt" data-mode="tt" onclick="toggleModeInfo('tt')">
+              <i class="fab fa-tiktok"></i><span>TikTok</span>
+            </button>
+          </div>
+          <div class="mode-info-panel default-panel" id="default-panel">
+            <div class="mode-info-head">
+              <img src="ikon.png" class="mode-info-icon default-icon" alt="Macsus">
+              <div>
+                <div class="mode-info-name">Macsus AI Advertising</div>
+                <div class="mode-info-desc">Membuat virus untuk hacking <i class="fas fa-circle-xmark" style="color:#F87171;"></i> Membuat virus untuk menjual antivirus <i class="fas fa-circle-check" style="color:#4ADE80;"></i></div>
+              </div>
+            </div>
+            <a href="https://www.instagram.com/macsus.company/" target="_blank" class="btn-use-mode" title="Kunjungi Instagram">
+              <i class="fas fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+          <div class="mode-info-panel" id="mode-info-panel" style="display:none;">
+            <div class="mode-info-head">
+              <i class="mode-info-icon" id="mode-info-icon"></i>
+              <div>
+                <div class="mode-info-name" id="mode-info-name"></div>
+                <div class="mode-info-desc" id="mode-info-desc"></div>
+              </div>
+            </div>
+            <button class="btn-use-mode" id="btn-use-mode" onclick="useModeFromInfo()" title="Buka mode ini">
+              <i class="fas fa-arrow-up-right-from-square"></i>
+            </button>
+          </div>
+
+          <div id="beranda-history">
+          <div class="beranda-history-header">
+            <p class="beranda-section-title">Riwayat Terbaru</p>
+            <div class="beranda-search">
+              <input type="text" id="beranda-search-input" placeholder="Cari riwayat..." oninput="filterBerandaHistory(this.value)" />
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+          <div class="beranda-history" id="beranda-history-list"></div>
+        </div>
+        </div> <!-- /beranda-view -->
+
+        <!-- IG Fields -->
+        <div class="form-panel" id="ig-fields">
+          <div class="panel-header">
+            <div class="panel-dot ig"></div>
+            <span class="panel-title">Mode Instagram</span>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label class="field-label">Judul / Topik Konten IG</label>
+              <input type="text" id="contentTitle" placeholder="Contoh: Laptop Terkena Tumpahan Air (Liquid Spill)" />
+            </div>
+            <div class="field">
+              <label class="field-label">Template Preset Layanan</label>
+              <div id="cs-ig-template" style="margin-bottom: 12px;"></div>
+            </div>
+            <div class="field">
+              <label class="field-label">Layanan / Masalah Hari Ini</label>
+              <textarea id="serviceInfo" rows="3" placeholder="Contoh: Overheat Treatment laptop gaming Asus ROG di Surabaya."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Bisnis Fields -->
+        <div class="form-panel" id="gbisnis-fields">
+          <div class="panel-header">
+            <div class="panel-dot gb"></div>
+            <span class="panel-title">Mode Google Bisnis</span>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label class="field-label">Judul</label>
+              <input type="text" id="gbisnisTitle" placeholder="Contoh: Review Pelanggan - Service Laptop Asus" />
+            </div>
+            <div class="field">
+              <label class="field-label">Data Report Pelanggan</label>
+              <textarea id="reportData" rows="10" placeholder="Paste struktur data report di sini..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp Fields -->
+        <div class="form-panel" id="wa-fields">
+          <div class="panel-header">
+            <div class="panel-dot wa"></div>
+            <span class="panel-title">Mode WhatsApp Broadcast</span>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label class="field-label">Judul</label>
+              <input type="text" id="waTitle" placeholder="Contoh: Promo Ganti Layar Smartphone Agustus" />
+            </div>
+            <div class="field">
+              <label class="field-label">Jenis Promo / Layanan</label>
+              <textarea id="waPromoType" rows="3" placeholder="Contoh: Promo Ganti Layar Smartphone bulan Agustus dengan potongan harga khusus..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Facebook Fields -->
+        <div class="form-panel" id="fb-fields">
+          <div class="panel-header">
+            <div class="panel-dot fb"></div>
+            <span class="panel-title">Mode Facebook Bisnis</span>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label class="field-label">Judul</label>
+              <input type="text" id="fbTitle" placeholder="Contoh: Review Pelanggan - Service Laptop Acer" />
+            </div>
+            <div class="field">
+              <label class="field-label">Data Report Pelanggan</label>
+              <textarea id="fbReportData" rows="10" placeholder="Paste struktur data report di sini..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- TikTok Fields -->
+        <div class="form-panel" id="tt-fields">
+          <div class="panel-header">
+            <div class="panel-dot tt"></div>
+            <span class="panel-title">Mode TikTok</span>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <label class="field-label">Judul</label>
+              <input type="text" id="ttTitle" placeholder="Contoh: Proses Overheat Treatment Laptop Gaming" />
+            </div>
+            <div class="field">
+              <label class="field-label">Tema / Deskripsi Video TikTok</label>
+              <textarea id="ttVideoDesc" rows="4" placeholder="Contoh: Video showing laptop overheat treatment process di workshop Macsus..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Card -->
+        <div class="notes-card" id="notes-card">
+          <div class="notes-card-header">
+            <span class="notes-card-title">Catatan Tambahan</span>
+            <span class="field-optional">opsional</span>
+          </div>
+          <div class="notes-card-body">
+            <input type="text" id="command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" />
+          </div>
+        </div>
+
+        <button class="btn-generate" id="submit-btn" onclick="generateAds()" style="display:none;">
+          <i class="fas fa-wand-magic-sparkles"></i> Generate Konten
+        </button>
+      </div>
+
+      <!-- Error -->
+      <div class="error-card" id="error-box">
+        <i class="fas fa-exclamation-triangle icon"></i>
+        <span id="error-text"></span>
+      </div>
+
+      <!-- Output Area -->
+      <div class="output-area" id="output-wrapper">
+        <div class="output-topbar">
+          <div class="output-topbar-row1">
+            <div class="output-eyebrow">Hasil Generate</div>
+            <div class="output-topbar-actions">
+              <button class="btn-back-to-input" id="btn-back-to-input" onclick="backToInput()" title="Kembali ke form input">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+              <button class="btn-copy-all" onclick="copyAll()"><i class="fas fa-copy"></i> Salin Semua</button>
+            </div>
+          </div>
+          <div class="output-title" id="output-title"></div>
+        </div>
+
+        <!-- IG Tabs -->
+        <div class="tab-row" id="ig-tabs" style="display:none">
+          <button class="tab-pill active" onclick="switchTab(0)">
+            <i class="fas fa-book"></i> NotebookLM
+          </button>
+          <button class="tab-pill" onclick="switchTab(1)">
+            <i class="fas fa-file-alt"></i> Dok. Sumber
+          </button>
+          <button class="tab-pill" onclick="switchTab(2)">
+            <i class="fas fa-font"></i> Caption IG
+          </button>
+        </div>
+
+        <!-- IG Sections -->
+        <div class="out-card active" id="section-notebooklm" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num">1</div>
+              <span class="out-card-name">Prompt NotebookLM</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('notebooklm-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('notebooklm-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('notebooklm-body', 0)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('notebooklm-body', 'notebooklm.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="notebooklm-body"></div>
+        </div>
+
+        <div class="out-card" id="section-dokumen" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num">2</div>
+              <span class="out-card-name">Dokumen Sumber Data</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('dokumen-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('dokumen-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('dokumen-body', 1)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('dokumen-body', 'dokumen.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="dokumen-body"></div>
+        </div>
+
+        <div class="out-card" id="section-caption" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num">3</div>
+              <span class="out-card-name">Caption Instagram</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('caption-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('caption-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('caption-body', 2)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('caption-body', 'caption.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="caption-body"></div>
+          <div class="char-row">
+            <div class="char-track"><div class="char-fill ok" id="char-fill-caption" style="width:0%"></div></div>
+            <span class="char-text" id="char-label-caption">0 / 2200</span>
+          </div>
+        </div>
+
+        <!-- GBisnis Section -->
+        <div class="out-card" id="section-gbisnis" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num gb"><i class="fab fa-google"></i></div>
+              <span class="out-card-name">Postingan Google Bisnis</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('gbisnis-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('gbisnis-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('gbisnis-body', 0)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('gbisnis-body', 'gbisnis.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="gbisnis-body"></div>
+          <div class="char-row">
+            <div class="char-track"><div class="char-fill ok" id="char-fill" style="width:0%"></div></div>
+            <span class="char-text" id="char-label">0 / 1500</span>
+          </div>
+        </div>
+
+        <!-- WA Section -->
+        <div class="out-card" id="section-wa" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num wa"><i class="fab fa-whatsapp"></i></div>
+              <span class="out-card-name">Pesan WhatsApp Broadcast</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('wa-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('wa-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('wa-body', 0)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('wa-body', 'whatsapp.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="wa-body"></div>
+          <div class="char-row">
+            <div class="char-track"><div class="char-fill ok" id="char-fill-wa" style="width:0%"></div></div>
+            <span class="char-text" id="char-label-wa">0 / 400</span>
+          </div>
+        </div>
+
+        <!-- FB Section -->
+        <div class="out-card" id="section-fb" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num fb"><i class="fab fa-facebook"></i></div>
+              <span class="out-card-name">Postingan Facebook</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('fb-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('fb-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('fb-body', 0)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('fb-body', 'facebook.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="fb-body"></div>
+          <div class="char-row">
+            <div class="char-track"><div class="char-fill ok" id="char-fill-fb" style="width:0%"></div></div>
+            <span class="char-text" id="char-label-fb">0 / 5000</span>
+          </div>
+        </div>
+
+        <!-- TT Section -->
+        <div class="out-card" id="section-tt" style="display:none">
+          <div class="out-card-header">
+            <div class="out-card-label">
+              <div class="out-num tt"><i class="fab fa-tiktok"></i></div>
+              <span class="out-card-name">Caption TikTok</span>
+            </div>
+            <div class="out-card-actions">
+              <button class="btn-sec" onclick="copySection('tt-body')" title="Salin"><i class="fas fa-copy"></i></button>
+              <button class="btn-sec" onclick="editSection('tt-body')" title="Edit"><i class="fas fa-edit"></i></button>
+              <button class="btn-sec" onclick="regenerateSection('tt-body', 0)" title="Generate Ulang"><i class="fas fa-rotate-right"></i></button>
+              <button class="btn-sec" onclick="downloadSection('tt-body', 'tiktok.txt')" title="Download"><i class="fas fa-download"></i></button>
+            </div>
+          </div>
+          <div class="out-card-body" id="tt-body"></div>
+          <div class="char-row">
+            <div class="char-track"><div class="char-fill ok" id="char-fill-tt" style="width:0%"></div></div>
+            <span class="char-text" id="char-label-tt">0 / 2200</span>
+        </div>
+      </div>
+
+      </div><!-- /output-wrapper -->
+
+      <!-- MESSAGES PAGE -->
+      <div id="messages-page" style="display:none;">
+        <div class="msg-search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="msg-search-input" placeholder="Cari user berdasarkan email..." oninput="searchUsersForChat(this.value)" />
+        </div>
+        <div id="msg-search-results" class="msg-search-results" style="display:none;"></div>
+        <div id="msg-conversation-list" class="msg-conversation-list"></div>
+      </div>
+
+      <!-- CHAT PAGE -->
+      <div id="chat-page" style="display:none;">
+        <div class="chat-header">
+          <button class="chat-back-btn" onclick="closeChat()">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <div class="chat-user-info">
+            <div class="chat-avatar" id="chat-avatar"></div>
+            <div>
+              <div class="chat-user-name" id="chat-user-name"></div>
+              <div class="chat-user-email" id="chat-user-email"></div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Ketik pesan..." onkeydown="if(event.key==='Enter')sendMessage()" />
+          <button class="chat-send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- AKUN PAGE -->
+      <div id="akun-page" style="display:none;">
+        <p class="section-eyebrow">Akun</p>
+        <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--accent-muted);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--accent);">
+              <i data-lucide="circle-user"></i>
+            </div>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:var(--text-primary);" id="akun-page-name">Loading...</div>
+              <div style="font-size:13px;color:var(--text-secondary);" id="akun-page-email">Email</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="account-btn" onclick="handleSwitchAccount()"><i class="fas fa-sign-in-alt"></i> Ganti Akun</button>
+            <button class="account-btn" onclick="handleAddAccount()"><i class="fas fa-user-plus"></i> Tambah Akun</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PENGATURAN PAGE -->
+      <div id="pengaturan-page" style="display:none;">
+        <p class="section-eyebrow">Pengaturan</p>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:12px;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-page);">
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);text-transform:uppercase;letter-spacing:0.04em;">Konfigurasi API</span>
+          </div>
+          <div style="padding:16px;">
+            <label class="settings-label">Gemini API Key</label>
+            <p class="settings-hint">Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>. Tersimpan di browser.</p>
+            <div class="api-key-input-row" style="margin-top:8px;">
+              <input type="text" id="gemini-api-key-input" placeholder="Paste API Key..." autocomplete="off" spellcheck="false" />
+              <button class="btn-toggle-eye" id="btn-eye" onclick="toggleApiKeyVisibility()" title="Tampilkan/Sembunyikan">
+                <i class="fas fa-eye" id="eye-icon"></i>
+              </button>
+            </div>
+            <div class="api-btn-row" style="margin-top:8px;">
+              <button type="button" class="btn-save-api" onclick="saveApiKey()"><i class="fas fa-save"></i> Simpan</button>
+              <button class="btn-test-api" id="btn-test-api" onclick="testApiKey()" type="button"><i class="fas fa-plug"></i> Tes</button>
+            </div>
+            <label class="settings-label" style="margin-top:12px;">Model Gemini</label>
+            <p class="settings-hint">Ganti model kalau generate gagal. Auto-retry aktif.</p>
+            <div class="model-select-row" style="margin-top:8px;">
+              <div class="model-active-badge" id="model-active-badge">
+                <i class="fas fa-circle-dot"></i> <span id="model-active-name">gemini-2.5-flash</span>
+              </div>
+              <div id="cs-gemini-model"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:12px;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-page);">
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);text-transform:uppercase;letter-spacing:0.04em;">Preferensi</span>
+          </div>
+          <div style="padding:16px;">
+            <div class="settings-toggle-row" style="margin-bottom:12px;">
+              <div>
+                <span class="settings-label">Mode Terang/Gelap</span>
+                <p class="settings-hint">Ganti tema tampilan aplikasi.</p>
+              </div>
+              <button class="animation-toggle-btn" id="btn-theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            </div>
+            <div class="settings-toggle-row">
+              <div>
+                <span class="settings-label">Matikan Animasi</span>
+                <p class="settings-hint">Untuk HP/PC low-end. Lebih lancar.</p>
+              </div>
+              <button class="animation-toggle-btn" id="btn-toggle-animation" onclick="toggleAnimations()"><i class="fas fa-check"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:12px;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-page);">
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);text-transform:uppercase;letter-spacing:0.04em;">Data Riwayat</span>
+          </div>
+          <div style="padding:16px;">
+            <div class="settings-btn-grid">
+              <button class="btn-pwa" onclick="exportHistoryAsJSON()"><i class="fas fa-download"></i> Export .json</button>
+              <button class="btn-pwa" onclick="triggerImportHistory()"><i class="fas fa-upload"></i> Import</button>
+              <button class="btn-pwa btn-danger" onclick="clearHistory()"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+            </div>
+            <input type="file" id="import-history-file" accept=".json" style="display:none" onchange="importHistoryFromFile(event)" />
+          </div>
+        </div>
+
+        <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:12px;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-page);">
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);text-transform:uppercase;letter-spacing:0.04em;">Aplikasi</span>
+          </div>
+          <div style="padding:16px;">
+            <button class="btn-pwa" onclick="installPWA()"><i class="fas fa-download"></i> Install Aplikasi</button>
+            <div class="settings-toggle-row" style="margin-top:8px;">
+              <span class="settings-label">Versi</span>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="settings-label" id="current-version">v5.0.0</span>
+                <button class="btn-pwa" onclick="window.versionCheck.checkForUpdates(false)"><i class="fas fa-sync-alt"></i> Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:16px 0;color:var(--text-tertiary);font-size:12px;">
+          <div>BY : ZADOSTRIX</div>
+          <div>&copy; 2026 ZERO</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DOCK -->
+    <div class="dock-wrapper">
+      <div class="dock" id="dock">
+        <div class="dock-pulse"></div>
+        <div class="dock-item active" data-page="beranda" onclick="goBeranda()" aria-label="Beranda">
+          <span class="dock-pill"></span>
+          <i class="fas fa-home"></i>
+        </div>
+
+        <!-- Mode Expandable -->
+        <div class="dock-expandable" id="dock-mode-expand">
+          <div class="expandable-shell" id="mode-shell">
+            <div class="expandable-content">
+              <div class="expandable-menu">
+                <button class="expandable-row row-ig" onclick="setMode('ig')">
+                  <i class="fab fa-instagram"></i><span>Instagram</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+                <button class="expandable-row row-gb" onclick="setMode('gbisnis')">
+                  <i class="fas fa-store"></i><span>G-Bisnis</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+                <button class="expandable-row row-wa" onclick="setMode('wa')">
+                  <i class="fab fa-whatsapp"></i><span>WhatsApp</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+                <button class="expandable-row row-fb" onclick="setMode('fb')">
+                  <i class="fab fa-facebook"></i><span>Facebook</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+                <button class="expandable-row row-tt" onclick="setMode('tt')">
+                  <i class="fab fa-tiktok"></i><span>TikTok</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button class="dock-item expandable-trigger" id="mode-tab" onclick="toggleExpandable('mode')" aria-label="Mode">
+            <span class="dock-pill"></span>
+            <i class="fas fa-layer-group"></i>
+          </button>
+        </div>
+
+        <div class="dock-item" data-page="pesan" onclick="openMessages()" aria-label="Pesan">
+          <span class="dock-pill"></span>
+          <i data-lucide="message-square-text"></i>
+          <span class="badge-count" id="dock-msg-badge" style="display:none;">0</span>
+        </div>
+
+        <!-- Akun Expandable -->
+        <div class="dock-expandable" id="dock-akun-expand">
+          <div class="expandable-shell" id="akun-shell">
+            <div class="expandable-content">
+              <div class="account-banner">
+                <div class="account-banner-icon">
+                  <i data-lucide="circle-user"></i>
+                </div>
+                <div class="account-banner-info">
+                  <div class="account-banner-name" id="akun-display-name">Loading...</div>
+                  <div class="account-banner-email" id="akun-display-email">Email</div>
+                </div>
+              </div>
+              <div class="expandable-menu">
+                <button class="expandable-row" onclick="handleSwitchAccount()">
+                  <i class="fas fa-sign-in-alt"></i><span>Ganti Akun</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+                <button class="expandable-row" onclick="handleAddAccount()">
+                  <i class="fas fa-user-plus"></i><span>Tambah Akun</span><i class="fas fa-chevron-right row-chevron"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button class="dock-item expandable-trigger" id="akun-tab" onclick="toggleExpandable('akun')" aria-label="Akun">
+            <span class="dock-pill"></span>
+            <i data-lucide="user"></i>
+          </button>
+        </div>
+
+        <div class="dock-separator"></div>
+        <div class="dock-item" data-page="pengaturan" onclick="toggleSettings()" aria-label="Pengaturan">
+          <span class="dock-pill"></span>
+          <i class="fas fa-cog"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="overlay" id="settings-overlay" onclick="toggleSettings()"></div>
+<div class="modal" id="settings-modal">
+  <div class="modal-header">
+    <h3><svg class="modal-header-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Pengaturan</h3>
+    <button onclick="toggleSettings()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="modal-body">
+    <div class="accordion" id="settings-accordion">
+
+      <div class="accordion-item" data-id="api">
+        <button class="accordion-trigger" onclick="toggleAccordion('api')">
+          <span class="accordion-icon"><i class="fas fa-key"></i></span>
+          <span class="accordion-title">Konfigurasi API</span>
+          <span class="accordion-chevron"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="accordion-content" id="accordion-api-content">
+          <div class="accordion-description">
+            <label class="settings-label">Gemini API Key</label>
+            <p class="settings-hint">Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>. Tersimpan di browser.</p>
+            <div class="api-key-input-row">
+              <input type="text" id="gemini-api-key-input" placeholder="Paste API Key..." autocomplete="off" spellcheck="false" />
+              <button class="btn-toggle-eye" id="btn-eye" onclick="toggleApiKeyVisibility()" title="Tampilkan/Sembunyikan">
+                <i class="fas fa-eye" id="eye-icon"></i>
+              </button>
+            </div>
+            <div class="api-btn-row">
+              <button type="button" class="btn-save-api" onclick="saveApiKey()"><i class="fas fa-save"></i> Simpan</button>
+              <button class="btn-test-api" id="btn-test-api" onclick="testApiKey()" type="button"><i class="fas fa-plug"></i> Tes</button>
+            </div>
+            <label class="settings-label" style="margin-top:12px;">Model Gemini</label>
+            <p class="settings-hint">Ganti model kalau generate gagal. Auto-retry aktif.</p>
+            <div class="model-select-row">
+              <div class="model-active-badge" id="model-active-badge">
+                <i class="fas fa-circle-dot"></i> <span id="model-active-name">gemini-2.5-flash</span>
+              </div>
+              <div id="cs-gemini-model"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-id="preferensi">
+        <button class="accordion-trigger" onclick="toggleAccordion('preferensi')">
+          <span class="accordion-icon"><i class="fas fa-sliders-h"></i></span>
+          <span class="accordion-title">Preferensi</span>
+          <span class="accordion-chevron"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="accordion-content" id="accordion-preferensi-content">
+          <div class="accordion-description">
+            <div class="settings-toggle-row">
+              <div>
+                <span class="settings-label">Mode Terang/Gelap</span>
+                <p class="settings-hint">Ganti tema tampilan aplikasi.</p>
+              </div>
+              <button class="animation-toggle-btn" id="btn-theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+              </button>
+            </div>
+            <div class="settings-toggle-row">
+              <div>
+                <span class="settings-label">Matikan Animasi</span>
+                <p class="settings-hint">Untuk HP/PC low-end. Lebih lancar.</p>
+              </div>
+              <button class="animation-toggle-btn" id="btn-toggle-animation" onclick="toggleAnimations()">
+                <i class="fas fa-check"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-id="riwayat">
+        <button class="accordion-trigger" onclick="toggleAccordion('riwayat')">
+          <span class="accordion-icon"><i class="fas fa-database"></i></span>
+          <span class="accordion-title">Data Riwayat</span>
+          <span class="accordion-chevron"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="accordion-content" id="accordion-riwayat-content">
+          <div class="accordion-description">
+            <div class="settings-btn-grid">
+              <button class="btn-pwa" id="btn-export-history" onclick="exportHistoryAsJSON()">
+                <i class="fas fa-download"></i> Export .json
+              </button>
+              <button class="btn-pwa" id="btn-import-history" onclick="triggerImportHistory()">
+                <i class="fas fa-upload"></i> Import
+              </button>
+              <button class="btn-pwa btn-danger" onclick="clearHistory()">
+                <i class="fas fa-trash-alt"></i> Hapus Semua
+              </button>
+            </div>
+            <input type="file" id="import-history-file" accept=".json" style="display:none" onchange="importHistoryFromFile(event)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item" data-id="aplikasi">
+        <button class="accordion-trigger" onclick="toggleAccordion('aplikasi')">
+          <span class="accordion-icon"><i class="fas fa-info-circle"></i></span>
+          <span class="accordion-title">Aplikasi</span>
+          <span class="accordion-chevron"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <div class="accordion-content" id="accordion-aplikasi-content">
+          <div class="accordion-description">
+            <button class="btn-pwa" id="btn-install-pwa" onclick="installPWA()">
+              <i class="fas fa-download"></i> Install Aplikasi
+            </button>
+            <div class="settings-toggle-row">
+              <span class="settings-label">Versi</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="settings-label" id="current-version">v5.0.0</span>
+                <button class="btn-pwa" id="btn-check-version" onclick="window.versionCheck.checkForUpdates(false)">
+                  <i class="fas fa-sync-alt"></i> Update
+                </button>
+              </div>
+            </div>
+            <p class="settings-hint">Gunakan sebagai aplikasi native di HP atau PC.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="settings-footer">
+      <span>BY : ZADOSTRIX</span>
+      <span>&copy; 2026 ZERO</span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> Teks disalin!</div>
+
+<!-- Update Modal Container -->
+<div id="update-modal" class="update-modal-container"></div>
+
+<!-- Dynamic Island Loading -->
+<div class="di-overlay" id="di-overlay" style="display:none;"></div>
+<div class="dynamic-island" id="dynamic-island" style="display:none;">
+  <div class="di-shell">
+    <div class="di-sizer">
+      <!-- Compact -->
+      <div class="di-compact" id="di-compact">
+        <span id="di-compact-dither"></span>
+        <span class="di-compact-text">AI sedang memproses</span>
+        <span class="di-compact-dots"><span>.</span><span>.</span><span>.</span></span>
+      </div>
+      <!-- Expanded Content -->
+      <div class="di-expanded" id="di-expanded">
+        <div class="di-expanded-header" id="di-expanded-header">
+          <span id="di-expanded-spinner"></span>
+          <span id="di-expanded-title">AI sedang memproses...</span>
+        </div>
+        <div class="di-expanded-list" id="di-expanded-list"></div>
+        <div class="di-expanded-footer" id="di-expanded-footer" style="display:none;">
+          <button class="di-btn di-btn-retry" onclick="retryGenerate()">Coba Ulang</button>
+          <button class="di-btn di-btn-close" onclick="closeDynamicIsland()">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/auth/supabaseAuth.js"></script>
+<script src="js/lib/idb.js"></script>
+<script src="js/features/sessionSync.js"></script>
+<script src="js/features/versionCheck.js"></script>
+<script src="js/features/messaging.js"></script>
+<script src="script.js"></script>
+<script>
+  /* ══ SIDEBAR HOVER ══ */
+  (function() {
+    var sidebar = document.getElementById('pc-sidebar');
+    if (!sidebar) return;
+    var hoverTimer = null;
+    sidebar.addEventListener('mouseenter', function() {
+      if (window.innerWidth < 1024) return;
+      clearTimeout(hoverTimer);
+      sidebar.classList.add('expanded');
+    });
+    sidebar.addEventListener('mouseleave', function() {
+      if (window.innerWidth < 1024) return;
+      hoverTimer = setTimeout(function() {
+        sidebar.classList.remove('expanded');
+      }, 200);
+    });
+  })();
+</script>
+
+  /* Sidebar nav — page view */
+  function sidebarNav(page) {
+    document.querySelectorAll('.pc-nav-link').forEach(function(el) {
+      el.classList.toggle('active', el.getAttribute('data-page') === page);
+    });
+
+    var titles = { beranda:'Macsus AI', mode:'Mode', pesan:'Pesan', akun:'Akun', pengaturan:'Pengaturan' };
+    var topbarSpan = document.querySelector('#topbar-page-title span');
+    if (topbarSpan) topbarSpan.textContent = titles[page] || 'Macsus AI';
+
+    closeAllExpandables();
+
+    if (page === 'beranda' || page === 'mode') {
+      if (typeof goBeranda === 'function') {
+        goBeranda();
+      }
+    } else if (page === 'pesan') {
+      if (typeof openMessages === 'function') {
+        openMessages();
+      }
+    } else if (page === 'akun') {
+      if (typeof goBeranda === 'function' && currentMode !== null) {
+        goBeranda();
+      }
+      ['input-container','output-wrapper','messages-page','chat-page','pengaturan-page'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      var ap = document.getElementById('akun-page');
+      if (ap) ap.style.display = '';
+      var n = document.getElementById('account-display-name');
+      var e = document.getElementById('account-display-email');
+      var pn = document.getElementById('akun-page-name');
+      var pe = document.getElementById('akun-page-email');
+      if (n && pn) pn.textContent = n.textContent;
+      if (e && pe) pe.textContent = e.textContent;
+    } else if (page === 'pengaturan') {
+      if (typeof goBeranda === 'function' && currentMode !== null) {
+        goBeranda();
+      }
+      ['input-container','output-wrapper','messages-page','chat-page','akun-page'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      var pp = document.getElementById('pengaturan-page');
+      if (pp) pp.style.display = '';
+      if (typeof loadApiKeyToInput === 'function') loadApiKeyToInput();
+    }
+  }
+
+
+</script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

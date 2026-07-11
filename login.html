@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Login - Macsus AI Advertising</title>
+  <link rel="icon" href="IkonBrand/ikon-gelap/favicon-32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: var(--bg-page);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+    }
+    .auth-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+    .auth-card {
+      padding: 40px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .auth-header img {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 16px;
+      border-radius: 12px;
+    }
+    .auth-header h1 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .auth-header p {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin: 6px 0 0 0;
+      font-weight: 500;
+    }
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .auth-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-muted);
+    }
+    .auth-input::placeholder {
+      color: var(--text-tertiary);
+    }
+    .auth-submit {
+      padding: 11px 16px;
+      background: var(--accent);
+      color: var(--text-inverse);
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .auth-submit:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+    .auth-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .auth-error {
+      padding: 12px;
+      background: var(--red-light);
+      border: 1px solid var(--red);
+      border-radius: 8px;
+      color: var(--red);
+      font-size: 13px;
+      display: none;
+    }
+    .auth-error.show {
+      display: block;
+    }
+    .auth-link {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 20px;
+    }
+    .auth-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .auth-link a:hover {
+      text-decoration: underline;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-active);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 10000;
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.show {
+      display: flex;
+    }
+    @media (max-width: 480px) {
+      .auth-container { padding: 12px; }
+      .auth-card { padding: 24px; }
+      .auth-header h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <img src="ikon.png" alt="Macsus Logo">
+        <h1>Macsus AI</h1>
+        <p>Content Generator</p>
+      </div>
+
+      <form class="auth-form" id="login-form" onsubmit="handleLoginSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="auth-input" placeholder="your@email.com" id="login-email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="auth-input" placeholder="••••••••" id="login-password" required>
+        </div>
+
+        <div class="auth-error" id="login-error"></div>
+
+        <button type="submit" class="auth-submit" id="login-btn">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </form>
+
+      <div class="auth-link">
+        Belum punya akun? <a href="register.html">Daftar di sini</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth/supabaseAuth.js"></script>
+  <script>
+    async function handleLoginSubmit(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorBox = document.getElementById('login-error');
+      const submitBtn = document.getElementById('login-btn');
+
+      errorBox.textContent = '';
+      errorBox.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner"></i> Sedang login...';
+
+      try {
+        const result = await window.supabaseAuth.loginUser(email, password);
+
+        if (result.success) {
+          showToast('' + result.message, 'success');
+          
+          setTimeout(() => {
+            window.location.href = './index.html';
+          }, 1000);
+        } else {
+          errorBox.textContent = result.error;
+          errorBox.classList.add('show');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        errorBox.textContent = 'Error: ' + err.message;
+        errorBox.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+      }
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
+</body>
+</html>
