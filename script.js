@@ -1569,7 +1569,7 @@ async function goBeranda() {
   ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields', 'notes-card'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-      el.classList.remove('visible');
+      el.classList.remove('visible', 'expanded');
       el.style.display = 'none';
     }
   });
@@ -1869,6 +1869,7 @@ async function setMode(mode) {
     panel.classList.add('visible');
   }
   var notesCard = document.getElementById('notes-card');
+  notesCard.classList.remove('expanded');
   notesCard.style.display = '';
   notesCard.classList.add('visible');
 
