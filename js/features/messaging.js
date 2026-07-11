@@ -65,6 +65,11 @@ async function openMessages() {
   var cp = document.getElementById('chat-page');
   if (cp) cp.style.display = 'none';
 
+  ['akun-page','pengaturan-page'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
   const page = document.getElementById('messages-page') || document.getElementById('page-pesan');
   if (page) {
     page.style.display = 'flex';

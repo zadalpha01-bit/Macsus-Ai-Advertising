@@ -1561,6 +1561,11 @@ async function goBeranda() {
   if (chatPage) chatPage.style.display = 'none';
   if (typeof closeChat === 'function') { _currentConversationId = null; unsubscribeMessages(); }
 
+  ['akun-page','pengaturan-page'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
   ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields', 'notes-card'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -1830,6 +1835,11 @@ async function setMode(mode) {
   if (msgsPage) msgsPage.style.display = 'none';
   if (chatPage) chatPage.style.display = 'none';
   if (typeof _currentConversationId !== 'undefined') { _currentConversationId = null; unsubscribeMessages(); }
+
+  ['akun-page','pengaturan-page'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
 
   clearAllOutputSections();
   var igTabs = document.getElementById('ig-tabs');
@@ -2211,6 +2221,11 @@ async function loadSession(id) {
   // --- RESET & SHOW SESSION ---
   currentMode = session.mode;
   applyModeTheme(session.mode);
+
+  ['akun-page','pengaturan-page'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
 
   clearAllOutputSections();
 

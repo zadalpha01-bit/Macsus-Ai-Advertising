@@ -48,10 +48,15 @@
     <div class="pc-nav">
       <div class="pc-nav-group">MENU</div>
       <a class="pc-nav-link active" data-page="beranda" onclick="sidebarNav('beranda')"><span class="pc-nav-icon"><i class="fas fa-home"></i></span><span class="pc-nav-text">Beranda</span></a>
-      <a class="pc-nav-link" data-page="mode" onclick="sidebarNav('mode')"><span class="pc-nav-icon"><i class="fas fa-layer-group"></i></span><span class="pc-nav-text">Mode</span></a>
+      <div class="pc-nav-group">MODE</div>
+      <a class="pc-nav-link" data-mode="ig" onclick="sidebarNav('mode','ig')"><span class="pc-nav-icon"><i class="fab fa-instagram"></i></span><span class="pc-nav-text">Instagram</span></a>
+      <a class="pc-nav-link" data-mode="gbisnis" onclick="sidebarNav('mode','gbisnis')"><span class="pc-nav-icon"><i class="fas fa-store"></i></span><span class="pc-nav-text">G-Bisnis</span></a>
+      <a class="pc-nav-link" data-mode="wa" onclick="sidebarNav('mode','wa')"><span class="pc-nav-icon"><i class="fab fa-whatsapp"></i></span><span class="pc-nav-text">WhatsApp</span></a>
+      <a class="pc-nav-link" data-mode="fb" onclick="sidebarNav('mode','fb')"><span class="pc-nav-icon"><i class="fab fa-facebook"></i></span><span class="pc-nav-text">Facebook</span></a>
+      <a class="pc-nav-link" data-mode="tt" onclick="sidebarNav('mode','tt')"><span class="pc-nav-icon"><i class="fab fa-tiktok"></i></span><span class="pc-nav-text">TikTok</span></a>
+      <div class="pc-nav-group">LAINNYA</div>
       <a class="pc-nav-link" data-page="pesan" onclick="sidebarNav('pesan')"><span class="pc-nav-icon"><i class="fas fa-comment-dots"></i></span><span class="pc-nav-text">Pesan</span></a>
       <a class="pc-nav-link" data-page="akun" onclick="sidebarNav('akun')"><span class="pc-nav-icon"><i class="fas fa-user"></i></span><span class="pc-nav-text">Akun</span></a>
-      <div class="pc-nav-group">LAINNYA</div>
       <a class="pc-nav-link" data-page="pengaturan" onclick="sidebarNav('pengaturan')"><span class="pc-nav-icon"><i class="fas fa-cog"></i></span><span class="pc-nav-text">Pengaturan</span></a>
     </div>
     <div class="pc-sidebar-foot">
@@ -854,10 +859,17 @@
   })();
 </script>
 
+<script>
   /* Sidebar nav — page view */
-  function sidebarNav(page) {
+  async function sidebarNav(page, mode) {
     document.querySelectorAll('.pc-nav-link').forEach(function(el) {
-      el.classList.toggle('active', el.getAttribute('data-page') === page);
+      var dp = el.getAttribute('data-page');
+      var dm = el.getAttribute('data-mode');
+      if (dm) {
+        el.classList.toggle('active', page === 'mode' && dm === mode);
+      } else {
+        el.classList.toggle('active', dp === page);
+      }
     });
 
     var titles = { beranda:'Macsus AI', mode:'Mode', pesan:'Pesan', akun:'Akun', pengaturan:'Pengaturan' };
@@ -866,18 +878,15 @@
 
     closeAllExpandables();
 
-    if (page === 'beranda' || page === 'mode') {
-      if (typeof goBeranda === 'function') {
-        goBeranda();
-      }
+    if (page === 'beranda') {
+      if (typeof goBeranda === 'function') await goBeranda();
+    } else if (page === 'mode') {
+      if (typeof goBeranda === 'function' && currentMode !== null) await goBeranda();
+      if (mode && typeof setMode === 'function') await setMode(mode);
     } else if (page === 'pesan') {
-      if (typeof openMessages === 'function') {
-        openMessages();
-      }
+      if (typeof openMessages === 'function') await openMessages();
     } else if (page === 'akun') {
-      if (typeof goBeranda === 'function' && currentMode !== null) {
-        goBeranda();
-      }
+      if (typeof goBeranda === 'function' && currentMode !== null) await goBeranda();
       ['input-container','output-wrapper','messages-page','chat-page','pengaturan-page'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) el.style.display = 'none';
@@ -891,9 +900,7 @@
       if (n && pn) pn.textContent = n.textContent;
       if (e && pe) pe.textContent = e.textContent;
     } else if (page === 'pengaturan') {
-      if (typeof goBeranda === 'function' && currentMode !== null) {
-        goBeranda();
-      }
+      if (typeof goBeranda === 'function' && currentMode !== null) await goBeranda();
       ['input-container','output-wrapper','messages-page','chat-page','akun-page'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) el.style.display = 'none';
