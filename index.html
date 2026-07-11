@@ -869,6 +869,21 @@
     el.style.height = 'auto';
     el.style.height = el.scrollHeight + 'px';
   }
+  function toggleHistoryItem(btn) {
+    var item = btn.closest('.beranda-history-item');
+    if (!item) return;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.beranda-history-item.open').forEach(function(el) {
+      el.classList.remove('open');
+      var s = el.querySelector('.beranda-history-surface');
+      if (s) { s.classList.remove('open'); s.style.transform = ''; }
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      var surface = item.querySelector('.beranda-history-surface');
+      if (surface) surface.classList.add('open');
+    }
+  }
 </script>
 
 <script>

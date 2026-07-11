@@ -1398,9 +1398,11 @@ function initSwipeHandlers() {
   document.addEventListener('touchstart', onStart, { passive: true });
   document.addEventListener('touchmove', onMove, { passive: false });
   document.addEventListener('touchend', onEnd);
-  document.addEventListener('mousedown', onStart);
-  document.addEventListener('mousemove', onMove);
-  document.addEventListener('mouseup', onEnd);
+  if (window.innerWidth < 1024) {
+    document.addEventListener('mousedown', onStart);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+  }
 }
 
 function renderBerandaHistory() {
@@ -1468,6 +1470,7 @@ function renderBerandaHistory() {
           pinBadge +
           '<span class="beranda-history-badge ' + m.color + '">' + m.name + '</span>' +
         '</div>' +
+        '<button class="beranda-history-dots" onclick="event.stopPropagation(); toggleHistoryItem(this)"><i class="fas fa-ellipsis-vertical"></i></button>' +
       '</div>';
 
     list.appendChild(el);

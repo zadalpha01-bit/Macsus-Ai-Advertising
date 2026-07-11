@@ -1060,6 +1060,11 @@ textarea { resize: none; overflow: hidden; }
 .beranda-history-surface.fb:hover { border-color: var(--fb); }
 .beranda-history-surface.tt:hover { border-color: var(--tt); }
 
+/* ── 3-DOT BUTTON (hidden mobile) ──────────────────────── */
+.beranda-history-dots {
+  display: none;
+}
+
 .beranda-history-empty {
   text-align: center;
   padding: 24px;
@@ -3825,6 +3830,47 @@ body.light-mode .splash-brand {
 
   /* Toast — bottom right */
   .toast { bottom: 32px; right: 32px; left: auto; }
+
+  /* ── 3-DOT MENU (replace swipe on PC) ─────────────────── */
+  .beranda-history-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-sm);
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .beranda-history-dots:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  /* Disable swipe on PC */
+  .beranda-history-item {
+    touch-action: auto;
+  }
+
+  .beranda-history-surface.swiping {
+    transition: none !important;
+  }
+
+  /* Hide swipe hint on PC */
+  .beranda-history-item.hint .beranda-history-surface {
+    animation: none !important;
+  }
+
+  .beranda-history-item.hint .beranda-history-action-icon {
+    opacity: 0;
+    transform: scale(0.8);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
