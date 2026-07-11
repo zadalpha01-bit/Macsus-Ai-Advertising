@@ -294,16 +294,7 @@ function updateCheckButton(state) {
 }
 
 function showVersionToast(message, type = 'info') {
-  const t = document.getElementById('toast');
-  if (!t) return;
-
-  let icon = 'fa-check-circle';
-  if (type === 'error') icon = 'fa-exclamation-circle';
-  if (type === 'warning') icon = 'fa-warning';
-
-  t.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  showToast(message, type);
 }
 
 function setupRealtimeVersionListener() {

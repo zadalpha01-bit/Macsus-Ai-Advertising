@@ -57,10 +57,9 @@
       <div class="pc-nav-group">LAINNYA</div>
       <a class="pc-nav-link" data-page="pesan" onclick="sidebarNav('pesan')"><span class="pc-nav-icon"><i class="fas fa-comment-dots"></i></span><span class="pc-nav-text">Pesan</span></a>
       <a class="pc-nav-link" data-page="akun" onclick="sidebarNav('akun')"><span class="pc-nav-icon"><i class="fas fa-user"></i></span><span class="pc-nav-text">Akun</span></a>
-      <a class="pc-nav-link" data-page="pengaturan" onclick="sidebarNav('pengaturan')"><span class="pc-nav-icon"><i class="fas fa-cog"></i></span><span class="pc-nav-text">Pengaturan</span></a>
     </div>
     <div class="pc-sidebar-foot">
-      <button class="pc-nav-btn-primary" onclick="sidebarNav('mode')"><span class="pc-nav-icon" style="color:#fff;"><i class="fas fa-plus"></i></span><span class="pc-nav-text">Buat Konten Baru</span></button>
+      <a class="pc-nav-link" data-page="pengaturan" onclick="sidebarNav('pengaturan')"><span class="pc-nav-icon"><i class="fas fa-cog"></i></span><span class="pc-nav-text">Pengaturan</span></a>
     </div>
   </nav>
 
@@ -72,6 +71,7 @@
         <i class="topbar-icon topbar-icon-img" id="topbar-icon"></i>
         <span>Macsus AI</span>
       </div>
+      <div class="toast-container" id="toast-container"></div>
     </header>
 
     <!-- ACCOUNT DROPDOWN -->
@@ -149,6 +149,9 @@
           <div id="beranda-history">
           <div class="beranda-history-header">
             <p class="beranda-section-title">Riwayat Terbaru</p>
+            <button class="btn-view-toggle" id="btn-view-toggle" onclick="toggleHistoryView()" title="Ubah tampilan">
+              <i class="fas fa-list" id="view-toggle-icon"></i>
+            </button>
             <div class="beranda-search">
               <input type="text" id="beranda-search-input" placeholder="Cari riwayat..." oninput="filterBerandaHistory(this.value)" />
               <i class="fas fa-search"></i>
@@ -158,6 +161,7 @@
         </div>
         </div> <!-- /beranda-view -->
 
+        <div id="form-scroll-area">
         <!-- IG Fields -->
         <div class="form-panel" id="ig-fields">
           <div class="panel-header">
@@ -192,7 +196,10 @@
               <input type="text" id="gbisnisTitle" placeholder="Contoh: Review Pelanggan - Service Laptop Asus" />
             </div>
             <div class="field">
-              <label class="field-label">Data Report Pelanggan</label>
+              <label class="field-label" style="display:flex;align-items:center;justify-content:space-between;">
+                <span>Data Report Pelanggan</span>
+                <a href="https://trello.com/b/vV3NiTeK/07-juli-2026" target="_blank" rel="noopener noreferrer" class="btn-trello">Trello <i class="fas fa-external-link-alt"></i></a>
+              </label>
               <textarea id="reportData" rows="1" placeholder="Paste struktur data report di sini..." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
@@ -228,7 +235,10 @@
               <input type="text" id="fbTitle" placeholder="Contoh: Review Pelanggan - Service Laptop Acer" />
             </div>
             <div class="field">
-              <label class="field-label">Data Report Pelanggan</label>
+              <label class="field-label" style="display:flex;align-items:center;justify-content:space-between;">
+                <span>Data Report Pelanggan</span>
+                <a href="https://trello.com/b/vV3NiTeK/07-juli-2026" target="_blank" rel="noopener noreferrer" class="btn-trello">Trello <i class="fas fa-external-link-alt"></i></a>
+              </label>
               <textarea id="fbReportData" rows="1" placeholder="Paste struktur data report di sini..." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
@@ -263,6 +273,7 @@
             <input type="text" id="command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" />
           </div>
         </div>
+        </div> <!-- /form-scroll-area -->
 
         <button class="btn-generate" id="submit-btn" onclick="generateAds()" style="display:none;">
           <i class="fas fa-wand-magic-sparkles"></i> Generate Konten
@@ -437,8 +448,8 @@
           <div class="char-row">
             <div class="char-track"><div class="char-fill ok" id="char-fill-tt" style="width:0%"></div></div>
             <span class="char-text" id="char-label-tt">0 / 2200</span>
+          </div>
         </div>
-      </div>
 
       </div><!-- /output-wrapper -->
 
@@ -801,7 +812,6 @@
 </div>
 
 <!-- Toast -->
-<div class="toast" id="toast"><i class="fas fa-check-circle"></i> Teks disalin!</div>
 
 <!-- Update Modal Container -->
 <div id="update-modal" class="update-modal-container"></div>
@@ -850,24 +860,65 @@
       if (window.innerWidth < 1024) return;
       clearTimeout(hoverTimer);
       sidebar.classList.add('expanded');
+      if (typeof positionDynamicIsland === 'function') {
+        setTimeout(positionDynamicIsland, 350);
+      }
     });
     sidebar.addEventListener('mouseleave', function() {
       if (window.innerWidth < 1024) return;
       hoverTimer = setTimeout(function() {
         sidebar.classList.remove('expanded');
+        if (typeof positionDynamicIsland === 'function') {
+          setTimeout(positionDynamicIsland, 350);
+        }
       }, 200);
     });
   })();
 </script>
 
 <script>
+  var _historyViewMode = localStorage.getItem('historyView') || 'list';
+  function toggleHistoryView() {
+    var list = document.getElementById('beranda-history-list');
+    var icon = document.getElementById('view-toggle-icon');
+    var btn = document.getElementById('btn-view-toggle');
+    if (!list || !icon || !btn) return;
+    if (_historyViewMode === 'list') {
+      _historyViewMode = 'grid';
+      list.classList.add('grid-view');
+      icon.className = 'fas fa-grip';
+      btn.classList.add('active');
+    } else {
+      _historyViewMode = 'list';
+      list.classList.remove('grid-view');
+      icon.className = 'fas fa-list';
+      btn.classList.remove('active');
+    }
+    localStorage.setItem('historyView', _historyViewMode);
+  }
+  function applyHistoryView() {
+    var list = document.getElementById('beranda-history-list');
+    var icon = document.getElementById('view-toggle-icon');
+    var btn = document.getElementById('btn-view-toggle');
+    if (!list) return;
+    if (_historyViewMode === 'grid') {
+      list.classList.add('grid-view');
+      if (icon) icon.className = 'fas fa-grip';
+      if (btn) btn.classList.add('active');
+    } else {
+      list.classList.remove('grid-view');
+      if (icon) icon.className = 'fas fa-list';
+      if (btn) btn.classList.remove('active');
+    }
+  }
   function toggleNotesCard() {
     var card = document.getElementById('notes-card');
     if (card) card.classList.toggle('expanded');
   }
   function autoResizeTA(el) {
     el.style.height = 'auto';
-    el.style.height = el.scrollHeight + 'px';
+    var maxH = 200;
+    el.style.height = Math.min(el.scrollHeight, maxH) + 'px';
   }
   function toggleHistoryItem(btn) {
     var item = btn.closest('.beranda-history-item');
@@ -899,10 +950,6 @@
       }
     });
 
-    var titles = { beranda:'Macsus AI', mode:'Mode', pesan:'Pesan', akun:'Akun', pengaturan:'Pengaturan' };
-    var topbarSpan = document.querySelector('#topbar-page-title span');
-    if (topbarSpan) topbarSpan.textContent = titles[page] || 'Macsus AI';
-
     closeAllExpandables();
 
     if (page === 'beranda') {
@@ -913,13 +960,21 @@
     } else if (page === 'pesan') {
       if (typeof openMessages === 'function') await openMessages();
     } else if (page === 'akun') {
-      if (typeof goBeranda === 'function' && currentMode !== null) await goBeranda();
+      if (currentMode !== null) {
+        currentMode = null;
+        if (typeof applyModeTheme === 'function') applyModeTheme(null);
+      }
       ['input-container','output-wrapper','messages-page','chat-page','pengaturan-page'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) el.style.display = 'none';
       });
       var ap = document.getElementById('akun-page');
-      if (ap) ap.style.display = '';
+      if (ap) {
+        ap.style.display = '';
+        ap.style.opacity = '0';
+        ap.style.transform = 'translateX(30px)';
+        anime({ targets: ap, opacity: [0, 1], translateX: [30, 0], duration: 250, easing: 'easeOutCubic' });
+      }
       var n = document.getElementById('account-display-name');
       var e = document.getElementById('account-display-email');
       var pn = document.getElementById('akun-page-name');
@@ -927,14 +982,44 @@
       if (n && pn) pn.textContent = n.textContent;
       if (e && pe) pe.textContent = e.textContent;
     } else if (page === 'pengaturan') {
-      if (typeof goBeranda === 'function' && currentMode !== null) await goBeranda();
+      if (currentMode !== null) {
+        currentMode = null;
+        if (typeof applyModeTheme === 'function') applyModeTheme(null);
+      }
       ['input-container','output-wrapper','messages-page','chat-page','akun-page'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) el.style.display = 'none';
       });
       var pp = document.getElementById('pengaturan-page');
-      if (pp) pp.style.display = '';
+      if (pp) {
+        pp.style.display = '';
+        pp.style.opacity = '0';
+        pp.style.transform = 'translateX(30px)';
+        anime({ targets: pp, opacity: [0, 1], translateX: [30, 0], duration: 250, easing: 'easeOutCubic' });
+      }
       if (typeof loadApiKeyToInput === 'function') loadApiKeyToInput();
+      if (typeof initModelSelect === 'function') initModelSelect();
+    }
+
+    // Set topbar icon & title AFTER async navigation (single source of truth)
+    var titles = { beranda:'Macsus AI', pesan:'Pesan', akun:'Akun', pengaturan:'Pengaturan' };
+    var iconClasses = { beranda:'topbar-icon topbar-icon-img', pesan:'topbar-icon fas fa-comment-dots', akun:'topbar-icon fas fa-user', pengaturan:'topbar-icon fas fa-cog' };
+    var topbarSpan = document.querySelector('#topbar-page-title span');
+    if (topbarSpan) topbarSpan.textContent = titles[page] || (page === 'mode' && mode ? 'Macsus AI' : 'Macsus AI');
+
+    var topIcon = document.getElementById('topbar-icon');
+    if (topIcon && topIcon.tagName === 'svg') {
+      var newI = document.createElement('i');
+      newI.id = 'topbar-icon';
+      topIcon.parentNode.replaceChild(newI, topIcon);
+      topIcon = newI;
+    }
+    if (page === 'mode' && mode) {
+      if (typeof updateTopbarTitle === 'function') updateTopbarTitle(mode);
+    } else if (iconClasses[page] && topIcon) {
+      topIcon.className = iconClasses[page];
+      topIcon.style.transform = '';
+      topIcon.style.opacity = '';
     }
   }
 

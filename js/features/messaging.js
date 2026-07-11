@@ -162,18 +162,11 @@ function closeChat() {
 }
 
 function updateTopbarTitleCustom(title) {
-  const el = document.getElementById('topbar-page-title');
-  if (!el) return;
-  const icon = document.getElementById('topbar-icon');
-  if (icon) {
-    icon.className = 'topbar-icon';
-    icon.outerHTML = '<i data-lucide="message-square-text" class="topbar-icon" id="topbar-icon"></i>';
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  }
   if (typeof animateTitleText === 'function') {
     animateTitleText(title);
   } else {
-    el.querySelector('span').textContent = title;
+    var el = document.getElementById('topbar-page-title');
+    if (el) { var s = el.querySelector('span'); if (s) s.textContent = title; }
   }
 }
 

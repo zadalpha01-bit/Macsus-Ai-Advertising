@@ -1398,6 +1398,7 @@ function initSwipeHandlers() {
   document.addEventListener('touchstart', onStart, { passive: true });
   document.addEventListener('touchmove', onMove, { passive: false });
   document.addEventListener('touchend', onEnd);
+  document.addEventListener('wheel', function() { closeAllSwipeItems(); });
   if (window.innerWidth < 1024) {
     document.addEventListener('mousedown', onStart);
     document.addEventListener('mousemove', onMove);
@@ -1478,6 +1479,8 @@ function renderBerandaHistory() {
 
   var firstItem = list.querySelector('.beranda-history-item');
   if (firstItem) firstItem.classList.add('hint');
+
+  if (typeof applyHistoryView === 'function') applyHistoryView();
 }
 
 /* ── RESET ANIMATED ELEMENTS ── */
@@ -1578,6 +1581,8 @@ async function goBeranda() {
   });
 
   document.getElementById('submit-btn').style.display = 'none';
+  var fsa = document.getElementById('form-scroll-area');
+  if (fsa) fsa.style.display = 'none';
   anime.remove(ow);
   ow.querySelectorAll('.output-card, .notes-card-wrapper').forEach(function(s) { anime.remove(s); });
   ow.classList.remove('visible');
@@ -1593,7 +1598,7 @@ async function goBeranda() {
   document.getElementById('input-container').style.display = '';
 
   updateFooterNav(null);
-  updateTopbarTitle(null);
+  if (typeof updateTopbarTitle === 'function') updateTopbarTitle(null);
   renderBerandaHistory();
 
   var newItems = document.querySelectorAll('#beranda-history-list .beranda-history-item');
@@ -1876,6 +1881,9 @@ async function setMode(mode) {
   notesCard.style.display = '';
   notesCard.classList.add('visible');
 
+  var fsa2 = document.getElementById('form-scroll-area');
+  if (fsa2) fsa2.style.display = 'block';
+
   ['serviceInfo', 'contentTitle'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -1899,7 +1907,7 @@ async function setMode(mode) {
   document.getElementById('input-container').style.display = '';
 
   updateFooterNav(mode);
-  updateTopbarTitle(mode);
+  if (typeof updateTopbarTitle === 'function') updateTopbarTitle(mode);
 
   // Animate in
   var modePanel = document.getElementById(panels[mode]);
@@ -1955,12 +1963,34 @@ function switchTab(idx) {
    TOAST & COPY
    ═══════════════════════════════════════════════════════════════════════════ */
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  if (!t) return;
-  t.innerHTML = '<i class="fas fa-check-circle"></i> ' + (msg || 'Teks disalin!');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+function showToast(msg, type) {
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+
+  var existing = container.querySelectorAll('.toast');
+  if (existing.length >= 2) {
+    existing[0].remove();
+  }
+
+  var icon = 'fa-check-circle';
+  if (type === 'error') icon = 'fa-exclamation-circle';
+  else if (type === 'warning') icon = 'fa-warning';
+
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = '<i class="fas ' + icon + '"></i> ' + (msg || 'Done!');
+  container.appendChild(t);
+
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      t.classList.add('show');
+    });
+  });
+
+  setTimeout(function() {
+    t.classList.remove('show');
+    setTimeout(function() { t.remove(); }, 400);
+  }, 2500);
 }
 
 function copySection(id) {
@@ -2225,6 +2255,7 @@ async function loadSession(id) {
   // --- RESET & SHOW SESSION ---
   currentMode = session.mode;
   applyModeTheme(session.mode);
+  if (typeof updateTopbarTitle === 'function') updateTopbarTitle(session.mode);
 
   ['akun-page','pengaturan-page'].forEach(function(id) {
     var el = document.getElementById(id);
@@ -2249,25 +2280,25 @@ async function loadSession(id) {
     document.getElementById('gbisnis-body').innerText = session.data.gb || '';
     updateCharCounter((session.data.gb || '').length);
     var gbEl = document.getElementById('section-gbisnis');
-    gbEl.style.display = 'block';
+    gbEl.style.display = 'flex';
     gbEl.classList.add('active');
   } else if (session.mode === 'wa') {
     document.getElementById('wa-body').innerText = session.data.wa || '';
     updateWACharCounter((session.data.wa || '').length);
     var waEl = document.getElementById('section-wa');
-    waEl.style.display = 'block';
+    waEl.style.display = 'flex';
     waEl.classList.add('active');
   } else if (session.mode === 'fb') {
     document.getElementById('fb-body').innerText = session.data.fb || '';
     updateFBCharCounter((session.data.fb || '').length);
     var fbEl = document.getElementById('section-fb');
-    fbEl.style.display = 'block';
+    fbEl.style.display = 'flex';
     fbEl.classList.add('active');
   } else if (session.mode === 'tt') {
     document.getElementById('tt-body').innerText = session.data.tt || '';
     updateTTCharCounter((session.data.tt || '').length);
     var ttEl = document.getElementById('section-tt');
-    ttEl.style.display = 'block';
+    ttEl.style.display = 'flex';
     ttEl.classList.add('active');
   }
 
@@ -2414,6 +2445,23 @@ function createHelixLoader(opts) {
    DYNAMIC ISLAND LOADING
    ═══════════════════════════════════════════════════════════════════════════ */
 
+function positionDynamicIsland() {
+  var di = document.getElementById('dynamic-island');
+  if (!di) return;
+  if (window.innerWidth < 1024) {
+    di.style.left = '50%';
+    di.style.transform = 'translateX(-50%)';
+    return;
+  }
+  var mainArea = document.querySelector('.main-area');
+  if (!mainArea) return;
+  var rect = mainArea.getBoundingClientRect();
+  var cx = rect.left + rect.width / 2;
+  di.style.left = cx + 'px';
+  di.style.transform = 'translateX(-50%)';
+  di.style.right = 'auto';
+}
+
 function showDynamicIsland() {
   var di = document.getElementById('dynamic-island');
   var overlay = document.getElementById('di-overlay');
@@ -2428,6 +2476,8 @@ function showDynamicIsland() {
   compact.classList.remove('hidden');
   expanded.classList.remove('visible');
   expanded.style.display = 'none';
+
+  positionDynamicIsland();
 
   var gradient = DI_MODE_GRADIENTS[currentMode] || DI_MODE_GRADIENTS.ig;
   shell.style.background = gradient;
@@ -2456,6 +2506,8 @@ function expandDynamicIsland() {
 
   compact.classList.add('hidden');
   shell.classList.add('expanded');
+
+  positionDynamicIsland();
 
   if (headerSpinner && !headerSpinner.firstChild) {
     headerSpinner.appendChild(createDitherLoader({ cell: 4, gap: 1, speed: 1, color: '#fff' }));
@@ -3128,7 +3180,7 @@ function parseAndShowGBisnis(rawText) {
   updateCharCounter(cleaned.length);
 
   var gbEl = document.getElementById('section-gbisnis');
-  gbEl.style.display = 'block';
+  gbEl.style.display = 'flex';
   gbEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'Postingan Google Bisnis';
@@ -3146,7 +3198,7 @@ function parseAndShowWA(rawText) {
   updateWACharCounter(cleaned.length);
 
   var waEl = document.getElementById('section-wa');
-  waEl.style.display = 'block';
+  waEl.style.display = 'flex';
   waEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'WhatsApp Broadcast';
@@ -3164,7 +3216,7 @@ function parseAndShowFB(rawText) {
   updateFBCharCounter(cleaned.length);
 
   var fbEl = document.getElementById('section-fb');
-  fbEl.style.display = 'block';
+  fbEl.style.display = 'flex';
   fbEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'Postingan Facebook';
@@ -3182,7 +3234,7 @@ function parseAndShowTT(rawText) {
   updateTTCharCounter(cleaned.length);
 
   var ttEl = document.getElementById('section-tt');
-  ttEl.style.display = 'block';
+  ttEl.style.display = 'flex';
   ttEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'Caption TikTok';
