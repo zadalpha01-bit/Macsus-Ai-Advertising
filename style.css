@@ -225,7 +225,7 @@ body {
 
 button { font-family: var(--font-sans); cursor: pointer; border: none; background: none; }
 input, textarea, select { font-family: var(--font-sans); }
-textarea { resize: vertical; }
+textarea { resize: none; overflow: hidden; }
 
 /* ── APP LAYOUT ──────────────────────────────────────────────── */
 .app-layout {

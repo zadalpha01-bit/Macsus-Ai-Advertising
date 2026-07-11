@@ -175,7 +175,7 @@
             </div>
             <div class="field">
               <label class="field-label">Layanan / Masalah Hari Ini</label>
-              <textarea id="serviceInfo" rows="3" placeholder="Contoh: Overheat Treatment laptop gaming Asus ROG di Surabaya."></textarea>
+              <textarea id="serviceInfo" rows="1" placeholder="Contoh: Overheat Treatment laptop gaming Asus ROG di Surabaya." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@
             </div>
             <div class="field">
               <label class="field-label">Data Report Pelanggan</label>
-              <textarea id="reportData" rows="10" placeholder="Paste struktur data report di sini..."></textarea>
+              <textarea id="reportData" rows="1" placeholder="Paste struktur data report di sini..." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
         </div>
@@ -211,7 +211,7 @@
             </div>
             <div class="field">
               <label class="field-label">Jenis Promo / Layanan</label>
-              <textarea id="waPromoType" rows="3" placeholder="Contoh: Promo Ganti Layar Smartphone bulan Agustus dengan potongan harga khusus..."></textarea>
+              <textarea id="waPromoType" rows="1" placeholder="Contoh: Promo Ganti Layar Smartphone bulan Agustus dengan potongan harga khusus..." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@
             </div>
             <div class="field">
               <label class="field-label">Data Report Pelanggan</label>
-              <textarea id="fbReportData" rows="10" placeholder="Paste struktur data report di sini..."></textarea>
+              <textarea id="fbReportData" rows="1" placeholder="Paste struktur data report di sini..." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
         </div>
@@ -247,7 +247,7 @@
             </div>
             <div class="field">
               <label class="field-label">Tema / Deskripsi Video TikTok</label>
-              <textarea id="ttVideoDesc" rows="4" placeholder="Contoh: Video showing laptop overheat treatment process di workshop Macsus..."></textarea>
+              <textarea id="ttVideoDesc" rows="1" placeholder="Contoh: Video showing laptop overheat treatment process di workshop Macsus..." oninput="autoResizeTA(this)"></textarea>
             </div>
           </div>
         </div>
@@ -864,6 +864,10 @@
   function toggleNotesCard() {
     var card = document.getElementById('notes-card');
     if (card) card.classList.toggle('expanded');
+  }
+  function autoResizeTA(el) {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
   }
 </script>
 
