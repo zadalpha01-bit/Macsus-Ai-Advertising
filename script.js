@@ -85,15 +85,15 @@ var _DARK_VARS = {
   '--fb':'#60A5FA','--fb-light':'rgba(96,165,250,0.1)',
   '--gb':'#FBBF24','--gb-light':'rgba(251,191,36,0.1)',
   '--tt':'#E2E8F0','--tt-light':'rgba(226,232,240,0.08)',
-  '--shadow-sm':'0 1px 2px rgba(0,0,0,0.25)','--shadow-md':'0 1px 3px rgba(0,0,0,0.35)',
-  '--shadow-lg':'0 4px 12px rgba(0,0,0,0.45)',
+  '--shadow-sm':'none','--shadow-md':'none',
+  '--shadow-lg':'none',
   '--btn-grad-end':'rgba(0,0,0,0.2)','--btn-grad-end-hover':'rgba(0,0,0,0.25)',
   '--btn-ig':'#E1306C','--btn-gb':'#D97706','--btn-wa':'#25D366',
   '--btn-fb':'#1877F2','--btn-tt':'#000000'
 };
 
 var _LIGHT_VARS = {
-  '--bg-page':'#F4F5F7','--bg-surface':'#FFFFFF','--bg-elevated':'#FFFFFF',
+  '--bg-page':'#E8EAED','--bg-surface':'#FFFFFF','--bg-elevated':'#FFFFFF',
   '--bg-hover':'#F0F2F5','--bg-active':'#E8EAED',
   '--border':'#E2E8F0','--border-light':'#F0F2F5','--border-focus':'#0D9488',
   '--text-primary':'#111827','--text-secondary':'#4B5563',
@@ -109,8 +109,8 @@ var _LIGHT_VARS = {
   '--fb':'#1877F2','--fb-light':'rgba(24,119,242,0.08)',
   '--gb':'#D97706','--gb-light':'rgba(217,119,6,0.08)',
   '--tt':'#000000','--tt-light':'rgba(0,0,0,0.06)',
-  '--shadow-sm':'0 1px 2px rgba(0,0,0,0.05)','--shadow-md':'0 1px 3px rgba(0,0,0,0.08)',
-  '--shadow-lg':'0 4px 12px rgba(0,0,0,0.1)',
+  '--shadow-sm':'none','--shadow-md':'none',
+  '--shadow-lg':'none',
   '--btn-grad-end':'rgba(255,255,255,0.15)','--btn-grad-end-hover':'rgba(255,255,255,0.12)',
   '--btn-ig':'#E1306C','--btn-gb':'#D97706','--btn-wa':'#25D366',
   '--btn-fb':'#1877F2','--btn-tt':'#000000'
@@ -690,7 +690,7 @@ function saveApiKey() {
   if (!input) return;
   const key = input.dataset.masked === 'true' ? (input.dataset.realValue || '').trim() : input.value.trim();
   if (!key) {
-    showToast('API Key tidak boleh kosong!');
+    showToast('API Key tidak boleh kosong!', 'error');
     return;
   }
   localStorage.setItem(API_KEY_STORAGE, key);
@@ -700,7 +700,7 @@ function saveApiKey() {
   const icon = document.getElementById('eye-icon');
   if (icon) icon.className = 'fas fa-eye';
   updateApiKeyStatus();
-  showToast('API Key tersimpan!');
+    showToast('API Key tersimpan!', 'success');
 }
 
 function updateApiKeyStatus() {
@@ -947,11 +947,11 @@ function initAccordion() {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const MODE_META = {
-  ig:      { name: 'Instagram',    icon: 'fab fa-instagram', color: 'ig', desc: 'Buat konten feed, dokumen, dan caption Instagram yang menarik dengan AI.' },
-  gbisnis: { name: 'G-Bisnis',     icon: 'fas fa-store',     color: 'gb', desc: 'Buat postingan Google Bisnis dengan storytelling yang bikin pelanggan datang.' },
-  wa:      { name: 'WhatsApp',     icon: 'fab fa-whatsapp',  color: 'wa', desc: 'Siapkan broadcast pesan WhatsApp promosi, follow-up, dan info layanan.' },
-  fb:      { name: 'Facebook',     icon: 'fab fa-facebook',  color: 'fb', desc: 'Buat post Facebook bisnis dengan copywriting yang engaging dan persuasif.' },
-  tt:      { name: 'TikTok',       icon: 'fab fa-tiktok',    color: 'tt', desc: 'Buat caption video TikTok yang viral dengan hook kuat dan CTA jelas.' }
+  ig:      { name: 'Instagram',    headline: 'Instagram Studio',    icon: 'fab fa-instagram', color: 'ig', desc: 'Buat konten feed, dokumen, dan caption Instagram yang menarik dengan AI.' },
+  gbisnis: { name: 'G-Bisnis',     headline: 'Google Business Studio', icon: 'fab fa-google',     color: 'gb', desc: 'Buat postingan Google Bisnis dengan storytelling yang bikin pelanggan datang.' },
+  wa:      { name: 'WhatsApp',     headline: 'WhatsApp Studio',     icon: 'fab fa-whatsapp',  color: 'wa', desc: 'Siapkan broadcast pesan WhatsApp promosi, follow-up, dan info layanan.' },
+  fb:      { name: 'Facebook',     headline: 'Facebook Studio',     icon: 'fab fa-facebook',  color: 'fb', desc: 'Buat post Facebook bisnis dengan copywriting yang engaging dan persuasif.' },
+  tt:      { name: 'TikTok',       headline: 'TikTok Studio',       icon: 'fab fa-tiktok',    color: 'tt', desc: 'Buat caption video TikTok yang viral dengan hook kuat dan CTA jelas.' }
 };
 
 let _activeModeInfo = null;
@@ -1129,9 +1129,15 @@ document.addEventListener('click', function(e) {
   }
 });
 
+var _topbarVersion = 0;
+
 function animateTitleText(text) {
   var span = document.querySelector('#topbar-page-title span');
   if (!span) return;
+  _topbarVersion++;
+  var ver = _topbarVersion;
+  anime.remove(span);
+  anime.remove(span.querySelectorAll('span'));
   span.innerHTML = '';
   var chars = text.split('');
   chars.forEach(function(ch) {
@@ -1143,7 +1149,10 @@ function animateTitleText(text) {
     s.style.transform = 'translateY(10px)';
     span.appendChild(s);
   });
-  setTimeout(function() { span.textContent = text; }, (chars.length * 30) + 200);
+  setTimeout(function() {
+    if (ver !== _topbarVersion) return;
+    span.textContent = text;
+  }, (chars.length * 30) + 200);
   anime({
     targets: span.querySelectorAll('span'),
     opacity: [0, 1],
@@ -1213,12 +1222,26 @@ function updateTopbarTitle(mode) {
     icon.className = 'topbar-icon topbar-icon-mode ' + MODE_META[mode].color + ' ' + MODE_META[mode].icon;
     icon.style.transform = 'rotate(0deg)';
     anime({ targets: icon, rotate: '1turn', duration: 800, easing: 'easeOutQuad' });
-    animateTitleText(MODE_META[mode].name);
+    animateTitleText(MODE_META[mode].headline);
   } else {
     icon.className = 'topbar-icon topbar-icon-img';
     icon.style.transform = 'rotate(0deg)';
     anime({ targets: icon, rotate: '1turn', duration: 800, easing: 'easeOutQuad' });
     animateTitleText('Macsus AI');
+  }
+
+  // Sync sidebar page icon (for collapsed state)
+  var sidebarPageIcon = document.getElementById('pc-sidebar-page-icon');
+  if (sidebarPageIcon) {
+    sidebarPageIcon.className = 'topbar-icon pc-sidebar-page-icon';
+    sidebarPageIcon.style.transform = '';
+    if (mode && MODE_META[mode]) {
+      sidebarPageIcon.classList.add('topbar-icon-mode', MODE_META[mode].color);
+      var iconParts = MODE_META[mode].icon.split(' ');
+      iconParts.forEach(function(c) { sidebarPageIcon.classList.add(c); });
+    } else {
+      sidebarPageIcon.classList.add('topbar-icon-img');
+    }
   }
 }
 
@@ -1504,21 +1527,32 @@ function resetBerandaElements() {
   if (emptyState) { emptyState.style.opacity = '0'; emptyState.style.transform = 'translateY(10px)'; }
 }
 
-function resetModeElements(mode) {
-  var panels = {
-    'ig': 'ig-fields',
-    'gbisnis': 'gbisnis-fields',
-    'wa': 'wa-fields',
-    'fb': 'fb-fields',
-    'tt': 'tt-fields'
+// Mode panel ID mapping
+var MODE_PANELS = {
+  'ig': 'ig-fields',
+  'gbisnis': 'gbisnis-fields',
+  'wa': 'wa-fields',
+  'fb': 'fb-fields',
+  'tt': 'tt-fields'
+};
+
+function getModeElementIds(mode) {
+  return {
+    panel: MODE_PANELS[mode],
+    notesCard: 'notes-card-' + mode,
+    submitBtn: 'submit-btn-' + mode
   };
-  var modePanel = document.getElementById(panels[mode]);
+}
+
+function resetModeElements(mode) {
+  var ids = getModeElementIds(mode);
+  var modePanel = document.getElementById(ids.panel);
   if (modePanel) { modePanel.style.opacity = '0'; modePanel.style.transform = 'translateX(30px)'; }
 
-  var notesCard = document.getElementById('notes-card');
+  var notesCard = modePanel ? modePanel.querySelector('#' + ids.notesCard) : null;
   if (notesCard) { notesCard.style.opacity = '0'; notesCard.style.transform = 'translateX(30px)'; }
 
-  var submitBtn = document.getElementById('submit-btn');
+  var submitBtn = modePanel ? modePanel.querySelector('#' + ids.submitBtn) : null;
   if (submitBtn) { submitBtn.style.opacity = '0'; submitBtn.style.transform = 'translateX(30px)'; }
 }
 
@@ -1572,7 +1606,7 @@ async function goBeranda() {
     if (el) el.style.display = 'none';
   });
 
-  ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields', 'notes-card'].forEach(id => {
+  ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.classList.remove('visible', 'expanded');
@@ -1580,7 +1614,6 @@ async function goBeranda() {
     }
   });
 
-  document.getElementById('submit-btn').style.display = 'none';
   var fsa = document.getElementById('form-scroll-area');
   if (fsa) fsa.style.display = 'none';
   anime.remove(ow);
@@ -1715,22 +1748,16 @@ function animateBerandaOut() {
 
 function animateModeOut(mode) {
   return new Promise(function(resolve) {
-    var panels = {
-      'ig': 'ig-fields',
-      'gbisnis': 'gbisnis-fields',
-      'wa': 'wa-fields',
-      'fb': 'fb-fields',
-      'tt': 'tt-fields'
-    };
+    var ids = getModeElementIds(mode);
     var targets = [];
 
-    var modePanel = document.getElementById(panels[mode]);
+    var modePanel = document.getElementById(MODE_PANELS[mode]);
     if (modePanel && parseFloat(getComputedStyle(modePanel).opacity) > 0) targets.push(modePanel);
 
-    var notesCard = document.getElementById('notes-card');
+    var notesCard = modePanel ? modePanel.querySelector('#' + ids.notesCard) : null;
     if (notesCard && parseFloat(getComputedStyle(notesCard).opacity) > 0) targets.push(notesCard);
 
-    var submitBtn = document.getElementById('submit-btn');
+    var submitBtn = modePanel ? modePanel.querySelector('#' + ids.submitBtn) : null;
     if (submitBtn && parseFloat(getComputedStyle(submitBtn).opacity) > 0) targets.push(submitBtn);
 
     if (!targets.length) { resolve(); return; }
@@ -1853,15 +1880,7 @@ async function setMode(mode) {
   var igTabs = document.getElementById('ig-tabs');
   if (igTabs) igTabs.style.display = 'none';
 
-  const panels = {
-    'ig': 'ig-fields',
-    'gbisnis': 'gbisnis-fields',
-    'wa': 'wa-fields',
-    'fb': 'fb-fields',
-    'tt': 'tt-fields'
-  };
-
-  ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields', 'notes-card'].forEach(id => {
+  ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields', 'notes-card-ig', 'notes-card-gbisnis', 'notes-card-wa', 'notes-card-fb', 'notes-card-tt'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.classList.remove('visible');
@@ -1871,15 +1890,18 @@ async function setMode(mode) {
 
   resetModeElements(mode);
 
-  if (panels[mode]) {
-    var panel = document.getElementById(panels[mode]);
+  if (MODE_PANELS[mode]) {
+    var panel = document.getElementById(MODE_PANELS[mode]);
     panel.style.display = '';
     panel.classList.add('visible');
   }
-  var notesCard = document.getElementById('notes-card');
-  notesCard.classList.remove('expanded');
-  notesCard.style.display = '';
-  notesCard.classList.add('visible');
+  var ids = getModeElementIds(mode);
+  var notesCard = panel ? panel.querySelector('#' + ids.notesCard) : null;
+  if (notesCard) {
+    notesCard.classList.remove('expanded');
+    notesCard.style.display = '';
+    notesCard.classList.add('visible');
+  }
 
   var fsa2 = document.getElementById('form-scroll-area');
   if (fsa2) fsa2.style.display = 'block';
@@ -1892,8 +1914,9 @@ async function setMode(mode) {
     }
   });
 
-  var submitBtn = document.getElementById('submit-btn');
-  submitBtn.style.display = '';
+  var ids = getModeElementIds(mode);
+  var submitBtn = panel ? panel.querySelector('#' + ids.submitBtn) : null;
+  if (submitBtn) submitBtn.style.display = '';
 
   anime.remove(ow);
   ow.querySelectorAll('.output-card, .notes-card-wrapper').forEach(function(s) { anime.remove(s); });
@@ -1910,7 +1933,7 @@ async function setMode(mode) {
   if (typeof updateTopbarTitle === 'function') updateTopbarTitle(mode);
 
   // Animate in
-  var modePanel = document.getElementById(panels[mode]);
+  var modePanel = document.getElementById(MODE_PANELS[mode]);
 
   anime({
     targets: modePanel,
@@ -1950,7 +1973,7 @@ function switchTab(idx) {
     if (!el) return;
     if (i === idx) {
       el.classList.add('active');
-      el.style.display = '';
+      el.style.display = 'flex';
     } else {
       el.classList.remove('active');
       el.style.display = 'none';
@@ -1997,7 +2020,7 @@ function copySection(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const text = el.innerText;
-  fallbackCopyText(text).then(() => showToast('Teks disalin!'));
+  fallbackCopyText(text).then(() => showToast('Teks disalin!', 'success'));
 }
 
 function copyAll() {
@@ -2007,7 +2030,7 @@ function copyAll() {
     const el = document.getElementById(id);
     if (el && el.innerText.trim()) full += el.innerText + '\n\n---\n\n';
   });
-  fallbackCopyText(full.trim()).then(() => showToast('Semua disalin!'));
+  fallbackCopyText(full.trim()).then(() => showToast('Semua disalin!', 'success'));
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -2027,7 +2050,10 @@ function clearError() {
 }
 
 function setLoading(on) {
-  document.getElementById('submit-btn').disabled = on;
+  const panel = currentMode ? document.getElementById(MODE_PANELS[currentMode]) : null;
+  var ids = getModeElementIds(currentMode);
+  const submitBtn = panel ? panel.querySelector('#' + ids.submitBtn) : document.getElementById(ids.submitBtn);
+  if (submitBtn) submitBtn.disabled = on;
   document.body.classList.toggle('is-loading', on);
   if (on) {
     document.getElementById('output-wrapper').classList.remove('visible');
@@ -2138,7 +2164,7 @@ function deleteSession(id) {
       historyData = historyData.filter(function(s) { return s.id.toString() !== id.toString(); });
       saveHistory();
       renderBerandaHistory();
-      showToast('Sesi dihapus');
+      showToast('Sesi dihapus', 'success');
 
       // Sync delete to Supabase
       if (typeof window.sessionSync !== 'undefined' && typeof window.supabaseAuth !== 'undefined') {
@@ -2157,7 +2183,7 @@ function togglePin(id) {
     session.pinned = !session.pinned;
     saveHistory();
     renderBerandaHistory();
-    showToast(session.pinned ? 'Sesi di-pin' : 'Sesi un-pin');
+    showToast(session.pinned ? 'Sesi di-pin' : 'Sesi un-pin', 'success');
 
     // Sync pin state to Supabase
     if (typeof window.sessionSync !== 'undefined' && typeof window.supabaseAuth !== 'undefined') {
@@ -2302,7 +2328,10 @@ async function loadSession(id) {
     ttEl.classList.add('active');
   }
 
-  document.getElementById('submit-btn').style.display = 'none';
+  var ids = getModeElementIds(currentMode);
+  var panel = document.getElementById(MODE_PANELS[currentMode]);
+  var submitBtn = panel ? panel.querySelector('#' + ids.submitBtn) : document.getElementById(ids.submitBtn);
+  if (submitBtn) submitBtn.style.display = 'none';
 
   var outputWrapper = document.getElementById('output-wrapper');
   anime.remove(outputWrapper);
@@ -2360,7 +2389,7 @@ function clearHistory() {
       HistoryDB.remove('macsus_history');
       renderBerandaHistory();
       toggleSettings();
-      showToast('Riwayat dihapus!');
+      showToast('Riwayat dihapus!', 'success');
 
       // Sync delete all to Supabase
       if (typeof window.sessionSync !== 'undefined' && typeof window.supabaseAuth !== 'undefined') {
@@ -2671,7 +2700,16 @@ async function generateAds() {
   var reportData   = document.getElementById('reportData').value.trim();
   var waPromoType  = document.getElementById('waPromoType').value.trim();
   var fbReportData = document.getElementById('fbReportData').value.trim();
-  var command      = document.getElementById('command').value.trim();
+  var commandEl    = document.getElementById('command');
+  var command      = commandEl ? commandEl.value.trim() : '';
+  var gbisnisCommandEl = document.getElementById('gbisnis-command');
+  var gbisnisCommand   = gbisnisCommandEl ? gbisnisCommandEl.value.trim() : '';
+  var waCommandEl  = document.getElementById('wa-command');
+  var waCommand    = waCommandEl ? waCommandEl.value.trim() : '';
+  var fbCommandEl  = document.getElementById('fb-command');
+  var fbCommand    = fbCommandEl ? fbCommandEl.value.trim() : '';
+  var ttCommandEl  = document.getElementById('tt-command');
+  var ttCommand    = ttCommandEl ? ttCommandEl.value.trim() : '';
   var gbisnisTitle = document.getElementById('gbisnisTitle').value.trim();
   var waTitle      = document.getElementById('waTitle').value.trim();
   var fbTitle      = document.getElementById('fbTitle').value.trim();
@@ -2679,24 +2717,25 @@ async function generateAds() {
   var ttVideoDesc  = document.getElementById('ttVideoDesc').value.trim();
   
   clearError();
-  if (!currentMode) return setError('Pilih mode konten terlebih dahulu.');
-  if (currentMode === 'ig' && !serviceInfo) return setError('Harap isi kolom <strong>Layanan / Masalah</strong> terlebih dahulu.');
-  if (currentMode === 'ig' && !contentTitle) return setError('Harap isi <strong>Judul / Topik Konten IG</strong>.');
-  if (currentMode === 'gbisnis' && !gbisnisTitle) return setError('Harap isi <strong>Judul</strong> terlebih dahulu.');
-  if (currentMode === 'gbisnis' && !reportData) return setError('Harap paste <strong>data report pelanggan</strong> terlebih dahulu.');
-  if (currentMode === 'wa' && !waTitle) return setError('Harap isi <strong>Judul</strong> terlebih dahulu.');
-  if (currentMode === 'wa' && !waPromoType) return setError('Harap isi <strong>Jenis Promo / Layanan</strong> terlebih dahulu.');
-  if (currentMode === 'fb' && !fbTitle) return setError('Harap isi <strong>Judul</strong> terlebih dahulu.');
-  if (currentMode === 'fb' && !fbReportData) return setError('Harap paste <strong>data report pelanggan</strong> untuk Facebook terlebih dahulu.');
-  if (currentMode === 'tt' && !ttTitle) return setError('Harap isi <strong>Judul</strong> terlebih dahulu.');
-  if (currentMode === 'tt' && !ttVideoDesc) return setError('Harap isi <strong>Tema / Deskripsi Video TikTok</strong> terlebih dahulu.');
+  if (!currentMode) { showToast('Pilih mode konten terlebih dahulu', 'warning'); return; }
+  if (currentMode === 'ig' && !serviceInfo) { showToast('Isi kolom Layanan / Masalah dulu', 'warning'); return; }
+  if (currentMode === 'ig' && !contentTitle) { showToast('Isi Judul / Topik Konten IG dulu', 'warning'); return; }
+  if (currentMode === 'gbisnis' && !gbisnisTitle) { showToast('Isi Judul dulu', 'warning'); return; }
+  if (currentMode === 'gbisnis' && !reportData) { showToast('Paste data report pelanggan dulu', 'warning'); return; }
+  if (currentMode === 'wa' && !waTitle) { showToast('Isi Judul dulu', 'warning'); return; }
+  if (currentMode === 'wa' && !waPromoType) { showToast('Isi Jenis Promo / Layanan dulu', 'warning'); return; }
+  if (currentMode === 'fb' && !fbTitle) { showToast('Isi Judul dulu', 'warning'); return; }
+  if (currentMode === 'fb' && !fbReportData) { showToast('Paste data report pelanggan untuk Facebook dulu', 'warning'); return; }
+  if (currentMode === 'tt' && !ttTitle) { showToast('Isi Judul dulu', 'warning'); return; }
+  if (currentMode === 'tt' && !ttVideoDesc) { showToast('Isi Tema / Deskripsi Video TikTok dulu', 'warning'); return; }
     
   setLoading(true);
 
   var geminiApiKey = localStorage.getItem(API_KEY_STORAGE) || '';
   if (!geminiApiKey) {
     setLoading(false);
-    return setError('API Key Gemini belum diset. Buka <strong>Pengaturan</strong> dan masukkan API Key kamu terlebih dahulu.');
+    showToast('API Key Gemini belum diset. Buka Pengaturan dan masukkan API Key kamu terlebih dahulu.', 'error');
+    return;
   }
   
   var prompt = '';
@@ -2864,9 +2903,9 @@ async function generateAds() {
     
     if (!isAllFailed) {
       if (isHighDemand) {
-        setError('<strong>Semua model lagi antri!</strong><br>Sudah dicoba ' + fallbackQueue.length + ' model. Tunggu ~1 menit lalu generate ulang, atau ganti model di <strong>Pengaturan</strong>.');
+        showToast('Semua model lagi antri! Tunggu ~1 menit lalu generate ulang, atau ganti model di Pengaturan.', 'error');
       } else {
-        setError('Terjadi kesalahan: ' + (err.message || err));
+        showToast('Terjadi kesalahan: ' + (err.message || err), 'error');
       }
     }
   } finally {
@@ -2891,7 +2930,7 @@ function downloadSection(elementId, filename) {
   link.href = URL.createObjectURL(blob);
   link.download = filename || 'macsus-' + Date.now() + '.txt';
   link.click();
-  showToast('File diunduh!');
+  showToast('File diunduh!', 'success');
 }
 
 function downloadAllAsText() {
@@ -2909,7 +2948,7 @@ function downloadAllAsText() {
   link.href = URL.createObjectURL(blob);
   link.download = 'macsus-konten-' + new Date().toLocaleDateString('id-ID') + '.txt';
   link.click();
-  showToast('Semua file diunduh!');
+  showToast('Semua file diunduh!', 'success');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -2962,7 +3001,7 @@ function editSection(elementId) {
 async function regenerateSection(elementId, sectionIndex) {
   var geminiApiKey = localStorage.getItem(API_KEY_STORAGE) || '';
   if (!geminiApiKey) {
-    showToast('API Key belum diset');
+    showToast('API Key belum diset', 'error');
     return;
   }
 
@@ -2977,7 +3016,7 @@ async function regenerateSection(elementId, sectionIndex) {
     
     if (!serviceInfo || !contentTitle) {
       setLoading(false);
-      showToast('Isi field layanan dan judul dulu');
+      showToast('Isi field layanan dan judul dulu', 'warning');
       return;
     }
 
@@ -2996,30 +3035,30 @@ async function regenerateSection(elementId, sectionIndex) {
   } else if (currentMode === 'gbisnis') {
     var reportData = document.getElementById('reportData').value.trim();
     var command = document.getElementById('command').value.trim();
-    if (!reportData) { setLoading(false); showToast('Isi data report dulu'); return; }
+    if (!reportData) { setLoading(false); showToast('Isi data report dulu', 'warning'); return; }
     prompt = 'Kamu adalah seorang IT consultant spesialis laptop dan PC. Kamu diminta membuat storytelling berbasis Google Business untuk Macsus Company dengan ketentuan berikut: - Gaya bahasa Gen Z: santai, relatable, sedikit lebay/hiperbola tapi tetap informatif - Nada: persuasif, menyentuh perasaan pembaca, bikin orang mau langsung ke workshop - Tujuan: meningkatkan income pelanggan Macsus Company dan mendorong kunjungan kantor agar mau maintenance / perbaikan laptop/PC - Maksimal 1500 karakter (hitung dengan ketat, jangan melebihi) - Jangan sebut nama lengkap pelanggan, cukup sebut nama depan atau panggilan akrab saja - Akhiri dengan info Macsus Company: nama, alamat (Jl. Keputih Makam Blk. E No.26, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60295), WhatsApp: 0858-5256-1993, dan tagline penutup yang memorable DATA REPORT PELANGGAN: ' + reportData + (command ? '\nCatatan tambahan: ' + command : '') + ' PENTING: Output hanya berisi teks storytelling-nya saja, langsung tanpa label/header apapun. Mulai langsung dari kalimat pembuka yang hook. DILARANG KERAS menggunakan markdown bintang ganda (**) untuk menebalkan teks.';
     regeneratingFor = 'gbisnis-body';
   } else if (currentMode === 'wa') {
     var waPromoType = document.getElementById('waPromoType').value.trim();
     var command = document.getElementById('command').value.trim();
-    if (!waPromoType) { setLoading(false); showToast('Isi jenis promo dulu'); return; }
+    if (!waPromoType) { setLoading(false); showToast('Isi jenis promo dulu', 'warning'); return; }
     prompt = 'Buatkan saya pesan WhatsApp broadcast untuk Macsus Company dengan ketentuan berikut: - Panjang ideal: 200-400 karakter - Gaya: santai, ramah, pakai emoji yang relevan - Isi: promosi tentang ' + waPromoType + ' - Include: manfaat, harga/diskon jika ada, CTA untuk menghubungi - Akhiri dengan: Alamat: Jl. Keputih Makam Blk. E No.26, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60295 - WhatsApp: 0858-5256-1993' + (command ? '\nCatatan: ' + command : '') + ' PENTING: Output hanya teks broadcast siap kirim, tanpa penjelasan tambahan.';
     regeneratingFor = 'wa-body';
   } else if (currentMode === 'fb') {
     var fbReportData = document.getElementById('fbReportData').value.trim();
     var command = document.getElementById('command').value.trim();
-    if (!fbReportData) { setLoading(false); showToast('Isi data report dulu'); return; }
+    if (!fbReportData) { setLoading(false); showToast('Isi data report dulu', 'warning'); return; }
     prompt = 'Buatkan saya postingan Facebook untuk Macsus Company dengan ketentuan berikut: - Panjang: 1000-5000 karakter - Gaya bahasa: formal tapi tetap friendly, Gen Z friendly - Nada: persuasif, storytelling, bikin orang peduli dengan layanan - Maksimal 5000 karakter - Include: data dari report yang relevan, value preposition Macsus, CTA untuk hubungi/kunjungi - Akhiri dengan info Macsus Company: Alamat: Jl. Keputih Makam Blk. E No.26, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60295 - WhatsApp: 0858-5256-1993 - Layanan: Servis laptop hardware & software (overheat treatment, ganti layar, liquid spill, perbaikan motherboard, install ulang OS, remove virus) DATA REPORT: ' + fbReportData + (command ? '\nCatatan: ' + command : '') + ' PENTING: Output hanya teks postingan siap dipublish, tanpa penjelasan.';
     regeneratingFor = 'fb-body';
   } else if (currentMode === 'tt') {
     var ttVideoDesc = document.getElementById('ttVideoDesc').value.trim();
     var command = document.getElementById('command').value.trim();
-    if (!ttVideoDesc) { setLoading(false); showToast('Isi deskripsi video TikTok dulu'); return; }
+    if (!ttVideoDesc) { setLoading(false); showToast('Isi deskripsi video TikTok dulu', 'warning'); return; }
     prompt = 'Kamu adalah spesialis konten digital untuk Macsus Company, sebuah jasa servis & perbaikan laptop profesional di Surabaya & Sidoarjo. DATA PERUSAHAAN: - Nama: Macsus Company - Layanan: Servis laptop hardware & software (overheat treatment, ganti layar, liquid spill, perbaikan motherboard, install ulang OS, remove virus, upgrade RAM/SSD) - Keunggulan: Teknisi ahli, pengerjaan cepat & transparan, harga terjangkau, free diagnosa - Alamat: Jl. Keputih Makam Blk. E No.26, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60295 - WhatsApp: 0858-5256-1993 - Hashtag utama: #MacsusCompany #ServiceLaptopSurabaya TUGAS: Buat caption TikTok yang viral dan engaging untuk video dengan tema/konten berikut: "' + ttVideoDesc + '" ' + (command ? '\nCatatan tambahan: ' + command : '') + ' KETENTUAN CAPTION TIKTOK: - Panjang: 150-300 karakter (singkat, padat, langsung to the point) - Mulai dengan hook kuat dalam 1-2 kalimat pertama yang bikin orang stop scrolling - Gunakan bahasa Gen Z yang santai, relatable, sedikit humor - Sertakan 1 kalimat soft-sell atau CTA ke Macsus (tidak harus selalu, bisa tersirat) - Akhiri dengan 5-10 hashtag yang relevan dan trending (mix: niche + broad) - Emoji yang tepat dan tidak berlebihan - Cocok untuk algoritma TikTok PENTING: Output langsung caption-nya saja, siap copy-paste.';
     regeneratingFor = 'tt-body';
   }
 
-  if (!prompt) { setLoading(false); showToast('Mode tidak terdeteksi'); return; }
+  if (!prompt) { setLoading(false); showToast('Mode tidak terdeteksi', 'error'); return; }
 
   prompt += ' DILARANG KERAS menggunakan markdown bintang ganda (**) untuk menebalkan teks.';
 
@@ -3084,9 +3123,9 @@ async function regenerateSection(elementId, sectionIndex) {
       saveHistory();
     }
 
-    showToast('Section berhasil di-regenerate!');
+    showToast('Section berhasil di-regenerate!', 'success');
   } catch (err) {
-    showToast('Error regenerate: ' + err.message);
+    showToast('Error regenerate: ' + err.message, 'error');
   } finally {
     setLoading(false);
   }
@@ -3099,13 +3138,13 @@ async function regenerateSection(elementId, sectionIndex) {
 function shareToWhatsApp(elementId) {
   var text = document.getElementById(elementId).innerText;
   window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
-  showToast('Membuka WhatsApp...');
+  showToast('Membuka WhatsApp...', 'info');
 }
 
 function openInWhatsApp(elementId) {
   var text = document.getElementById(elementId).innerText;
   window.open('https://wa.me/62858-5256-1993?text=' + encodeURIComponent(text), '_blank');
-  showToast('Membuka WhatsApp...');
+  showToast('Membuka WhatsApp...', 'info');
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -3166,7 +3205,8 @@ function parseAndShowIG(rawText, title) {
   switchTab(0);
 
   document.getElementById('output-title').innerText = title || 'Konten Instagram';
-  document.getElementById('submit-btn').style.display = 'none';
+  var igPanel = document.getElementById('ig-fields');
+  if (igPanel) igPanel.querySelector('#submit-btn-ig').style.display = 'none';
   document.getElementById('output-wrapper').classList.add('visible');
   document.body.classList.add('has-output');
 
@@ -3184,7 +3224,8 @@ function parseAndShowGBisnis(rawText) {
   gbEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'Postingan Google Bisnis';
-  document.getElementById('submit-btn').style.display = 'none';
+  var gbPanel = document.getElementById('gbisnis-fields');
+  if (gbPanel) gbPanel.querySelector('#submit-btn-gbisnis').style.display = 'none';
   document.getElementById('output-wrapper').classList.add('visible');
   document.body.classList.add('has-output');
 
@@ -3202,7 +3243,8 @@ function parseAndShowWA(rawText) {
   waEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'WhatsApp Broadcast';
-  document.getElementById('submit-btn').style.display = 'none';
+  var waPanel = document.getElementById('wa-fields');
+  if (waPanel) waPanel.querySelector('#submit-btn-wa').style.display = 'none';
   document.getElementById('output-wrapper').classList.add('visible');
   document.body.classList.add('has-output');
 
@@ -3220,7 +3262,8 @@ function parseAndShowFB(rawText) {
   fbEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'Postingan Facebook';
-  document.getElementById('submit-btn').style.display = 'none';
+  var fbPanel = document.getElementById('fb-fields');
+  if (fbPanel) fbPanel.querySelector('#submit-btn-fb').style.display = 'none';
   document.getElementById('output-wrapper').classList.add('visible');
   document.body.classList.add('has-output');
 
@@ -3238,7 +3281,8 @@ function parseAndShowTT(rawText) {
   ttEl.classList.add('active');
 
   document.getElementById('output-title').innerText = 'Caption TikTok';
-  document.getElementById('submit-btn').style.display = 'none';
+  var ttPanel = document.getElementById('tt-fields');
+  if (ttPanel) ttPanel.querySelector('#submit-btn-tt').style.display = 'none';
   document.getElementById('output-wrapper').classList.add('visible');
   document.body.classList.add('has-output');
 
@@ -3305,7 +3349,7 @@ function exportHistoryAsJSON() {
   link.href = URL.createObjectURL(blob);
   link.download = 'macsus-riwayat-' + new Date().toLocaleDateString('id-ID') + '.json';
   link.click();
-  showToast('Riwayat diekspor!');
+  showToast('Riwayat diekspor!', 'success');
 }
 
 function triggerImportHistory() {
@@ -3331,15 +3375,15 @@ function importHistoryFromFile(event) {
             historyData = historyData.concat(newSessions);
             saveHistory();
             renderBerandaHistory();
-            showToast(newSessions.length + ' sesi diimpor!');
+            showToast(newSessions.length + ' sesi diimpor!', 'success');
           },
           'info'
         );
       } else {
-        showToast('Format file tidak valid');
+        showToast('Format file tidak valid', 'error');
       }
     } catch (err) {
-      showToast('Error membaca file: ' + err.message);
+      showToast('Error membaca file: ' + err.message, 'error');
     }
   };
   reader.readAsText(file);
@@ -3353,7 +3397,7 @@ function importHistoryFromFile(event) {
 async function testApiKey() {
   var apiKey = localStorage.getItem(API_KEY_STORAGE);
   if (!apiKey) {
-    showToast('API Key belum disimpan');
+    showToast('API Key belum disimpan', 'error');
     return;
   }
 
@@ -3377,11 +3421,11 @@ async function testApiKey() {
     if (res.ok) {
       btn.classList.add('success');
       btn.innerHTML = '<i class="fas fa-check-circle"></i> API Key Valid';
-      showToast('API Key valid!');
+      showToast('API Key valid!', 'success');
     } else {
       btn.classList.add('error');
       btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> API Key Tidak Valid';
-      showToast('API Key tidak valid');
+      showToast('API Key tidak valid', 'error');
     }
 
     setTimeout(function() {
@@ -3392,7 +3436,7 @@ async function testApiKey() {
   } catch (err) {
     btn.classList.add('error');
     btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Koneksi Gagal';
-    showToast('Gagal test koneksi');
+    showToast('Gagal test koneksi', 'error');
     setTimeout(function() {
       btn.classList.remove('success', 'error');
       btn.innerHTML = originalHTML;

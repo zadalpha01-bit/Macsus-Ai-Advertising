@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alexandria Repair Hub | Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@300;400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Noto+Serif:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737784",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#d9e2ff",
+                    "on-tertiary-fixed": "#211b00",
+                    "surface-bright": "#faf9fa",
+                    "tertiary-fixed": "#f9e37a",
+                    "secondary": "#5a5f63",
+                    "outline-variant": "#c3c6d5",
+                    "on-secondary-container": "#606569",
+                    "inverse-surface": "#303031",
+                    "surface": "#faf9fa",
+                    "primary-container": "#3366cc",
+                    "tertiary-fixed-dim": "#dcc661",
+                    "surface-dim": "#dbdadb",
+                    "surface-container-low": "#f5f3f4",
+                    "surface-container-highest": "#e3e2e3",
+                    "surface-container-high": "#e9e8e9",
+                    "on-primary-fixed-variant": "#00419d",
+                    "on-surface-variant": "#434653",
+                    "on-background": "#1b1c1d",
+                    "secondary-container": "#dfe3e8",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-secondary-fixed-variant": "#42474b",
+                    "background": "#faf9fa",
+                    "on-tertiary-fixed-variant": "#524600",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#dfe3e8",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#e7ebff",
+                    "surface-variant": "#e3e2e3",
+                    "primary": "#094cb2",
+                    "on-tertiary-container": "#4a3f00",
+                    "on-primary-fixed": "#001946",
+                    "surface-tint": "#2259bf",
+                    "on-surface": "#1b1c1d",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#bfab49",
+                    "on-secondary-fixed": "#171c20",
+                    "inverse-primary": "#b1c5ff",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#6d5e00",
+                    "inverse-on-surface": "#f2f0f1",
+                    "surface-container": "#efedee",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#c2c7cc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "display": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Public Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e3e2e3; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c3c6d5; }
+        
+        .chat-bubble-sent {
+            background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%);
+            border-bottom-right-radius: 2px;
+        }
+        .chat-bubble-received {
+            background: #efedee;
+            border-bottom-left-radius: 2px;
+        }
+        .glass-header {
+            background: rgba(250, 249, 250, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body h-screen overflow-hidden flex">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-screen z-40 h-full w-72 flex flex-col bg-surface-container-low dark:bg-surface-dim border-r-0">
+<div class="p-8">
+<h1 class="font-headline text-2xl font-bold text-primary dark:text-primary-fixed">Alexandria AI</h1>
+<p class="font-label text-xs uppercase tracking-[0.2em] text-outline mt-1">Master Tech Edition</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Nav Items -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-label text-label-large tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">build</span>
+<span class="font-label text-label-large tracking-wide">Repair Guides</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">psychology</span>
+<span class="font-label text-label-large tracking-wide">AI Assistant</span>
+</a>
+<!-- ACTIVE: Messages (Contextualized as Conversations/Inventory focus here) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-primary font-bold border-r-4 border-primary bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label text-label-large tracking-wide">Messages</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">analytics</span>
+<span class="font-label text-label-large tracking-wide">Analytics</span>
+</a>
+</nav>
+<div class="p-4 mt-auto space-y-1">
+<button class="w-full py-3 mb-6 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-semibold shadow-lg hover:opacity-90 active:scale-95 transition-all text-sm">
+                Generate Report
+            </button>
+<a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-label-large">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label text-label-large">Support</span>
+</a>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex items-center gap-3 px-2">
+<img class="w-10 h-10 rounded-full bg-surface-container-highest object-cover" data-alt="A professional portrait of a senior technician in a clean laboratory environment, soft cinematic lighting, shallow depth of field, high-end editorial photography style for a technology magazine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvN5OCFwhTJLl8bw7nIVo7TmlvtwZd7jMdpwrpFslE6uf9iIfcYH1tj4Cu9n42Z9KA1tCsr8oxBcBjhKpjcbm_nfZREX7KHF25vJXi7X7NcyU6IyZl6Ts_WWqn7rNHSyFukFUBMtYDYezByPLKYZ3tVcDRHezYJHXeO9-BqF53uYIrlil0QelAffKx5d4Dc5AUsZipRoh4CVyntWVPfSXuJVnkAcZ6zsxrqvsOAUC2Jvbnrs44Ig5VGOfL9S3OMHMyeeNnvyZ2kZk"/>
+<div>
+<p class="text-sm font-semibold">Alex Chen</p>
+<p class="text-xs text-outline">Lead Technician</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 flex flex-col h-screen relative">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 right-0 left-72 z-30 flex justify-between items-center px-8 h-16 bg-surface-bright/80 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<span class="font-headline font-semibold text-on-surface text-xl">Repair Hub</span>
+</div>
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-on-surface-variant font-label text-sm hover:text-primary transition-all" href="#">Recent Fixes</a>
+<a class="text-primary font-label text-sm border-b-2 border-primary pb-1" href="#">Messages</a>
+<a class="text-on-surface-variant font-label text-sm hover:text-primary transition-all" href="#">Archived</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-lg">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-1 focus:ring-primary/20 transition-all" placeholder="Global search..." type="text"/>
+</div>
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">notifications</button>
+<button class="bg-primary/5 text-primary px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-primary/10 transition-colors">New Diagnostic</button>
+</div>
+</header>
+<!-- Messages Interface Container -->
+<div class="mt-16 flex-1 flex overflow-hidden">
+<!-- Left Pane: Conversations List -->
+<section class="w-[380px] flex flex-col bg-surface-container-lowest border-r-0" id="messages-page">
+<div class="p-6">
+<h2 class="font-headline text-2xl font-bold mb-4">Messages</h2>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-sm">alternate_email</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-low border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-outline/60" placeholder="Search by tech email..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-3">
+<!-- Conversation Item Active -->
+<div class="flex items-center gap-4 p-4 mb-1 rounded-2xl bg-primary-fixed/30 cursor-pointer border-l-4 border-primary">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Headshot of a professional female engineer with a friendly expression, wearing a navy polo shirt, bright studio lighting, neutral background, high-definition portrait photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKKqGy4QtlxG9ucfAF2QvRxcRwItHUhy3RvOFqZ55jImBACWl-L5FareDMQVmi5jSdLVSOsM364mLi8AKJyXIEqcdJN9B3Wv5_TljhTovROlCY4QR5qWeRAXegZ1kBgFi5ZKEYCw9x9jPPTwCdGB2eISOipXSdlfSPlkd9wogC0lx_q-giWFje9a3zmpHN10I2ZXjxhX3xiRWuBd7Od8YfGLJWdmQSPHK0-1IDeMv1vmD-q3UWsAeCzNbbWpvJ8bUDjYWf85KHeKs"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-sm font-bold truncate">Sarah Jenkins</h4>
+<span class="text-[10px] text-primary font-bold">14:32</span>
+</div>
+<p class="text-xs text-on-surface-variant font-medium truncate">The logic board schematics look good...</p>
+</div>
+</div>
+<!-- Conversation Items -->
+<div class="flex items-center gap-4 p-4 mb-1 rounded-2xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Close up portrait of an older expert mechanic with glasses and a thoughtful expression, warm workshop lighting in the background, professional bokeh effect, corporate tech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgRwW-ODRJbUHzQ6znjZlNjneg2xT_gfkhE9aeWS7xZdQ-2G3ELDTqCP4i2DQHMx33HIoZDhGOF9xjiwU-MRv2WFR73_M1WEqI6T6Z2spe3n0J1DHeRgwQTf_tkxtO9KksdbivgdlgHrWGSkNWqXlvJ91ep46wKGKHGJZk3glqxSrN8s8kCTpw266EzqbBBXOTANCWMRFF8vuNvTpQPNd-n_3Gbu65_RvhUsI9CWyZT6MSXTpGNOkjZLkXG6H_ZuwbExveozuQyYc"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-sm font-semibold group-hover:text-primary transition-colors">Marcus Thorne</h4>
+<span class="text-[10px] text-outline">Yesterday</span>
+</div>
+<p class="text-xs text-outline truncate">Inventory audit completed for the Q3...</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 mb-1 rounded-2xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a young tech support specialist, enthusiastic expression, clean minimalist tech office environment, soft natural window light, professional business casual aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU3QZNvxpgVQRKxgjFIe8GY2qQqU_EZvMT1IgHNgITIEHGE7sGtl01zJdD7QAoogbDJ0TAJzLgKAjbG2lFeJ2LkS_e_aF3T0UdqnMLll1-AlXUcW62-ZZYohwxMZVqih2Blj1vUlnKfPP83izZcPBqy-pAX0M9Y1zL1xZGPiHvmFGChCYL9BIFPV3TL7vr4yP253yfK-XHUFuudLyMwmPG0sUt8yZDG35EL-sb2mf0Jnh1jKVvSQsM1HE2V8VJ-PMRArzm_3u_7WM"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-sm font-semibold group-hover:text-primary transition-colors">Elena Rodriguez</h4>
+<span class="text-[10px] text-outline">Tues</span>
+</div>
+<p class="text-xs text-outline truncate">Did you see the new firmware update?</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 mb-1 rounded-2xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed-dim flex items-center justify-center text-on-tertiary-fixed font-bold">JD</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-sm font-semibold group-hover:text-primary transition-colors">Junior Diagnostics</h4>
+<span class="text-[10px] text-outline">Oct 12</span>
+</div>
+<p class="text-xs text-outline truncate">Automated Report: Ticket #8849 closed</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Pane: Active Chat Window -->
+<section class="flex-1 flex flex-col bg-surface-bright relative" id="chat-page">
+<!-- Chat Header -->
+<div class="h-20 glass-header border-b-0 px-8 flex items-center justify-between z-20">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Headshot of a professional female engineer with a friendly expression, wearing a navy polo shirt, bright studio lighting, neutral background, high-definition portrait photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_R44fV9bLEx4AC0Uoj7i-eICxa06bEaonU1Fhr-FKF7gAU_w9GAfPBa_cW-Ahr-omFArqTYri4zJiV8MdJz_byxUqeg89E8kS0q4sMcpYlk6cNrHpHzO49zAaNmF2wOqwHexVBcUyPlA7GF7UrwF8K030mnDY5BSZHLjWyAbsHSWzWguOV3QiJeTPKX0jwfRyyoM_RpBo2ZaxqOHB_TI_d2tDb809SA_c-L6fCEUKPM2jj2wyJVfBKanRGLn7WtIbc1wlRMQYS-c"/>
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight">Sarah Jenkins</h3>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span class="text-[10px] uppercase tracking-widest text-outline font-label">Lead Electronics Engineer</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2.5 rounded-full hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="p-2.5 rounded-full hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">call</span>
+</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-2"></div>
+<button class="p-2.5 rounded-full hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+</div>
+<!-- Chat History -->
+<div class="flex-1 overflow-y-auto p-8 space-y-6 flex flex-col">
+<div class="flex justify-center my-4">
+<span class="px-4 py-1 bg-surface-container-high text-[10px] font-label font-semibold text-outline rounded-full uppercase tracking-widest">October 24, 2023</span>
+</div>
+<!-- Received Message -->
+<div class="flex gap-4 max-w-[70%]">
+<img class="w-8 h-8 rounded-full self-end mb-1 object-cover" data-alt="Headshot of a professional female engineer with a friendly expression, wearing a navy polo shirt, bright studio lighting, neutral background, high-definition portrait photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPOTaQwe5X_O9vaRXFOKtihEg_pH1qdawQsdhw5Ga4DVtKaIS-LHlgxUbQY8Q0j4c96b1UIK7uZy9noGj9XM1Y0DZV3fMax3Ca3GAPtUX3V9saZjQt20edP8mRhGJ3nYDOBsznGIztTaLftXnoX6qf8e-iAQhWQRITWqKDx_lhiUyCkpmVl-KuQr6NgzrEIciJVO4Ckb-IyxlnnJnKooBg3k-BjnscV5RXAdLnfj38oY18o93uVy8gtqPLJcGm3x4MdVjME9h1KEM"/>
+<div class="flex flex-col gap-1">
+<div class="chat-bubble-received px-5 py-3 rounded-2xl text-on-surface-variant text-sm leading-relaxed shadow-sm">
+                                Hey Alex, I've finished the initial assessment on the Alexandria Model X controller. 
+                            </div>
+<span class="text-[10px] text-outline ml-1">14:20</span>
+</div>
+</div>
+<div class="flex gap-4 max-w-[70%]">
+<div class="w-8"></div> <!-- spacer for avatar -->
+<div class="flex flex-col gap-1">
+<div class="chat-bubble-received px-5 py-3 rounded-2xl text-on-surface-variant text-sm leading-relaxed shadow-sm">
+                                There's a slight voltage drop across the R56 resistor. Could you double-check the schematic for the power delivery stage?
+                            </div>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-col gap-1 items-end self-end max-w-[70%]">
+<div class="chat-bubble-sent px-5 py-3 rounded-2xl text-white text-sm leading-relaxed shadow-lg">
+                            Checking it now. I remember we had a similar issue with the prototype. Let me pull the CAD files.
+                        </div>
+<span class="text-[10px] text-outline mr-1 flex items-center gap-1">14:28 <span class="material-symbols-outlined text-[12px] text-primary">done_all</span></span>
+</div>
+<div class="flex flex-col gap-1 items-end self-end max-w-[70%]">
+<div class="chat-bubble-sent px-2 py-2 rounded-2xl text-white text-sm bg-primary/20 backdrop-blur-sm border border-primary/20 flex items-center gap-3">
+<div class="bg-white/10 p-2 rounded-xl">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="pr-4">
+<p class="font-semibold text-xs">schematic_v2.4_final.pdf</p>
+<p class="text-[10px] opacity-70">2.4 MB • PDF Document</p>
+</div>
+</div>
+</div>
+<!-- Received Message (Typing Indicator/Response) -->
+<div class="flex gap-4 max-w-[70%]">
+<img class="w-8 h-8 rounded-full self-end mb-1 object-cover" data-alt="Headshot of a professional female engineer with a friendly expression, wearing a navy polo shirt, bright studio lighting, neutral background, high-definition portrait photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJya_LkxZv2Kh8eJI7oHPUB-kVehxCQqN95r8hUHuotRt69UOieSf3Y__cV2YWNGkgmzPqJ6kG_r0D2Aw1mwnC_2VXKej9bHto4V9tyEdRR0p11RSX2rbW9r2yOT4NVqJXpPRvZ2iqlMWGx8W3_YG9uYRqnRslxd5SkJeFWsXzeVcwuUFHs5cxQw-sDyvgYq_6Y66LS6AbiUqBq9e8nUMVQ57QRcUEAIsB3nQ6ykHaY3MqnT41v2hISoTLA4eYcYWkFdmtQdPurx4"/>
+<div class="flex flex-col gap-1">
+<div class="chat-bubble-received px-5 py-3 rounded-2xl text-on-surface-variant text-sm leading-relaxed shadow-sm">
+                                The logic board schematics look good, but I see what you mean about the R56. It might be under-rated for that rail.
+                            </div>
+<span class="text-[10px] text-outline ml-1">14:32</span>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-6 bg-surface-bright border-t-0 z-20">
+<div class="max-w-4xl mx-auto flex items-end gap-3 bg-surface-container-low p-2 rounded-2xl shadow-inner group transition-all focus-within:ring-2 focus-within:ring-primary/10">
+<button class="p-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="p-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all">
+<span class="material-symbols-outlined">image</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-3 px-2 resize-none max-h-32 placeholder:text-outline/50" placeholder="Message Sarah Jenkins..." rows="1"></textarea>
+<div class="flex items-center gap-2 p-1">
+<button class="p-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all">
+<span class="material-symbols-outlined">mood</span>
+</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white p-3 rounded-xl shadow-md hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+<p class="text-center text-[10px] text-outline mt-3 font-label uppercase tracking-widest opacity-60">End-to-end encrypted • Alexandria Secure Comms</p>
+</div>
+</section>
+</div>
+<!-- Atmospheric Background Effect (Subtle Shader Placeholder) -->
+<div class="absolute inset-0 -z-10 pointer-events-none opacity-40">
+
+</div>
+</main>
+<script>
+        // Simple auto-expand textarea
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+          tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+          tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput() {
+          this.style.height = "auto";
+          this.style.height = (this.scrollHeight) + "px";
+        }
+    </script>
+</body></html>

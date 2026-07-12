@@ -480,7 +480,7 @@ async function processOfflineQueue() {
 
     if (successful === queue.length) {
       updateSyncIndicator('synced');
-      showSyncToast(`✅ Sync lengkap: ${successful} sesi uploaded`);
+      showSyncToast(`✅ Sync lengkap: ${successful} sesi uploaded`, 'success');
     } else {
       updateSyncIndicator('error');
       showSyncToast(`⚠️ Sync partial: ${successful}/${queue.length} sesi uploaded`, 'warning');
@@ -501,7 +501,7 @@ async function processOfflineQueue() {
  */
 window.addEventListener('online', () => {
   console.log('🌐 Back online, syncing...');
-  showSyncToast('Connected! Syncing sessions...');
+  showSyncToast('Connected! Syncing sessions...', 'info');
   processOfflineQueue();
 });
 

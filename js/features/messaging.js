@@ -63,13 +63,16 @@ async function openMessages() {
   if (ow) { anime.remove(ow); ow.querySelectorAll('.output-section, .notes-card-wrapper').forEach(function(s) { anime.remove(s); }); ow.classList.remove('visible'); ow.style.display = ''; ow.style.opacity = ''; ow.style.transform = ''; }
   var ic = document.getElementById('input-container');
   if (ic) ic.style.display = 'none';
-  var cp = document.getElementById('chat-page');
-  if (cp) cp.style.display = 'none';
 
   ['akun-page','pengaturan-page'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
+
+  var cp = document.getElementById('chat-page');
+  if (cp) cp.style.display = 'none';
+  var emptyState = document.getElementById('chat-empty-state');
+  if (emptyState) emptyState.style.display = 'flex';
 
   const page = document.getElementById('messages-page') || document.getElementById('page-pesan');
   if (page) {
@@ -93,14 +96,15 @@ async function openMessages() {
 
 function openChat(conversationId, otherUserId, otherEmail) {
   _currentConversationId = conversationId;
-  var msgsPage = document.getElementById('messages-page') || document.getElementById('page-pesan');
-  if (msgsPage) msgsPage.style.display = 'none';
+
+  var emptyState = document.getElementById('chat-empty-state');
+  if (emptyState) emptyState.style.display = 'none';
 
   const page = document.getElementById('chat-page') || document.getElementById('page-chat');
   if (page) {
     page.style.display = 'flex';
     page.style.opacity = '0';
-    page.style.transform = 'translateX(30px)';
+    page.style.transform = 'translateX(10px)';
   }
 
   const initials = otherEmail ? otherEmail.substring(0, 2).toUpperCase() : '??';
@@ -115,8 +119,8 @@ function openChat(conversationId, otherUserId, otherEmail) {
   anime({
     targets: page,
     opacity: [0, 1],
-    translateX: [30, 0],
-    duration: 250,
+    translateX: [10, 0],
+    duration: 200,
     easing: 'easeOutCubic'
   });
 
@@ -136,30 +140,22 @@ function closeChat() {
     anime({
       targets: page,
       opacity: [1, 0],
-      translateX: [0, 30],
-      duration: 200,
+      translateX: [0, 10],
+      duration: 150,
       easing: 'easeInCubic',
       complete: function() {
         page.style.display = 'none';
+        var emptyState = document.getElementById('chat-empty-state');
+        if (emptyState) emptyState.style.display = 'flex';
       }
     });
   }
 
-  const msgsPage = document.getElementById('messages-page') || document.getElementById('page-pesan');
+  var msgsPage = document.getElementById('messages-page') || document.getElementById('page-pesan');
   if (msgsPage) {
     msgsPage.style.display = 'flex';
-    msgsPage.style.opacity = '0';
-    msgsPage.style.transform = 'translateX(-30px)';
-    anime({
-      targets: msgsPage,
-      opacity: [0, 1],
-      translateX: [-30, 0],
-      duration: 250,
-      easing: 'easeOutCubic'
-    });
   }
 
-  loadConversations();
   updateTopbarTitleCustom('Pesan');
 }
 
@@ -216,7 +212,7 @@ async function startChatWith(userId, email) {
   document.getElementById('msg-search-input').value = '';
   const conversationId = await getOrCreateConversation(getMsgUserId(), userId);
   if (!conversationId) {
-    alert('Gagal membuat percakapan. Pastikan tabel conversations sudah dibuat di database.');
+    showToast('Gagal membuat percakapan. Pastikan tabel conversations sudah dibuat di database.', 'error');
     return;
   }
   openChat(conversationId, userId, email);
@@ -404,7 +400,7 @@ async function sendMessage() {
     console.error('Send message error:', e);
     const tempEl = document.getElementById(optimisticId);
     if (tempEl) tempEl.remove();
-    showToast('Gagal mengirim pesan');
+    showToast('Gagal mengirim pesan', 'error');
   }
 
   updateConversationLastMessage(_currentConversationId, text);
@@ -487,7 +483,7 @@ function copyBubbleText(msgId) {
   if (!bubble) return;
   const text = bubble.querySelector('.bubble-text').textContent;
   fallbackCopyText(text).then(function() {
-    showToast('Teks disalin');
+    showToast('Teks disalin', 'success');
   });
   hideBubblePopup();
 }

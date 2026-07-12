@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Macsus AI - Instagram Content Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Inter:wght@300;400;500&family=Public+Sans:wght@300;400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Serif:wght@100..900&family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#6d5e00",
+                    "on-tertiary-fixed": "#211b00",
+                    "secondary-fixed": "#dfe3e8",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#bfab49",
+                    "surface": "#faf9fa",
+                    "secondary-fixed-dim": "#c2c7cc",
+                    "surface-tint": "#2259bf",
+                    "on-surface-variant": "#434653",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#606569",
+                    "primary": "#094cb2",
+                    "on-surface": "#1b1c1d",
+                    "inverse-on-surface": "#f2f0f1",
+                    "surface-variant": "#e3e2e3",
+                    "on-tertiary-fixed-variant": "#524600",
+                    "tertiary-fixed": "#f9e37a",
+                    "secondary": "#5a5f63",
+                    "outline-variant": "#c3c6d5",
+                    "outline": "#737784",
+                    "inverse-primary": "#b1c5ff",
+                    "surface-container-highest": "#e3e2e3",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#e7ebff",
+                    "background": "#faf9fa",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-tertiary-container": "#4a3f00",
+                    "surface-dim": "#dbdadb",
+                    "primary-container": "#3366cc",
+                    "inverse-surface": "#303031",
+                    "on-primary-fixed-variant": "#00419d",
+                    "tertiary-fixed-dim": "#dcc661",
+                    "on-secondary-fixed": "#171c20",
+                    "primary-fixed": "#d9e2ff",
+                    "on-primary-fixed": "#001946",
+                    "secondary-container": "#dfe3e8",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e9e8e9",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#42474b",
+                    "on-background": "#1b1c1d",
+                    "surface-container-low": "#f5f3f4",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#efedee",
+                    "surface-bright": "#faf9fa",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "display": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Public Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .label-text { font-family: 'Public Sans', sans-serif; }
+        
+        /* Hide scrollbars for the requested "no-scroll" feel while allowing content overflow if needed */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .gradient-button {
+            background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 hidden lg:flex flex-col fixed left-0 top-0 bg-surface-container-lowest dark:bg-surface-dim z-50 border-r-0 py-8">
+<div class="px-6 mb-8">
+<span class="font-headline text-2xl font-bold tracking-tight text-primary dark:text-primary-fixed">Alexandria</span>
+<p class="font-label text-xs text-on-surface-variant opacity-70">AI Advance</p>
+</div>
+<nav class="flex-1 flex flex-col">
+<!-- Home -->
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed pl-5 py-3 transition-colors flex items-center gap-3 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label text-sm">Home</span>
+</a>
+<!-- Instagram (ACTIVE - Based on prompt context) -->
+<a class="text-primary dark:text-primary-fixed font-bold border-l-4 border-primary dark:border-primary-fixed pl-4 py-3 transition-all flex items-center gap-3 bg-surface-container-high/40" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+<span class="font-label text-sm">Instagram</span>
+</a>
+<!-- Google Business -->
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed pl-5 py-3 transition-colors flex items-center gap-3 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">store</span>
+<span class="font-label text-sm">Google Business</span>
+</a>
+<!-- WhatsApp -->
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed pl-5 py-3 transition-colors flex items-center gap-3 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label text-sm">WhatsApp</span>
+</a>
+<!-- Facebook -->
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed pl-5 py-3 transition-colors flex items-center gap-3 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">public</span>
+<span class="font-label text-sm">Facebook</span>
+</a>
+<!-- TikTok -->
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed pl-5 py-3 transition-colors flex items-center gap-3 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">video_library</span>
+<span class="font-label text-sm">TikTok</span>
+</a>
+<!-- Settings -->
+<a class="text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed pl-5 py-3 transition-colors flex items-center gap-3 hover:bg-surface-container-high mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-sm">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-8">
+<button class="w-full gradient-button text-white font-label py-3 rounded-xl scale-95 active:scale-90 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Content
+            </button>
+</div>
+</aside>
+<!-- TopAppBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 w-full lg:w-[calc(100%-16rem)] z-40 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b-0">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-primary/20 rounded-lg overflow-hidden flex items-center bg-surface-container-low dark:bg-surface-container-high">
+<span class="material-symbols-outlined ml-3 text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-sm font-body px-3 py-2" placeholder="Search prompts..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity">help_outline</button>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-primary-container/20">
+<img class="w-full h-full object-cover" data-alt="A professional business headshot of a creative director in a high-end minimalist office, soft natural window light, elegant atmosphere, muted color tones of blue and gray, sharp focus, 8k resolution, editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTStIXAO2gPlNTENI3pQLGP7rDf1q7dxv20fh645GqjZllYKvPVRI4SUxAp2ou3lthCyfO8iFxR0GsqIyqGHtLhOHKCmXvI2E8wqBhW8TIDiN3qS1XgQWhP-EOxiHma_cBXzySqWC93RA1_HJwtjBwOLFcz04LBRiEOOzPTQZ5TKhCjPas5U7WR8WYpQwfteXBKME2xGDT0t8ycRvJzkiRojpGIu9MTQ89i-CDOaWua5FX1j9Ui0GJb03Udt1EUSrE66CT2RwBn4c"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-16 lg:ml-64 h-screen flex flex-col overflow-hidden" id="ig-fields">
+<!-- Dashboard Header -->
+<div class="px-8 py-6">
+<h1 class="text-3xl font-headline font-bold text-on-surface">Instagram Studio</h1>
+<p class="font-label text-sm text-on-surface-variant">Create high-engagement posts powered by Macsus AI.</p>
+</div>
+<!-- Two Panel Layout -->
+<div class="flex-1 flex flex-col md:flex-row px-8 pb-8 gap-8 overflow-hidden">
+<!-- Panel Kiri: Input -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-8 flex flex-col gap-6 overflow-y-auto no-scrollbar border-none shadow-sm">
+<div class="space-y-2">
+<label class="font-label text-xs font-semibold text-primary uppercase tracking-widest">Judul Konten</label>
+<input class="w-full border-none bg-surface-container-low focus:ring-2 focus:ring-primary/40 rounded-lg py-3 px-4 font-body text-on-surface" placeholder="Contoh: Manfaat AI untuk Bisnis Lokal" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs font-semibold text-primary uppercase tracking-widest">Template Preset</label>
+<div class="relative group">
+<select class="w-auto min-w-[200px] appearance-none border-none bg-surface-container-low focus:ring-2 focus:ring-primary/40 rounded-lg py-3 px-4 pr-10 font-body text-on-surface cursor-pointer">
+<option>Educational Carousel</option>
+<option>Product Showcase</option>
+<option>Client Testimonial</option>
+<option>Behind the Scenes</option>
+<option>Expert Opinion</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="space-y-2 flex-1 flex flex-col">
+<label class="font-label text-xs font-semibold text-primary uppercase tracking-widest">Deskripsi Layanan / Isu</label>
+<textarea class="flex-1 w-full border-none bg-surface-container-low focus:ring-2 focus:ring-primary/40 rounded-lg py-3 px-4 font-body text-on-surface resize-none min-h-[120px]" placeholder="Jelaskan detail layanan atau masalah yang ingin diangkat..."></textarea>
+</div>
+<div class="pt-4">
+<button class="w-full gradient-button text-white font-label py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-primary/20 transition-all flex items-center justify-center gap-3 scale-95 active:scale-90">
+<span class="material-symbols-outlined">auto_awesome</span>
+                        Generate Konten
+                    </button>
+</div>
+</div>
+<!-- Panel Kanan: Preview / Guide -->
+<div class="w-full md:w-80 bg-surface-container-low rounded-xl flex flex-col overflow-hidden">
+<div class="p-6 bg-surface-container-high">
+<h3 class="font-headline text-lg font-bold">Preview / Guide</h3>
+<p class="font-label text-xs text-on-surface-variant">Riwayat Post Terakhir</p>
+</div>
+<div class="flex-1 p-4 overflow-y-auto no-scrollbar">
+<!-- Instagram Grid Style -->
+<div class="grid grid-cols-2 gap-2">
+<div class="aspect-square rounded-lg bg-surface-container overflow-hidden group relative cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A sophisticated Instagram post layout featuring high-end architectural photography, warm sunset lighting filtering through glass, minimalist serif typography, editorial high-fashion aesthetic, deep blues and golden highlights, ultra-realistic textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJbRNhVpuPaFodPJEmCxigWjzDFkL_BDekwZBpVR-CnE7EQmZrvIr7pZq5oJRFxwv0gax6sBdOKEtsHUYPmbr2KVKHq8VKdR9juo2o-CCNzudAkWXDqJjJc3-Lpk3282celzF61GRlAo7GlWCrG13t2j9Haj4582Tk6lPU5Ac56c0duNhLJufAQoYUNb7eY7wxNFTWYAMmp8LwmVUFi3EDU-pF7WTNM3fOK3c2Xnn5gfK_JXaxXgiycGFrpOscXl0YlEdB0dZZ29w"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container overflow-hidden group relative cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A close-up high-definition shot of a professional digital workspace with a ceramic coffee mug, blurred laptop background, soft morning light, aesthetic stationery, soft pastel color palette, clean lines, premium editorial look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_5OKxM7icpHXHure35K6t7LHDXBLC_FtuJnLOX_klFXzMU6maEM-qruEm711qMghl6zQwyWAv7nDbOQxtZAzyNBD9zHIN8_m15kWLUIovHlZwKJnarrHuP3f9tWxTJ4sGwnhe8lm3RuOjdEiyqd56t_HxnVTPj7J4ULosObfuK8VKy-6Nf0pqurz3N-mPPCqoc8B4joxpctN4Nqvq-huqg-ryAD_GDVm9Sdpn7F4cjNP5GjNbPy5Gx6JrvLhXiadv4c9aAjw-w1A"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container overflow-hidden group relative cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A conceptual digital art piece for social media, floating geometric 3D shapes in a gradient background of primary blue and surface white, sleek metallic textures, professional lighting, modern tech aesthetic, 8k render." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB81tzWNX2a2CQ11hgw9PdZBrGeSToGYwJV_VKTcUJoCgL_yiKrhv-KrQK9hgByhSGATatVb4Hgu50LsACF0k2pj7XoJ0hrZbswmUn-hI5Z89VYOtsO8PGB_e-_avkZY4_N9V-QssHC4SitqDRzbbTut4rAnWAkR1ADmXziBtJgYyX6rk7_KfFFGCaNFRGtLRunDlE9lZhHO7oMIPsx6sImQWLBozRpSnLBjDokXnGYJ-VchcbmxMrNQXdW3YMfHOoud_EuS0v5HKQ"/>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container overflow-hidden group relative cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A flat-lay photography of luxury leather notebooks and a sleek black pen on a marble surface, natural side lighting with soft shadows, minimalist brand identity style, scholarly and premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWKPPF3_gGxWaaLOOUvO0RztMGCRsA4qxL2JuCV3OdKHz0EAwZiLhyWmTaAGxBFPY6TOMbUq1Kg5LhInGfkJ6nmuHQ5x-CzXghSKQJM3IcY0tshLSswrrHC7BJ9u9FqVOf9dzXyBrUoUGpHZxIZtXpc9OH3JKjX4Phywk7GUiEtyWlcZIZIBVQzTb4gwCcBSnbuNibuQtR5UhI2ipkbtwsePKmlGDz-lCww6qEA73RfnNSlR0OvcdCfBtCUYozz9r8T8wJAvm1mY8"/>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container overflow-hidden group relative cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a serene business meeting in a bright glass-walled boardroom, soft bokeh background of a city skyline, high-end corporate photography, airy and light aesthetic, professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAilW-KHyu0xScBQLE8beKT4Pzgo1vj0oYdyYypi32W97pSFMYCl54PQJ9tUmnl8vcUdAkgStxCbKx_bIri6Du-9-Zmvo3KU2TFE_Py9nCNpXYucu1zw8OF9Iwu20Sp1c0bg22oHhlugY4RXP4gSe9unEIsTo-mvEI1A3B5FvZNEe_fC8cIEfce_pI_PKF_9TuyXfI_X1rngoSgdVI39X--K4Eo21l7tTAe-5-Vw8_tCKtpWNkJkSe2CSjrbOpPNSK6HAv_Le61PGk"/>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container overflow-hidden group relative cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Macro photography of a high-tech circuit board with glowing blue light paths, futuristic aesthetic, deep blacks and vibrant primary blue accents, industrial design photography, sharp detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBftmDZYzGh4nRajdnToHRytt17jJEtLOuJmtZtZtQf7sQdXmBGFOMIzVEr1g4mTVXcwqMEZuNALK9FwV5PqAccHyfGGo72MXnX3Qh-UVU1oIhA1LxOMkDItANu2at_hhRWS5HG8aqivh040680hXmEIt-jAmYnv3V4IHfFaLhJDLCNgQuglREzEAwo6xtJ8IqnDcWmAetTF2JRt-EHPNVOzHmb7jkw7Rml9Nfz_TukSBggREWaIIByonBoX09gR22-5BBjWIvvPnI"/>
+</div>
+</div>
+<div class="mt-8 p-4 bg-tertiary-fixed rounded-xl">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-tertiary-fixed text-sm">tips_and_updates</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-wider text-on-tertiary-fixed">Pro Tip</span>
+</div>
+<p class="font-body text-xs text-on-tertiary-fixed leading-relaxed">
+                            Gunakan Template <span class="font-bold">Carousel</span> untuk tingkat engagement 3x lebih tinggi pada topik edukasi bisnis.
+                        </p>
+</div>
+</div>
+<!-- Bottom padding for mobile bar -->
+<div class="h-16 lg:hidden"></div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Authority: JSON - Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-4 pb-safe lg:hidden bg-surface-container-lowest/90 dark:bg-surface-dim/90 backdrop-blur-md z-50 rounded-t-full shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label text-[10px] tracking-wider uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed font-bold bg-primary-container/20 rounded-xl px-3 py-1 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dynamic_feed</span>
+<span class="font-label text-[10px] tracking-wider uppercase">Modes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label text-[10px] tracking-wider uppercase">Create</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-label text-[10px] tracking-wider uppercase">Social</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-[10px] tracking-wider uppercase">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.style.transform = 'scale(0.95)';
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.style.transform = 'scale(1)';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple animation on "Generate" button click
+        const generateBtn = document.querySelector('.gradient-button');
+        if(generateBtn) {
+            generateBtn.addEventListener('click', function() {
+                this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Processing...';
+                setTimeout(() => {
+                    this.innerHTML = '<span class="material-symbols-outlined">auto_awesome</span> Generate Konten';
+                }, 2000);
+            });
+        }
+    </script>
+</body></html>

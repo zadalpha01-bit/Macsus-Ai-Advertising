@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register | Macsus AI Advance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@300;400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Noto+Serif:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#6d5e00",
+                    "on-tertiary-fixed": "#211b00",
+                    "secondary-fixed": "#dfe3e8",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#bfab49",
+                    "surface": "#faf9fa",
+                    "secondary-fixed-dim": "#c2c7cc",
+                    "surface-tint": "#2259bf",
+                    "on-surface-variant": "#434653",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#606569",
+                    "primary": "#094cb2",
+                    "on-surface": "#1b1c1d",
+                    "inverse-on-surface": "#f2f0f1",
+                    "surface-variant": "#e3e2e3",
+                    "on-tertiary-fixed-variant": "#524600",
+                    "tertiary-fixed": "#f9e37a",
+                    "secondary": "#5a5f63",
+                    "outline-variant": "#c3c6d5",
+                    "outline": "#737784",
+                    "inverse-primary": "#b1c5ff",
+                    "surface-container-highest": "#e3e2e3",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#e7ebff",
+                    "background": "#faf9fa",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-tertiary-container": "#4a3f00",
+                    "surface-dim": "#dbdadb",
+                    "primary-container": "#3366cc",
+                    "inverse-surface": "#303031",
+                    "on-primary-fixed-variant": "#00419d",
+                    "tertiary-fixed-dim": "#dcc661",
+                    "on-secondary-fixed": "#171c20",
+                    "primary-fixed": "#d9e2ff",
+                    "on-primary-fixed": "#001946",
+                    "secondary-container": "#dfe3e8",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e9e8e9",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#42474b",
+                    "on-background": "#1b1c1d",
+                    "surface-container-low": "#f5f3f4",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#efedee",
+                    "surface-bright": "#faf9fa",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "display": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Public Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Noto Serif', serif; }
+        .font-label { font-family: 'Public Sans', sans-serif; }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .gradient-cta {
+            background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%);
+        }
+
+        /* Hide scrollbars for a cleaner desktop experience */
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden">
+<main class="flex min-h-screen w-full" id="login-view">
+<!-- Left Section: Branding & Editorial Illustration -->
+<section class="hidden lg:flex w-1/2 relative bg-primary-container overflow-hidden items-center justify-center p-12">
+<!-- Background Visual Layer -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 mix-blend-overlay" data-alt="A sophisticated editorial-style illustration for a technology brand. The scene features detailed macro views of circuit boards and robotic micro-repair tools bathed in cinematic blue and gold lighting. The aesthetic is high-end and scholarly, using a palette of deep navy, silver, and archival gold. Soft bokeh light leaks create a sense of advanced artificial intelligence and precision engineering. The mood is authoritative and visionary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzf0KYaC2MyJaA94jLTIpIaxsvDp51hMnrTZQtu5ZGkMpnKp9GUF9rxpGjOwVjHm65YglFB5BmEHwKgberPsz0PI7Bxj4FENd-3_kDRb0GN1PqoyDogky_acNfl0gewC6ouCqSS52Ve0CDcoQG9j5FAjyLRWXUQdhbnOecvJtOOnNS9ZbnMGqlo2KwFghCFWa_QCsEtBRqw-yVE8836TIUJLv2YnqJO7182HMuZUu9h61nvwvCI1pgj3nEvtgUsT94tyVmNb3Uc7Y"/>
+</div>
+<!-- Content Overlay -->
+<div class="relative z-10 max-w-lg">
+<div class="mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-on-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">architecture</span>
+<h1 class="font-headline text-3xl font-bold tracking-tight text-on-primary-container uppercase tracking-[0.2em]">Alexandria</h1>
+</div>
+<h2 class="font-headline text-5xl leading-tight text-white mb-6">
+                    Intelligence for the Next Generation of Hardware Repair.
+                </h2>
+<div class="w-24 h-1 bg-tertiary-container mb-8"></div>
+<p class="font-body text-on-primary-container/80 text-lg leading-relaxed max-w-md">
+                    Access our curated neural networks designed for micro-soldering precision, circuit diagnostics, and architectural component mapping.
+                </p>
+<div class="mt-12 flex items-center gap-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a senior hardware engineer in a clean laboratory environment, cinematic soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4huz4QpEeFOGmRWhwhBcS74KFPAK0Ksel1ptiW4L0Q-9SzXs92am3GBbxugAAyapJU8eLnsm4NVH_MAgKqtk8slh88rUWhNu_yzy425A4PjgBGbCf7RZk-Y_T4at0PlrikBVLy3np3VezYoi32vTtPo_Q4g6K18HhWmBcE270BxXXIaVY3lpS36vyzDrOE30nAVVeLY6LBUYe0tZV8y2OVPO7NvbBvBM_37u9cPCZ-isfTHA9IFbOx5ApPNZ_Y-CySlSzJxyWGzU"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young female technician focused on high-precision micro-repair, vibrant tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBROmqLG4q1tIxpR_baJmqSDvVGKwdjcCq-ry2p-lkl8a12xcYLH7y1fGNfNSqSZKnmuosPRuUwoPtgqzoSmTgxRSCdPx3aOuBbE0MVwp39rPTpM5YLQ21C0MSESW4kYN8vanOY0btalNu_wG2oDS6LiHWmetXNGuieHJ0AVJjTsp8wsEPOD0vzsLIHepgN4iwKE5UrP11TQ_d-4N0bmHFKrtvkkkmRGe4NrGVxGToyAEXWXzztiX5bbMj6V1bSQzE8DF921wESQFk"/>
+</div>
+</div>
+<span class="font-label text-sm text-on-primary-container font-medium">Joined by 2,400+ Technicians</span>
+</div>
+</div>
+<!-- Glassmorphic Decorative Element -->
+<div class="absolute bottom-[-10%] right-[-10%] w-64 h-64 bg-tertiary rounded-full blur-[120px] opacity-20"></div>
+</section>
+<!-- Right Section: Login Form -->
+<section class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-24 bg-surface">
+<div class="w-full max-w-md space-y-10">
+<!-- Brand Mobile Header -->
+<div class="lg:hidden flex flex-col items-center mb-8">
+<h1 class="font-headline text-2xl font-bold text-primary tracking-tight">MACSUS AI ADVANCE</h1>
+<p class="font-label text-xs uppercase tracking-widest text-outline mt-1">Digital Curator Platform</p>
+</div>
+<div class="text-left space-y-2"><h3 class="font-headline text-3xl font-bold text-on-surface">Create Account</h3><p class="font-body text-on-surface-variant">Join the next generation of hardware repair technicians.</p></div>
+<form class="space-y-6" onsubmit="event.preventDefault();"><div class="space-y-2"><label class="font-label text-sm font-semibold text-on-surface-variant block uppercase tracking-wider" for="fullname">Full Name</label><div class="relative group"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span><input class="w-full bg-white border-outline-variant/30 focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-xl py-4 pl-12 pr-4 transition-all font-body placeholder:text-outline/50" id="fullname" placeholder="John Doe" type="text"/></div></div>
+<!-- Email Input -->
+<div class="space-y-2">
+<label class="font-label text-sm font-semibold text-on-surface-variant block uppercase tracking-wider" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full bg-white border-outline-variant/30 focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-xl py-4 pl-12 pr-4 transition-all font-body placeholder:text-outline/50" id="email" placeholder="name@macsus.ai" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2"><h3 class="font-headline text-3xl font-bold text-on-surface">Create Account</h3><p class="font-body text-on-surface-variant">Join the next generation of hardware repair technicians.</p></div>
+<!-- Remember Me -->
+<!-- Login Button -->
+<button class="w-full gradient-cta text-white font-label font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit"><span>Register Account</span><span class="material-symbols-outlined text-sm">person_add</span></button>
+</form>
+<!-- Footer Links -->
+<div class="pt-6 text-center"><p class="font-body text-on-surface-variant">Sudah punya akun? <a class="text-primary font-semibold hover:underline decoration-primary/30 underline-offset-4 ml-1" href="#">Login di sini</a></p></div>
+<!-- Secondary Auth Options -->
+<div class="relative py-4">
+<div class="absolute inset-0 flex items-center"><div class="w-full border-t border-outline-variant/30"></div></div>
+<div class="relative flex justify-center text-xs uppercase tracking-tighter"><span class="bg-surface px-4 text-outline font-label">Enterprise Access</span></div>
+</div>
+<div class="flex justify-center gap-4">
+<button class="flex-1 py-3 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-center gap-2 font-label text-sm text-on-surface">
+<img alt="Google Logo" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaVSDuHF_42jr7m7gkCk_sUSxCIYL-YGxxfSAp8VEg_DOOFXHQyrocHf84ey_CMYb-Ab3gxu8NxN-0zXdcAoGQDlFp5yXcCS9zv0WVAsV1oXnHCMZR9OwrthUVlXa-ZOdyAVCKBlC1Fu-isDfaehQBSZks-VRFqiAJTr3q7YEAI-n0pkJ-ao591gwew3Wl5q1PShgYVC8o22lQc4ijGBD_EjbOdyDXFfxOqNweEIMUmvCompPpDGaYD_aYjPycTgPes1PYux6u3F0"/>
+                        SSO Login
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.textContent = 'visibility';
+            }
+        }
+
+        // Add visual micro-interaction for the gradient button
+        const loginBtn = document.querySelector('.gradient-cta');
+        loginBtn.addEventListener('mousemove', (e) => {
+            const rect = loginBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            loginBtn.style.setProperty('--x', `${x}px`);
+            loginBtn.style.setProperty('--y', `${y}px`);
+        });
+    </script>
+</body></html>
