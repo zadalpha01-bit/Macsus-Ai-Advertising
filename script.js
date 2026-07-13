@@ -62,6 +62,109 @@ function initTheme() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   HISTORY VIEW & ITEM TOGGLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+var _historyViewMode = localStorage.getItem('historyView') || 'list';
+
+function toggleHistoryView() {
+  var list = document.getElementById('beranda-history-list');
+  var icon = document.getElementById('view-toggle-icon');
+  var btn = document.getElementById('btn-view-toggle');
+  if (!list || !icon || !btn) return;
+  if (_historyViewMode === 'list') {
+    _historyViewMode = 'grid';
+    list.classList.add('grid-view');
+    icon.textContent = 'grid_view';
+    btn.classList.add('active');
+  } else {
+    _historyViewMode = 'list';
+    list.classList.remove('grid-view');
+    icon.textContent = 'view_list';
+    btn.classList.remove('active');
+  }
+  localStorage.setItem('historyView', _historyViewMode);
+}
+
+function applyHistoryView() {
+  var list = document.getElementById('beranda-history-list');
+  var icon = document.getElementById('view-toggle-icon');
+  var btn = document.getElementById('btn-view-toggle');
+  if (!list) return;
+  if (_historyViewMode === 'grid') {
+    list.classList.add('grid-view');
+    if (icon) icon.textContent = 'grid_view';
+    if (btn) btn.classList.add('active');
+  } else {
+    list.classList.remove('grid-view');
+    if (icon) icon.textContent = 'view_list';
+    if (btn) btn.classList.remove('active');
+  }
+}
+
+function toggleHistoryItem(btn) {
+  var item = btn.closest('.beranda-history-item');
+  if (!item) return;
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.beranda-history-item.open').forEach(function(el) {
+    el.classList.remove('open');
+    var s = el.querySelector('.beranda-history-surface');
+    if (s) { s.classList.remove('open'); s.style.transform = ''; }
+  });
+  if (!wasOpen) {
+    item.classList.add('open');
+    var surface = item.querySelector('.beranda-history-surface');
+    if (surface) surface.classList.add('open');
+  }
+}
+
+function toggleNotesCard(mode) {
+  var idMap = {
+    'ig': 'notes-card-ig',
+    'gbisnis': 'notes-card-gbisnis',
+    'wa': 'notes-card-wa',
+    'fb': 'notes-card-fb',
+    'tt': 'notes-card-tt'
+  };
+  var card = document.getElementById(idMap[mode] || 'notes-card');
+  if (card) {
+    var isExpanded = card.classList.toggle('expanded');
+    var body = card.querySelector('.notes-card-body');
+    if (body) body.style.display = isExpanded ? 'block' : 'none';
+    var header = card.querySelector('[onclick]');
+    if (header) {
+      var arrows = header.querySelectorAll('.material-symbols-outlined');
+      var arrow = arrows[arrows.length - 1];
+      if (arrow) arrow.style.transform = isExpanded ? '' : 'rotate(-90deg)';
+    }
+    if (isExpanded) {
+      card.style.flex = '1';
+      card.style.minHeight = '0';
+    } else {
+      card.style.flex = 'none';
+      card.style.minHeight = 'auto';
+    }
+  }
+}
+
+function autoResizeTA(el) {
+  el.style.height = 'auto';
+  var maxH = 200;
+  el.style.height = Math.min(el.scrollHeight, maxH) + 'px';
+}
+
+function selectDuration(btn) {
+  document.querySelectorAll('.duration-btn').forEach(function(b) {
+    b.style.borderColor = 'transparent';
+    var span = b.querySelector('span:first-child');
+    if (span) span.style.color = 'var(--text-primary)';
+  });
+  btn.style.borderColor = 'rgba(9,76,178,0.3)';
+  var span = btn.querySelector('span:first-child');
+  if (span) span.style.color = 'var(--accent)';
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    LAYER DUPLICATION THEME TRANSITION
    Two stacked layers: bottom (old theme), top (new theme).
    Top layer clip-path animates inset(0 0 0 100%) → inset(0) = right-to-left wipe.
@@ -566,6 +669,7 @@ class CustomSelect {
 
     this._modal = document.createElement('div');
     this._modal.className = 'cs-modal';
+    this._modal.style.position = 'fixed';
     this._modal.addEventListener('click', e => e.stopPropagation());
 
     const head = document.createElement('div');
@@ -604,9 +708,17 @@ class CustomSelect {
     document.body.appendChild(this._overlay);
     document.body.appendChild(this._modal);
 
+    const btnRect = this._btn.getBoundingClientRect();
+    const modalWidth = btnRect.width;
+    const modalHeight = this._modal.offsetHeight;
+    const gap = 8;
+
+    this._modal.style.width = modalWidth + 'px';
+    this._modal.style.left = btnRect.left + 'px';
+    this._modal.style.top = (btnRect.top - modalHeight - gap) + 'px';
+    this._modal.style.transform = 'scale(0.95)';
     this._overlay.style.opacity = '0';
     this._modal.style.opacity = '0';
-    this._modal.style.transform = 'translate(-50%, -50%) scale(0.95)';
 
     anime({ targets: this._overlay, opacity: [0, 1], duration: 200, easing: 'easeOutQuad' });
     anime({ targets: this._modal, opacity: [0, 1], scale: [0.95, 1], duration: 200, easing: 'easeOutQuad' });
@@ -782,18 +894,58 @@ function updateModelBadge(model) {
 }
 
 const IG_TEMPLATES = [
-  { value: '', label: 'Pilih template' },
-  { value: 'Overheat treatment - cleaning thermal paste, penggantian cooler, optimasi ventilasi', label: 'Overheat Treatment' },
-  { value: 'Penggantian layar rusak/pecah dengan LCD/IPS berkualitas tinggi', label: 'Ganti Layar' },
-  { value: 'Water spill treatment - pembersihan motherboard, pengeringan, testing ulang', label: 'Liquid Spill' },
-  { value: 'Upgrade atau penggantian hardisk/SSD dengan kapasitas lebih besar', label: 'Ganti HDD/SSD' },
-  { value: 'Diagnosis dan perbaikan kerusakan motherboard (short, power issue)', label: 'Perbaikan Motherboard' },
-  { value: 'Install ulang Windows dengan optimasi sistem dan driver terbaru', label: 'Install Ulang OS' },
-  { value: 'Pembersihan virus, malware, dan optimasi performa sistem', label: 'Remove Virus/Malware' },
-  { value: 'Penambahan RAM untuk meningkatkan performa multitasking', label: 'Upgrade RAM' },
+  { value: '', label: 'Pilih template', title: '' },
+  { value: 'Overheat treatment - deep cleaning thermal paste yang sudah kering, penggantian thermal paste baru dengan kualitas tinggi, pembersihan debu pada fan dan heatsink, penggantian cooler jika diperlukan, optimasi ventilasi udara dalam casing untuk mencegah overheating berulang', label: 'Overheat Treatment', title: 'Tips Mencegah Laptop Overheat' },
+  { value: 'Penggantian layar laptop rusak/pecah/bergaris dengan LCD/IPS panel berkualitas tinggi, kalibrasi warna setelah penggantian, pemasangan presisi oleh teknisi berpengalaman, garansi panel 6 bulan', label: 'Ganti Layar', title: 'Solusi Layar Laptop Rusak' },
+  { value: 'Water spill treatment untuk laptop terkena cairan - pembersihan menyeluruh motherboard menggunakan ultrasonic cleaner, pengeringan komponen internal, testing fungsi satu per satu, pencegahan korosi jangka panjang', label: 'Liquid Spill Treatment', title: 'Laptop Kena Air? Ini Solusinya' },
+  { value: 'Upgrade atau penggantian hardisk/SSD dengan kapasitas lebih besar untuk mempercepat booting, loading aplikasi, dan transfer data. Konsultasi kapasitas yang sesuai kebutuhan, migrasi data tanpa kehilangan', label: 'Ganti HDD/SSD', title: 'Upgrade SSD untuk Laptop Lebih Cepat' },
+  { value: 'Diagnosis dan perbaikan kerusakan motherboard seperti short circuit, power issue, no display. Penggantian komponen SMD jika diperlukan, testing stabilitas setelah perbaikan', label: 'Perbaikan Motherboard', title: 'Perbaikan Motherboard Laptop' },
+  { value: 'Install ulang Windows 10/11 dengan optimasi sistem penuh - partitioning hardisk, instalasi driver original, update ke versi terbaru, uninstall bloatware, optimasi startup agar laptop lebih cepat', label: 'Install Ulang OS', title: 'Install Ulang Windows + Optimasi' },
+  { value: 'Pembersihan virus, malware, spyware, dan adware dari sistem. Optimasi performa laptop dengan membersihkan file sampah, defrag hardisk, dan setting ulang sistem untuk performa maksimal', label: 'Remove Virus/Malware', title: 'Hapus Virus & Optimasi Laptop' },
+  { value: 'Penambahan RAM untuk meningkatkan performa multitasking - konsultasi jenis RAM yang kompatibel, pemasangan dual channel jika memungkinkan, testing stabilitas setelah upgrade', label: 'Upgrade RAM', title: 'Upgrade RAM untuk Multitasking' },
+  { value: 'Ganti baterai laptop original dengan kapasitas lebih besar, testing daya tahan baterai, kalibrasi baterai agar terbaca akurat, garansi baterai 3 bulan', label: 'Ganti Baterai', title: 'Ganti Baterai Laptop Awet' },
+  { value: 'Pembersihan keyboard laptop dari debu, kotoran, dan cairan yang tersangkut. Penggantian keycaps yang aus atau patah, testing fungsi setiap tombol', label: 'Bersih Keyboard', title: 'Bersih Keyboard Laptop Menyeluruh' },
+  { value: 'Perbaikan atau penggantian port USB, HDMI, charging port yang rusak atau longgar. Soldering presisi oleh teknisi berpengalaman, testing konektivitas setelah perbaikan', label: 'Perbaikan Port', title: 'Perbaikan Port USB & Charging' },
+  { value: 'Upgrade atau penggantian fan laptop yang berisik atau mati. Pembersihan debu pada fan dan heatsink, pemberian oli pada bearing jika diperlukan', label: 'Ganti Fan', title: 'Ganti Fan Laptop Berisik' },
+  { value: 'Pembersihan menyeluruh seluruh komponen laptop dari debu dan kotoran yang menumpuk. Pembersihan layar, keyboard, ventilasi udara, dan bagian dalam casing', label: 'Deep Cleaning', title: 'Deep Cleaning Laptop Total' },
+  { value: 'Penggantian hinges/engsel laptop yang patah atau longgar. Pemasangan presisi agar layar dapat dibuka dan ditutup dengan stabil', label: 'Ganti Engsel', title: 'Ganti Engsel Laptop Patah' },
+  { value: 'Service laptop ringan - pembersihan debu, update driver, optimasi sistem, testing fungsi semua komponen. Cocok untuk laptop yang sudah mulai lemot tapi tidak ada kerusakan hardware', label: 'Service Ringan', title: 'Service Ringan Laptop Lemot' },
 ];
 
 let csIgTemplate = null;
+let csWaTemplate = null;
+
+const WA_TEMPLATES = [
+  { value: '', label: 'Pilih template', title: '' },
+  { value: 'Promo spesial bulan ini: diskon hingga 50% untuk semua layanan service laptop. Berlaku terbatas sampai akhir bulan, jangan lewatkan kesempatan ini!', label: 'Promo Diskon', title: 'Promo Diskon Spesial' },
+  { value: 'Flash sale 3 hari saja! Service laptop hanya Rp99.000 (normal Rp200.000). Kuota terbatas untuk 20 pelanggan pertama. Booking sekarang!', label: 'Flash Sale', title: 'Flash Sale 3 Hari' },
+  { value: 'Halo kak! Laptopnya bermasalah? Kami buka service laptop panggilan ke rumah. Teknisi berpengalaman, garansi service 30 hari. Gratis konsultasi!', label: 'Service Panggilan', title: 'Service Laptop Panggilan' },
+  { value: 'Promo referal: Ajak teman service laptop di Macsus, dapatkan diskon Rp50.000 untuk service berikutnya. Berlaku kelipatan!', label: 'Promo Referral', title: 'Promo Ajak Teman' },
+  { value: 'Gratis diagnostic untuk semua jenis kerusakan laptop! Datang ke workshop kami atau panggil teknisi ke lokasi. Tanpa biaya, tanpa komitmen.', label: 'Gratis Diagnostic', title: 'Gratis Diagnostic Laptop' },
+  { value: 'Paket maintenance laptop: deep cleaning + optimasi sistem + update driver. Harga spesial Rp150.000 (normal Rp300.000). Buat laptop kamu seperti baru lagi!', label: 'Paket Maintenance', title: 'Paket Maintenance Laptop' },
+  { value: 'Warning sign laptop kamu? Lambat, panas, atau sering freeze? Jangan tunggu parah! Bawa ke Macsus sekarang untuk pencegahan. Mulai dari Rp75.000.', label: 'Early Bird', title: 'Early Bird Service' },
+  { value: 'Laptop baru beli tapi sudah bermasalah? Tenang, kami bantu klaim garansi sekaligus service ringan. Gratis untuk pembelian di Macsus!', label: 'Garansi + Service', title: 'Klaim Garansi + Service' },
+  { value: 'Promo pelajar/mahasiswa: Tunjukkan KTP/KTM, dapatkan diskon 30% untuk semua service. Berlaku setiap hari!', label: 'Diskon Pelajar', title: 'Promo Pelajar/Mahasiswa' },
+  { value: 'End of year sale! Service laptop diskon hingga 40%. Berlaku untuk semua jenis kerusakan. Buruan, kuota terbatas!', label: 'End of Year Sale', title: 'End of Year Sale' },
+];
+
+function initWaTemplateSelect() {
+  csWaTemplate = new CustomSelect('cs-wa-template', {
+    options: WA_TEMPLATES,
+    placeholder: 'Pilih template',
+    searchable: false,
+    onSelect(val) {
+      if (val) {
+        const selected = WA_TEMPLATES.find(t => t.value === val);
+        if (selected && selected.title) {
+          document.getElementById('waTitle').value = selected.title;
+        }
+        document.getElementById('waPromoType').value = val;
+      }
+      csWaTemplate.setValue('');
+    }
+  });
+}
 
 function initIgTemplateSelect() {
   csIgTemplate = new CustomSelect('cs-ig-template', {
@@ -802,6 +954,10 @@ function initIgTemplateSelect() {
     searchable: false,
     onSelect(val) {
       if (val) {
+        const selected = IG_TEMPLATES.find(t => t.value === val);
+        if (selected && selected.title) {
+          document.getElementById('contentTitle').value = selected.title;
+        }
         document.getElementById('serviceInfo').value = val;
       }
       csIgTemplate.setValue('');
@@ -1554,6 +1710,90 @@ function resetModeElements(mode) {
 
   var submitBtn = modePanel ? modePanel.querySelector('#' + ids.submitBtn) : null;
   if (submitBtn) { submitBtn.style.opacity = '0'; submitBtn.style.transform = 'translateX(30px)'; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SIDEBAR NAVIGATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+async function sidebarNav(page, mode) {
+  document.querySelectorAll('.pc-nav-link').forEach(function(el) {
+    var dp = el.getAttribute('data-page');
+    var dm = el.getAttribute('data-mode');
+    if (dm) {
+      el.classList.toggle('active', page === 'mode' && dm === mode);
+    } else {
+      el.classList.toggle('active', dp === page);
+    }
+  });
+
+  closeAllExpandables();
+
+  if (page === 'beranda') {
+    if (typeof goBeranda === 'function') await goBeranda();
+  } else if (page === 'mode') {
+    if (mode && typeof setMode === 'function') await setMode(mode);
+  } else if (page === 'pesan') {
+    if (typeof openMessages === 'function') await openMessages();
+  } else if (page === 'akun' || page === 'pengaturan') {
+    if (currentMode !== null) {
+      currentMode = null;
+      if (typeof applyModeTheme === 'function') applyModeTheme(null);
+    }
+    ['input-container','output-wrapper','messages-page','chat-page'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    var ap = document.getElementById('akun-page');
+    if (ap) {
+      ap.style.display = '';
+      ap.style.opacity = '0';
+      ap.style.transform = 'translateX(30px)';
+      anime({ targets: ap, opacity: [0, 1], translateX: [30, 0], duration: 250, easing: 'easeOutCubic' });
+    }
+    var n = document.getElementById('account-display-name');
+    var e = document.getElementById('account-display-email');
+    var pn = document.getElementById('akun-page-name');
+    var pe = document.getElementById('akun-page-email');
+    if (n && pn) pn.textContent = n.textContent;
+    if (e && pe) pe.textContent = e.textContent;
+    if (typeof loadApiKeyToInput === 'function') loadApiKeyToInput();
+    if (typeof initModelSelect === 'function') initModelSelect();
+  }
+
+  var titles = { beranda:'Macsus AI', pesan:'Pesan', akun:'Account & Settings', pengaturan:'Account & Settings' };
+  var iconClasses = { beranda:'topbar-icon topbar-icon-img', pesan:'topbar-icon fas fa-comment-dots', akun:'topbar-icon fas fa-user', pengaturan:'topbar-icon fas fa-cog' };
+  var topbarSpan = document.querySelector('#topbar-page-title span');
+  if (topbarSpan && page !== 'mode') topbarSpan.textContent = titles[page] || 'Macsus AI';
+
+  var topIcon = document.getElementById('topbar-icon');
+  if (topIcon && topIcon.tagName === 'svg') {
+    var newI = document.createElement('i');
+    newI.id = 'topbar-icon';
+    topIcon.parentNode.replaceChild(newI, topIcon);
+    topIcon = newI;
+  }
+  if (page === 'mode' && mode) {
+    // setMode() already calls updateTopbarTitle(mode)
+  } else if (iconClasses[page] && topIcon) {
+    topIcon.className = iconClasses[page];
+    topIcon.style.transform = '';
+    topIcon.style.opacity = '';
+  }
+
+  var sidebarPageIcon = document.getElementById('pc-sidebar-page-icon');
+  if (sidebarPageIcon) {
+    sidebarPageIcon.className = 'topbar-icon pc-sidebar-page-icon';
+    sidebarPageIcon.style.transform = '';
+    if (page === 'mode' && mode && MODE_META[mode]) {
+      sidebarPageIcon.classList.add('topbar-icon-mode', MODE_META[mode].color);
+      var iconParts = MODE_META[mode].icon.split(' ');
+      iconParts.forEach(function(c) { sidebarPageIcon.classList.add(c); });
+    } else if (iconClasses[page]) {
+      var ic = iconClasses[page].replace('topbar-icon ', '');
+      if (ic) ic.split(' ').forEach(function(c) { if (c) sidebarPageIcon.classList.add(c); });
+    }
+  }
 }
 
 async function goBeranda() {
@@ -3306,6 +3546,7 @@ window.addEventListener('DOMContentLoaded', function() {
   updateApiKeyStatus();
   initModelSelect();
   initIgTemplateSelect();
+  initWaTemplateSelect();
   goBeranda();
   initSwipeHandlers();
 

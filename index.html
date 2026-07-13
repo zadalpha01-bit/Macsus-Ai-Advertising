@@ -7,11 +7,11 @@
  <meta property="og:url" content="https://macsus-ai-advertising-version.netlify.app/" />
  <meta property="og:title" content="Macsus AI Advertising" />
  <meta property="og:description" content="Generator Konten AI Cerdas untuk Macsus Company" />
- <meta property="og:image" content="https://macsus-ai-advertising-version.netlify.app/IkonBrand/teks-gelap/og-1200x630.png" />
+ <meta property="og:image" content="https://macsus-ai-advertising-version.netlify.app/IkonAplikasi/teks-terang/og-1200x630.png" />
  <meta property="og:type" content="website" />
  
- <link rel="icon" href="IkonBrand/ikon-gelap/favicon-32.png" type="image/png">
- <link rel="apple-touch-icon" href="IkonBrand/ikon-gelap/apple-touch-180.png">
+ <link rel="icon" href="IkonAplikasi/ikon-terang/favicon-32.png" type="image/png">
+ <link rel="apple-touch-icon" href="IkonAplikasi/ikon-terang/apple-touch-180.png">
  <link rel="manifest" href="manifest.json">
  
  <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -243,10 +243,10 @@
  </div>
  </div>
  <!-- Right Column: Sidebar -->
- <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;">
+ <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px;">
  <!-- Notes Card -->
  <div id="notes-card-ig" class="expanded" style="flex: 1; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.15); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
- <div onclick="toggleNotesCard('ig')" style="background: var(--bg-surface); border: none; border-radius: 0; overflow: hidden; cursor: pointer; padding: 0;">
+ <div onclick="toggleNotesCard('ig')" style="background: var(--bg-surface); border: none; border-radius: 0; cursor: pointer; padding: 0;">
  <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
  <div style="display: flex; align-items: center; gap: 8px;">
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary);">edit_note</span>
@@ -255,14 +255,14 @@
  </div>
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary); transition: transform 0.2s;">expand_more</span>
  </div>
- <div class="notes-card-body" style="padding: 16px; display: block;">
- <input type="text" id="command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif;">
  </div>
+ <div class="notes-card-body" style="padding: 16px; flex: 1; display: flex; flex-direction: column; min-height: 0;">
+ <textarea id="command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; flex: 1; min-height: 150px; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; resize: none;"></textarea>
  </div>
  </div>
  <!-- Generate Button -->
- <button id="submit-btn-ig" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
- <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+ <button id="submit-btn-ig" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
+ <span class="material-symbols-outlined" style="font-size: 18px; line-height: 1; vertical-align: middle;">auto_awesome</span>
  <span>GENERATE KONTEN</span>
  </button>
  </aside>
@@ -299,10 +299,10 @@
  </div>
  </div>
  <!-- Right Column: Sidebar -->
- <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;">
+ <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px;">
  <!-- Notes Card -->
  <div id="notes-card-gbisnis" class="expanded" style="flex: 1; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.15); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
- <div onclick="toggleNotesCard('gbisnis')" style="background: var(--bg-surface); border: none; border-radius: 0; overflow: hidden; cursor: pointer; padding: 0;">
+ <div onclick="toggleNotesCard('gbisnis')" style="background: var(--bg-surface); border: none; border-radius: 0; cursor: pointer; padding: 0;">
  <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
  <div style="display: flex; align-items: center; gap: 8px;">
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary);">edit_note</span>
@@ -311,14 +311,14 @@
  </div>
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary); transition: transform 0.2s;">expand_more</span>
  </div>
- <div class="notes-card-body" style="padding: 16px; display: block;">
- <input type="text" id="gbisnis-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif;">
  </div>
+ <div class="notes-card-body" style="padding: 16px; flex: 1; display: flex; flex-direction: column; min-height: 0;">
+ <textarea id="gbisnis-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; flex: 1; min-height: 150px; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; resize: none;"></textarea>
  </div>
  </div>
  <!-- Generate Button -->
- <button id="submit-btn-gbisnis" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
- <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+ <button id="submit-btn-gbisnis" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
+ <span class="material-symbols-outlined" style="font-size: 18px; line-height: 1; vertical-align: middle;">auto_awesome</span>
  <span>GENERATE KONTEN</span>
  </button>
  </aside>
@@ -345,6 +345,13 @@
  <label class="font-label" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Judul Promo <span style="color: var(--accent);">*</span></label>
  <input type="text" id="waTitle" placeholder="Contoh: Diskon Flash Sale Ramadan" style="width: 100%; background: var(--bg-page); border: 1px solid rgba(195,198,213,0.25); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; transition: all 0.2s;" onfocus="this.style.borderColor='var(--accent)';" onblur="this.style.borderColor='rgba(195,198,213,0.25)';">
  </div>
+ <!-- Template Preset -->
+ <div>
+ <label class="font-label" style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">
+ Template Preset
+ </label>
+ <div id="cs-wa-template"></div>
+ </div>
  <!-- Promo Type Description -->
  <div style="flex: 1; display: flex; flex-direction: column;">
  <label class="font-label" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Deskripsi Promo</label>
@@ -352,10 +359,10 @@
  </div>
  </div>
  <!-- Right Column: Sidebar -->
- <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;">
+ <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px;">
  <!-- Notes Card -->
  <div id="notes-card-wa" class="expanded" style="flex: 1; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.15); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
- <div onclick="toggleNotesCard('wa')" style="background: var(--bg-surface); border: none; border-radius: 0; overflow: hidden; cursor: pointer; padding: 0;">
+ <div onclick="toggleNotesCard('wa')" style="background: var(--bg-surface); border: none; border-radius: 0; cursor: pointer; padding: 0;">
  <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
  <div style="display: flex; align-items: center; gap: 8px;">
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary);">edit_note</span>
@@ -364,14 +371,14 @@
  </div>
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary); transition: transform 0.2s;">expand_more</span>
  </div>
- <div class="notes-card-body" style="padding: 16px; display: block;">
- <input type="text" id="wa-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif;">
  </div>
+ <div class="notes-card-body" style="padding: 16px; flex: 1; display: flex; flex-direction: column; min-height: 0;">
+ <textarea id="wa-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; flex: 1; min-height: 150px; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; resize: none;"></textarea>
  </div>
  </div>
  <!-- Generate Button -->
- <button id="submit-btn-wa" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
- <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+ <button id="submit-btn-wa" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
+ <span class="material-symbols-outlined" style="font-size: 18px; line-height: 1; vertical-align: middle;">auto_awesome</span>
  <span>GENERATE KONTEN</span>
  </button>
  </aside>
@@ -400,15 +407,18 @@
  </div>
  <!-- Laporan Pelanggan -->
  <div style="flex: 1; display: flex; flex-direction: column;">
- <label class="font-label" style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Laporan Pelanggan</label>
+ <label class="font-label" style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">
+ <span>Laporan Pelanggan</span>
+ <a href="https://trello.com/b/vV3NiTeK/07-juli-2026" target="_blank" rel="noopener noreferrer" style="font-size: 10px; color: var(--accent); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 4px;">Trello <span class="material-symbols-outlined" style="font-size: 12px;">open_in_new</span></a>
+ </label>
  <textarea id="fbReportData" rows="1" placeholder="Paste data laporan kerusakan pelanggan di sini..." oninput="autoResizeTA(this)" style="flex: 1; width: 100%; background: var(--bg-page); border: 1px solid rgba(195,198,213,0.25); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; resize: none; min-height: 160px; transition: all 0.2s; line-height: 1.6;" onfocus="this.style.borderColor='var(--accent)';" onblur="this.style.borderColor='rgba(195,198,213,0.25)';"></textarea>
  </div>
  </div>
  <!-- Right Column: Sidebar -->
- <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;">
+ <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px;">
  <!-- Notes Card -->
  <div id="notes-card-fb" class="expanded" style="flex: 1; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.15); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
- <div onclick="toggleNotesCard('fb')" style="background: var(--bg-surface); border: none; border-radius: 0; overflow: hidden; cursor: pointer; padding: 0;">
+ <div onclick="toggleNotesCard('fb')" style="background: var(--bg-surface); border: none; border-radius: 0; cursor: pointer; padding: 0;">
  <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
  <div style="display: flex; align-items: center; gap: 8px;">
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary);">edit_note</span>
@@ -417,14 +427,14 @@
  </div>
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary); transition: transform 0.2s;">expand_more</span>
  </div>
- <div class="notes-card-body" style="padding: 16px; display: block;">
- <input type="text" id="fb-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif;">
  </div>
+ <div class="notes-card-body" style="padding: 16px; flex: 1; display: flex; flex-direction: column; min-height: 0;">
+ <textarea id="fb-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; flex: 1; min-height: 150px; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; resize: none;"></textarea>
  </div>
  </div>
  <!-- Generate Button -->
- <button id="submit-btn-fb" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
- <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+ <button id="submit-btn-fb" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
+ <span class="material-symbols-outlined" style="font-size: 18px; line-height: 1; vertical-align: middle;">auto_awesome</span>
  <span>GENERATE KONTEN</span>
  </button>
  </aside>
@@ -461,10 +471,10 @@
  </div>
  </section>
  <!-- Right Column: Sidebar -->
- <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px;">
+ <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px;">
  <!-- Notes Card -->
  <div id="notes-card-tt" class="expanded" style="flex: 1; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.15); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
- <div onclick="toggleNotesCard('tt')" style="background: var(--bg-surface); border: none; border-radius: 0; overflow: hidden; cursor: pointer; padding: 0;">
+ <div onclick="toggleNotesCard('tt')" style="background: var(--bg-surface); border: none; border-radius: 0; cursor: pointer; padding: 0;">
  <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
  <div style="display: flex; align-items: center; gap: 8px;">
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary);">edit_note</span>
@@ -473,14 +483,14 @@
  </div>
  <span class="material-symbols-outlined" style="font-size: 16px; color: var(--text-tertiary); transition: transform 0.2s;">expand_more</span>
  </div>
- <div class="notes-card-body" style="padding: 16px; display: block; flex: 1;">
- <input type="text" id="tt-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif;">
  </div>
+ <div class="notes-card-body" style="padding: 16px; flex: 1; display: flex; flex-direction: column; min-height: 0;">
+ <textarea id="tt-command" placeholder="Contoh: Fokus pada promo KMM, tonjolkan harga akhirnya" style="width: 100%; flex: 1; min-height: 150px; background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--text-primary); outline: none; font-family: 'Inter', sans-serif; resize: none;"></textarea>
  </div>
  </div>
  <!-- Generate Button -->
- <button id="submit-btn-tt" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
- <span class="material-symbols-outlined" style="font-size: 18px;">auto_awesome</span>
+ <button id="submit-btn-tt" onclick="generateAds()" style="margin-top: auto; width: 100%; background: linear-gradient(135deg, #094cb2 0%, #3366cc 100%); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Public Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.02em;" onmouseover="this.style.transform='scale(0.98)';" onmouseout="this.style.transform='scale(1)';">
+ <span class="material-symbols-outlined" style="font-size: 18px; line-height: 1; vertical-align: middle;">auto_awesome</span>
  <span>GENERATE KONTEN</span>
  </button>
  </aside>
@@ -879,7 +889,7 @@
  <div style="display:flex; align-items:center; gap:6px;">
  <i class="fas fa-shield-halved" style="font-size:12px; color:var(--accent);"></i>
  <span style="font-size:11px; font-weight:600; color:var(--text-primary);">Macsus AI</span>
- <span style="font-size:10px; color:var(--text-secondary);" id="current-version">v5.0.0</span>
+ <span style="font-size:10px; color:var(--text-secondary);" id="current-version">v0.0.0</span>
  </div>
  <div style="display:flex; gap:6px;">
  <button onclick="window.versionCheck.checkForUpdates(false)" style="font-size:10px; padding:4px 10px; background:transparent; border:1px solid var(--border); border-radius:6px; color:var(--accent); cursor:pointer; font-family:'Inter',sans-serif;">Update</button>
@@ -1094,7 +1104,7 @@
  <div class="settings-toggle-row">
  <span class="settings-label">Versi</span>
  <div style="display:flex; align-items:center; gap:8px;">
- <span class="settings-label" id="sm-current-version">v5.0.0</span>
+ <span class="settings-label" id="sm-current-version">v0.0.0</span>
  <button class="btn-pwa" id="btn-check-version" onclick="window.versionCheck.checkForUpdates(false)">
  <i class="fas fa-sync-alt"></i> Update
  </button>
@@ -1197,175 +1207,9 @@
  }
  })();
 
-<script>
- var _historyViewMode = localStorage.getItem('historyView') || 'list';
- function toggleHistoryView() {
- var list = document.getElementById('beranda-history-list');
- var icon = document.getElementById('view-toggle-icon');
- var btn = document.getElementById('btn-view-toggle');
- if (!list || !icon || !btn) return;
- if (_historyViewMode === 'list') {
- _historyViewMode = 'grid';
- list.classList.add('grid-view');
- icon.textContent = 'grid_view';
- btn.classList.add('active');
- } else {
- _historyViewMode = 'list';
- list.classList.remove('grid-view');
- icon.textContent = 'view_list';
- btn.classList.remove('active');
- }
- localStorage.setItem('historyView', _historyViewMode);
- }
- function applyHistoryView() {
- var list = document.getElementById('beranda-history-list');
- var icon = document.getElementById('view-toggle-icon');
- var btn = document.getElementById('btn-view-toggle');
- if (!list) return;
- if (_historyViewMode === 'grid') {
- list.classList.add('grid-view');
- if (icon) icon.textContent = 'grid_view';
- if (btn) btn.classList.add('active');
- } else {
- list.classList.remove('grid-view');
- if (icon) icon.textContent = 'view_list';
- if (btn) btn.classList.remove('active');
- }
- }
- function toggleNotesCard(mode) {
- var idMap = {
- 'ig': 'notes-card-ig',
- 'gbisnis': 'notes-card-gbisnis',
- 'wa': 'notes-card-wa',
- 'fb': 'notes-card-fb',
- 'tt': 'notes-card-tt'
- };
- var card = document.getElementById(idMap[mode] || 'notes-card');
- if (card) {
- var isExpanded = card.classList.toggle('expanded');
- var body = card.querySelector('.notes-card-body');
- if (body) body.style.display = isExpanded ? 'block' : 'none';
- }
- }
- function autoResizeTA(el) {
- el.style.height = 'auto';
- var maxH = 200;
- el.style.height = Math.min(el.scrollHeight, maxH) + 'px';
- }
- function selectDuration(btn) {
- document.querySelectorAll('.duration-btn').forEach(function(b) {
- b.style.borderColor = 'transparent';
- var span = b.querySelector('span:first-child');
- if (span) span.style.color = 'var(--text-primary)';
- });
- btn.style.borderColor = 'rgba(9,76,178,0.3)';
- var span = btn.querySelector('span:first-child');
- if (span) span.style.color = 'var(--accent)';
- }
- function toggleHistoryItem(btn) {
- var item = btn.closest('.beranda-history-item');
- if (!item) return;
- var wasOpen = item.classList.contains('open');
- document.querySelectorAll('.beranda-history-item.open').forEach(function(el) {
- el.classList.remove('open');
- var s = el.querySelector('.beranda-history-surface');
- if (s) { s.classList.remove('open'); s.style.transform = ''; }
- });
- if (!wasOpen) {
- item.classList.add('open');
- var surface = item.querySelector('.beranda-history-surface');
- if (surface) surface.classList.add('open');
- }
- }
-</script>
-
-<script>
- /* Sidebar nav — page view */
- async function sidebarNav(page, mode) {
- document.querySelectorAll('.pc-nav-link').forEach(function(el) {
- var dp = el.getAttribute('data-page');
- var dm = el.getAttribute('data-mode');
- if (dm) {
- el.classList.toggle('active', page === 'mode' && dm === mode);
- } else {
- el.classList.toggle('active', dp === page);
- }
- });
-
- closeAllExpandables();
-
- if (page === 'beranda') {
- if (typeof goBeranda === 'function') await goBeranda();
- } else if (page === 'mode') {
- if (mode && typeof setMode === 'function') await setMode(mode);
- } else if (page === 'pesan') {
- if (typeof openMessages === 'function') await openMessages();
- } else if (page === 'akun' || page === 'pengaturan') {
- if (currentMode !== null) {
- currentMode = null;
- if (typeof applyModeTheme === 'function') applyModeTheme(null);
- }
- ['input-container','output-wrapper','messages-page','chat-page'].forEach(function(id) {
- var el = document.getElementById(id);
- if (el) el.style.display = 'none';
- });
- var ap = document.getElementById('akun-page');
- if (ap) {
- ap.style.display = '';
- ap.style.opacity = '0';
- ap.style.transform = 'translateX(30px)';
- anime({ targets: ap, opacity: [0, 1], translateX: [30, 0], duration: 250, easing: 'easeOutCubic' });
- }
- var n = document.getElementById('account-display-name');
- var e = document.getElementById('account-display-email');
- var pn = document.getElementById('akun-page-name');
- var pe = document.getElementById('akun-page-email');
- if (n && pn) pn.textContent = n.textContent;
- if (e && pe) pe.textContent = e.textContent;
- if (typeof loadApiKeyToInput === 'function') loadApiKeyToInput();
- if (typeof initModelSelect === 'function') initModelSelect();
- }
-
- // Set topbar icon & title AFTER async navigation (single source of truth)
- var titles = { beranda:'Macsus AI', pesan:'Pesan', akun:'Account & Settings', pengaturan:'Account & Settings' };
- var iconClasses = { beranda:'topbar-icon topbar-icon-img', pesan:'topbar-icon fas fa-comment-dots', akun:'topbar-icon fas fa-user', pengaturan:'topbar-icon fas fa-cog' };
- var topbarSpan = document.querySelector('#topbar-page-title span');
- // Don't override mode titles - setMode/updateTopbarTitle handles them
- if (topbarSpan && page !== 'mode') topbarSpan.textContent = titles[page] || 'Macsus AI';
-
- var topIcon = document.getElementById('topbar-icon');
- if (topIcon && topIcon.tagName === 'svg') {
- var newI = document.createElement('i');
- newI.id = 'topbar-icon';
- topIcon.parentNode.replaceChild(newI, topIcon);
- topIcon = newI;
- }
- if (page === 'mode' && mode) {
- // setMode() already calls updateTopbarTitle(mode) - don't call again
- } else if (iconClasses[page] && topIcon) {
- topIcon.className = iconClasses[page];
- topIcon.style.transform = '';
- topIcon.style.opacity = '';
- }
-
- // Update sidebar page icon (for collapsed state)
- var sidebarPageIcon = document.getElementById('pc-sidebar-page-icon');
- if (sidebarPageIcon) {
- sidebarPageIcon.className = 'topbar-icon pc-sidebar-page-icon';
- sidebarPageIcon.style.transform = '';
- if (page === 'mode' && mode && MODE_META[mode]) {
- sidebarPageIcon.classList.add('topbar-icon-mode', MODE_META[mode].color);
- var iconParts = MODE_META[mode].icon.split(' ');
- iconParts.forEach(function(c) { sidebarPageIcon.classList.add(c); });
- } else if (iconClasses[page]) {
- var ic = iconClasses[page].replace('topbar-icon ', '');
- if (ic) ic.split(' ').forEach(function(c) { if (c) sidebarPageIcon.classList.add(c); });
- }
- }
- }
 
 
-</script>
+
 <script>lucide.createIcons();</script>
 </body>
 </html>

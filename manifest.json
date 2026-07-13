@@ -9,13 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "IkonBrand/ikon-gelap/pwa-192.png",
+      "src": "IkonAplikasi/ikon-terang/pwa-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "IkonBrand/ikon-gelap/pwa-512.png",
+      "src": "IkonAplikasi/ikon-terang/pwa-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
