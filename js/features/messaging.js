@@ -56,6 +56,8 @@ async function openMessages() {
   // --- RESET & SHOW MESSAGES ---
   const bv = document.getElementById('beranda-view');
   if (bv) bv.style.display = 'none';
+  var rv = document.getElementById('riwayat-view');
+  if (rv) rv.style.display = 'none';
   ['ig-fields', 'gbisnis-fields', 'wa-fields', 'fb-fields', 'tt-fields', 'notes-card', 'error-box'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.classList.remove('visible'); el.style.display = 'none'; }

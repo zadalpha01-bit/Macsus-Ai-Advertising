@@ -51,6 +51,7 @@
  <div class="pc-nav">
  <div class="pc-nav-group">MENU</div>
  <a class="pc-nav-link active" data-page="beranda" onclick="sidebarNav('beranda')"><span class="pc-nav-icon"><i class="fas fa-home"></i></span><span class="pc-nav-text">Beranda</span></a>
+ <a class="pc-nav-link" data-page="riwayat" onclick="sidebarNav('riwayat')"><span class="pc-nav-icon"><i class="fas fa-clock-rotate-left"></i></span><span class="pc-nav-text">Riwayat</span></a>
  <div class="pc-nav-group">MODE</div>
  <a class="pc-nav-link" data-mode="ig" onclick="sidebarNav('mode','ig')"><span class="pc-nav-icon"><i class="fab fa-instagram"></i></span><span class="pc-nav-text">Instagram</span></a>
  <a class="pc-nav-link" data-mode="gbisnis" onclick="sidebarNav('mode','gbisnis')"><span class="pc-nav-icon"><i class="fab fa-google"></i></span><span class="pc-nav-text">G-Bisnis</span></a>
@@ -104,109 +105,173 @@
  <div id="input-container">
  <!-- BERANDA VIEW -->
  <div id="beranda-view">
- <!-- Welcome Header -->
- <section style="margin-bottom: 32px;">
- <h2 class="font-headline" style="font-size: 2.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2;">Halo, Tim Macsus</h2>
- <p class="font-body" style="color: var(--text-tertiary); margin-top: 8px; max-width: 600px; font-size: 14px; line-height: 1.6;">Selamat datang kembali di pusat komando AI Anda. Pantau diagnosa terbaru dan kelola kehadiran digital Anda dalam satu dashboard terintegrasi.</p>
+
+ <!-- GREETING -->
+ <section id="beranda-greeting" style="margin-bottom: 24px;">
+ <h2 class="font-headline" id="greeting-title" style="font-size: 2.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2;">Selamat Datang</h2>
+ <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px; flex-wrap: wrap;">
+ <p class="font-body" id="greeting-subtitle" style="color: var(--text-tertiary); font-size: 14px; line-height: 1.6;">Pusat komando AI Anda</p>
+ <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-tertiary); background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px;">
+ <span class="material-symbols-outlined" style="font-size: 13px;">calendar_today</span>
+ <span id="greeting-date"></span>
+ </span>
+ </div>
  </section>
 
- <!-- MODE SELECTION -->
+ <!-- STATS CARDS -->
  <section style="margin-bottom: 24px;">
- <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px;">
- <h3 class="font-label" style="font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.2em;">MODE SELECTION</h3>
+ <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px;">
+ <!-- Total -->
+ <div style="background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+ <div style="display: flex; align-items: center; justify-content: space-between;">
+ <div style="width: 36px; height: 36px; border-radius: 10px; background: var(--accent-muted); display: flex; align-items: center; justify-content: center;">
+ <span class="material-symbols-outlined" style="font-size: 20px; color: var(--accent);">auto_awesome</span>
  </div>
- <div style="display: flex; gap: 16px; height: 88px;">
- <!-- Left: Mode Cards Horizontal -->
- <div style="flex: 1; min-width: 0; display: flex; gap: 10px; overflow: hidden; -ms-overflow-style: none; scrollbar-width: none;">
- <!-- Instagram Card -->
- <button class="mode-tab ig" data-mode="ig" onclick="toggleModeInfo('ig')" style="min-width: 120px; flex-shrink: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
- <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(225,48,108,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
- <i class="fab fa-instagram" style="color: #E1306C; font-size: 18px;"></i>
+ <span id="stat-total-badge" style="font-size: 10px; font-weight: 600; color: var(--accent); background: var(--accent-muted); padding: 2px 8px; border-radius: 10px; display: none;">+0</span>
  </div>
- <h4 class="font-headline" style="font-weight: 600; color: var(--text-primary); font-size: 12px; margin-bottom: 1px;">Instagram</h4>
- <p style="font-size: 9px; color: var(--text-tertiary);">Visual Engagement</p>
- </button>
- <!-- G-Bisnis Card -->
- <button class="mode-tab gb" data-mode="gbisnis" onclick="toggleModeInfo('gbisnis')" style="min-width: 120px; flex-shrink: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
- <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(66,133,244,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
- <i class="fab fa-google" style="color: #4285F4; font-size: 18px;"></i>
- </div>
- <h4 class="font-headline" style="font-weight: 600; color: var(--text-primary); font-size: 12px; margin-bottom: 1px;">G-Bisnis</h4>
- <p style="font-size: 9px; color: var(--text-tertiary);">Local Presence</p>
- </button>
- <!-- WhatsApp Card -->
- <button class="mode-tab wa" data-mode="wa" onclick="toggleModeInfo('wa')" style="min-width: 120px; flex-shrink: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
- <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(37,211,102,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
- <i class="fab fa-whatsapp" style="color: #25D366; font-size: 18px;"></i>
- </div>
- <h4 class="font-headline" style="font-weight: 600; color: var(--text-primary); font-size: 12px; margin-bottom: 1px;">WhatsApp</h4>
- <p style="font-size: 9px; color: var(--text-tertiary);">Direct Messaging</p>
- </button>
- <!-- Facebook Card -->
- <button class="mode-tab fb" data-mode="fb" onclick="toggleModeInfo('fb')" style="min-width: 120px; flex-shrink: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
- <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(24,119,242,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
- <i class="fab fa-facebook" style="color: #1877F2; font-size: 18px;"></i>
- </div>
- <h4 class="font-headline" style="font-weight: 600; color: var(--text-primary); font-size: 12px; margin-bottom: 1px;">Facebook</h4>
- <p style="font-size: 9px; color: var(--text-tertiary);">Social Network</p>
- </button>
- <!-- TikTok Card -->
- <button class="mode-tab tt" data-mode="tt" onclick="toggleModeInfo('tt')" style="min-width: 120px; flex-shrink: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
- <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(27,28,29,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
- <i class="fab fa-tiktok" style="color: var(--text-primary); font-size: 18px;"></i>
- </div>
- <h4 class="font-headline" style="font-weight: 600; color: var(--text-primary); font-size: 12px; margin-bottom: 1px;">TikTok</h4>
- <p style="font-size: 9px; color: var(--text-tertiary);">Short-form Video</p>
- </button>
- </div>
- <!-- Right: Expandable Info Panel -->
- <div style="width: 280px; flex-shrink: 0; position: relative; overflow: hidden;">
- <!-- Default Panel -->
- <div class="mode-info-panel default-panel" id="default-panel" style="position: absolute; inset: 0; margin: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between;">
- <div class="mode-info-head" style="display: flex; align-items: center; gap: 10px; min-width: 0;">
- <img src="ikon.png" class="mode-info-icon default-icon" alt="Macsus" style="width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;">
- <div style="min-width: 0;">
- <div class="mode-info-name" style="font-weight: 600; font-size: 12px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Macsus AI Advertising</div>
- <div class="mode-info-desc" style="font-size: 10px; color: var(--text-tertiary); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Membuat virus untuk hacking <i class="fas fa-circle-xmark" style="color:#F87171;"></i> Membuat virus untuk menjual antivirus <i class="fas fa-circle-check" style="color:#4ADE80;"></i></div>
+ <div>
+ <div class="font-headline" id="stat-total" style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1;">0</div>
+ <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px;">Total Konten</div>
  </div>
  </div>
- <a href="https://www.instagram.com/macsus.company/" target="_blank" class="btn-use-mode" title="Kunjungi Instagram" style="width: 32px; height: 32px; border-radius: 8px; background: var(--bg-accent); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; flex-shrink: 0;">
- <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
- </a>
- </div>
- <!-- Mode Info Panel (hidden by default) -->
- <div class="mode-info-panel" id="mode-info-panel" style="position: absolute; inset: 0; margin: 0; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 10px; padding: 12px; display: none; align-items: center; justify-content: space-between;">
- <div class="mode-info-head" style="display: flex; align-items: center; gap: 10px; min-width: 0;">
- <i class="mode-info-icon" id="mode-info-icon" style="font-size: 20px; flex-shrink: 0;"></i>
- <div style="min-width: 0;">
- <div class="mode-info-name" id="mode-info-name" style="font-weight: 600; font-size: 12px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></div>
- <div class="mode-info-desc" id="mode-info-desc" style="font-size: 10px; color: var(--text-tertiary); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></div>
+ <!-- Minggu Ini -->
+ <div style="background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+ <div style="display: flex; align-items: center; justify-content: space-between;">
+ <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(74,222,128,0.12); display: flex; align-items: center; justify-content: center;">
+ <span class="material-symbols-outlined" style="font-size: 20px; color: #4ADE80;">trending_up</span>
  </div>
  </div>
- <button class="btn-use-mode" id="btn-use-mode" onclick="useModeFromInfo()" title="Buka mode ini" style="width: 32px; height: 32px; border-radius: 8px; background: var(--bg-accent); display: flex; align-items: center; justify-content: center; color: white; border: none; cursor: pointer; flex-shrink: 0;">
- <span class="material-symbols-outlined" style="font-size: 16px;">open_in_new</span>
- </button>
+ <div>
+ <div class="font-headline" id="stat-week" style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1;">0</div>
+ <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px;">Minggu Ini</div>
+ </div>
+ </div>
+ <!-- Pinned -->
+ <div style="background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+ <div style="display: flex; align-items: center; justify-content: space-between;">
+ <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(251,191,36,0.12); display: flex; align-items: center; justify-content: center;">
+ <span class="material-symbols-outlined" style="font-size: 20px; color: #FBBF24;">push_pin</span>
+ </div>
+ </div>
+ <div>
+ <div class="font-headline" id="stat-pinned" style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1;">0</div>
+ <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px;">Tertaut</div>
+ </div>
+ </div>
+ <!-- Hari Ini -->
+ <div style="background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+ <div style="display: flex; align-items: center; justify-content: space-between;">
+ <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(96,165,250,0.12); display: flex; align-items: center; justify-content: center;">
+ <span class="material-symbols-outlined" style="font-size: 20px; color: #60A5FA;">today</span>
+ </div>
+ </div>
+ <div>
+ <div class="font-headline" id="stat-today" style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1;">0</div>
+ <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px;">Hari Ini</div>
  </div>
  </div>
  </div>
  </section>
 
- <!-- RIWAYAT TERBARU -->
- <section id="beranda-history" style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 16px;">
- <div style="display: flex; justify-content: space-between; align-items: center;">
- <h3 class="font-label" style="font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.2em;">RIWAYAT TERBARU</h3>
- <div style="display: flex; align-items: center; gap: 12px;">
- <button class="btn-view-toggle" id="btn-view-toggle" onclick="toggleHistoryView()" title="Ubah tampilan" style="background: none; border: none; color: var(--text-tertiary); cursor: pointer; padding: 4px; display: flex; align-items: center;">
- <span class="material-symbols-outlined" id="view-toggle-icon" style="font-size: 18px;">view_list</span>
- </button>
- <div class="beranda-search" style="position: relative;">
- <input type="text" id="beranda-search-input" placeholder="Cari riwayat..." oninput="filterBerandaHistory(this.value)" style="background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px 8px 32px; font-size: 12px; color: var(--text-primary); width: 200px; outline: none; font-family: 'Inter', sans-serif;">
- <span class="material-symbols-outlined" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 16px;">search</span>
+ <!-- BOTTOM ROW: Heatmap + Mode Breakdown -->
+ <section style="margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch;">
+ <div style="flex: 1 1 calc(50% - 6px); min-height: 220px; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column;">
+ <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+ <div>
+ <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Peta Aktivitas</div>
+ <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 2px;">4 minggu terakhir</div>
+ </div>
+ <div style="display: flex; align-items: center; gap: 3px; font-size: 9px; color: var(--text-tertiary);">
+ <span>Sedikit</span>
+ <div style="width: 10px; height: 10px; border-radius: 2px; background: var(--border);"></div>
+ <div style="width: 10px; height: 10px; border-radius: 2px; background: rgba(13,148,136,0.2);"></div>
+ <div style="width: 10px; height: 10px; border-radius: 2px; background: rgba(13,148,136,0.5);"></div>
+ <div style="width: 10px; height: 10px; border-radius: 2px; background: var(--accent);"></div>
+ <span>Banyak</span>
  </div>
  </div>
+ <div id="heatmap-grid" style="flex: 1 1 160px; min-height: 100px;"></div>
+ <div id="heatmap-empty" style="text-align: center; padding: 20px 0; font-size: 11px; color: var(--text-tertiary);">
+ <span class="material-symbols-outlined" style="font-size: 28px; display: block; margin: 0 auto 6px; opacity: 0.3;">grid_view</span>
+ Mulai buat konten untuk melihat peta aktivitas
  </div>
- <div class="beranda-history" id="beranda-history-list" style="background: transparent; border: none; border-radius: 12px; overflow: hidden; min-height: 100px; flex: 1;"></div>
+ </div>
+
+ <!-- Mode Breakdown -->
+ <div style="flex: 1 1 calc(50% - 6px); min-height: 220px; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column;">
+ <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+ <div>
+ <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Distribusi Mode</div>
+ <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 2px;">Platform favorit Anda</div>
+ </div>
+ </div>
+ <div id="stat-mode-bars" style="display: flex; flex-direction: column; gap: 10px; flex: 1;"></div>
+ <div id="stat-mode-donut" style="display: flex; align-items: center; justify-content: center; margin-bottom: 12px;"></div>
+ <div id="stat-empty" style="display: none; text-align: center; padding: 20px 0; font-size: 11px; color: var(--text-tertiary);">
+ <span class="material-symbols-outlined" style="font-size: 28px; display: block; margin: 0 auto 6px; opacity: 0.3;">pie_chart</span>
+ Belum ada konten. Mulai buat di mode apapun!
+ </div>
+ </div>
+
  </section>
+
+ <!-- QUICK ACTIONS + RECENT -->
+ <section style="margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch;">
+
+ <!-- Quick Actions -->
+ <div style="flex: 1 1 calc(50% - 6px); min-height: 220px; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column;">
+ <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Aksi Cepat</div>
+ <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; flex: 1;" id="quick-actions">
+ <button onclick="sidebarNav('mode','ig')" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--ig-light); border: 1px solid rgba(225,48,108,0.15); border-radius: 8px; cursor: pointer; transition: all 0.15s;">
+ <i class="fab fa-instagram" style="font-size: 16px; color: var(--ig);"></i>
+ <div style="text-align: left;"><div style="font-size: 11px; font-weight: 600; color: var(--text-primary);">Instagram</div><div style="font-size: 9px; color: var(--text-tertiary);">Caption & NB</div></div>
+ </button>
+ <button onclick="sidebarNav('mode','gbisnis')" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--gb-light); border: 1px solid rgba(217,119,6,0.15); border-radius: 8px; cursor: pointer; transition: all 0.15s;">
+ <i class="fab fa-google" style="font-size: 16px; color: var(--gb);"></i>
+ <div style="text-align: left;"><div style="font-size: 11px; font-weight: 600; color: var(--text-primary);">G-Bisnis</div><div style="font-size: 9px; color: var(--text-tertiary);">Postingan Lokal</div></div>
+ </button>
+ <button onclick="sidebarNav('mode','wa')" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--wa-light); border: 1px solid rgba(37,211,102,0.15); border-radius: 8px; cursor: pointer; transition: all 0.15s;">
+ <i class="fab fa-whatsapp" style="font-size: 16px; color: var(--wa);"></i>
+ <div style="text-align: left;"><div style="font-size: 11px; font-weight: 600; color: var(--text-primary);">WhatsApp</div><div style="font-size: 9px; color: var(--text-tertiary);">Promo & Broadcast</div></div>
+ </button>
+ <button onclick="sidebarNav('mode','fb')" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--fb-light); border: 1px solid rgba(24,119,242,0.15); border-radius: 8px; cursor: pointer; transition: all 0.15s;">
+ <i class="fab fa-facebook" style="font-size: 16px; color: var(--fb);"></i>
+ <div style="text-align: left;"><div style="font-size: 11px; font-weight: 600; color: var(--text-primary);">Facebook</div><div style="font-size: 9px; color: var(--text-tertiary);">Post & Laporan</div></div>
+ </button>
+ <button onclick="sidebarNav('mode','tt')" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--tt-light); border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; cursor: pointer; transition: all 0.15s; grid-column: span 2;">
+ <i class="fab fa-tiktok" style="font-size: 16px; color: var(--tt);"></i>
+ <div style="text-align: left;"><div style="font-size: 11px; font-weight: 600; color: var(--text-primary);">TikTok</div><div style="font-size: 9px; color: var(--text-tertiary);">Caption & Script Video Pendek</div></div>
+ </button>
+ </div>
+ </div>
+
+ <!-- Recent Activity -->
+ <div style="flex: 1 1 calc(50% - 6px); min-height: 220px; background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 16px; display: flex; flex-direction: column;">
+ <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+ <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Aktivitas Terbaru</div>
+ <button onclick="sidebarNav('riwayat')" style="font-size: 10px; color: var(--accent); background: none; border: none; cursor: pointer; font-weight: 600;">Lihat Semua</button>
+ </div>
+ <div id="beranda-recent-list" style="display: flex; flex-direction: column; gap: 6px; flex: 1; overflow-y: auto;"></div>
+ <div id="beranda-recent-empty" style="text-align: center; padding: 20px 0; font-size: 11px; color: var(--text-tertiary);">
+ <span class="material-symbols-outlined" style="font-size: 28px; display: block; margin: 0 auto 6px; opacity: 0.3;">history</span>
+ Belum ada aktivitas
+ </div>
+ </div>
+
+ </section>
+
+ <!-- INSIGHTS BANNER -->
+ <section id="beranda-insights" style="margin-bottom: 24px;">
+ <div id="insight-banner" style="background: var(--bg-surface); border: 1px solid rgba(195,198,213,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; overflow: hidden;">
+ <div style="width: 36px; height: 36px; border-radius: 10px; background: var(--accent-muted); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+ <span class="material-symbols-outlined" id="insight-icon" style="font-size: 20px; color: var(--accent);">lightbulb</span>
+ </div>
+ <div style="min-width: 0;">
+ <div id="insight-text" style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">Tips: Gunakan template untuk mempercepat workflow Anda.</div>
+ </div>
+ </div>
+ </section>
+
  </div> <!-- /beranda-view -->
 
  <div id="form-scroll-area">
@@ -498,6 +563,31 @@
  </div>
  </div> <!-- /form-scroll-area -->
  </div>
+
+ <!-- RIWAYAT PAGE -->
+ <div id="riwayat-view" style="display:none; flex: 1; min-height: 0; flex-direction: column; overflow: hidden;">
+ <div style="padding: 16px; flex-shrink: 0;">
+ <div style="display: flex; align-items: center; gap: 2px; margin-bottom: 10px;">
+ <span class="font-label" style="font-size: 10px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em;">HISTORY</span>
+ </div>
+ <h2 class="font-headline" style="font-size: 2rem; font-weight: 700; color: var(--text-primary); line-height: 1.15;">Riwayat <span style="color: var(--accent); font-style: italic;">Konten</span></h2>
+ <p class="font-body" style="font-size: 13px; color: var(--text-secondary); margin-top: 4px; max-width: 600px; line-height: 1.6;">Semua konten yang pernah Anda generate tersimpan di sini. Cari, filter, atau buka kembali riwayat lama.</p>
+ </div>
+ <div style="display: flex; flex: 1; padding: 16px; gap: 16px; overflow: hidden; min-height: 0; flex-direction: column;">
+ <div style="display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
+ <div style="display: flex; align-items: center; gap: 8px;">
+ <button class="btn-view-toggle" id="riwayat-btn-view-toggle" onclick="toggleHistoryView()" title="Ubah tampilan" style="background: none; border: none; color: var(--text-tertiary); cursor: pointer; padding: 4px; display: flex; align-items: center;">
+ <span class="material-symbols-outlined" id="riwayat-view-toggle-icon" style="font-size: 18px;">view_list</span>
+ </button>
+ <div class="beranda-search" style="position: relative;">
+ <input type="text" id="riwayat-search-input" placeholder="Cari riwayat..." oninput="filterBerandaHistory(this.value)" style="background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px 8px 32px; font-size: 12px; color: var(--text-primary); width: 250px; outline: none; font-family: 'Inter', sans-serif;">
+ <span class="material-symbols-outlined" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 16px;">search</span>
+ </div>
+ </div>
+ </div>
+ <div class="beranda-history" id="riwayat-history-list" style="background: transparent; border: none; border-radius: 12px; overflow-y: auto; min-height: 100px; flex: 1;"></div>
+ </div>
+ </div> <!-- /riwayat-view -->
 
  <!-- Error -->
  <div class="error-card" id="error-box">
@@ -818,7 +908,8 @@
  <div style="position:relative; flex:1;">
  <input type="password" id="gemini-api-key-input" placeholder="Paste API Key..." autocomplete="off" spellcheck="false"
  style="width:100%; background:var(--bg-page); border:1px solid var(--border); border-radius:8px; padding:10px 36px 10px 12px; font-family:'Inter',monospace; font-size:12px; color:var(--text-primary); outline:none; box-sizing:border-box;"
- onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
+ onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+ oninput="this.dataset.masked='false'; this.dataset.realValue=this.value;" />
  <button id="btn-eye" onclick="toggleApiKeyVisibility()" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--text-secondary); padding:4px;">
  <i class="fas fa-eye" id="eye-icon" style="font-size:12px;"></i>
  </button>
@@ -953,6 +1044,11 @@
  <span class="dock-pill"></span>
  <i data-lucide="message-square-text"></i>
  <span class="badge-count" id="dock-msg-badge" style="display:none;">0</span>
+ </div>
+
+ <div class="dock-item" data-page="riwayat" onclick="sidebarNav('riwayat')" aria-label="Riwayat">
+ <span class="dock-pill"></span>
+ <i class="fas fa-clock-rotate-left"></i>
  </div>
 
  <!-- Akun Expandable -->
@@ -1206,9 +1302,7 @@
  sidebarPageIcon.className = 'topbar-icon pc-sidebar-page-icon topbar-icon-img';
  }
  })();
-
-
-
+ </script>
 
 <script>lucide.createIcons();</script>
 </body>

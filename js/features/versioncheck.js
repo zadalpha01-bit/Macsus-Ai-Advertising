@@ -22,7 +22,7 @@
 const VERSION_CONFIG = {
   SUPABASE_URL: 'https://spybvczjfixwsfbvmdol.supabase.co',
   ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNweWJ2Y3pqZml4d3NmYnZtZG9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5ODg0NjEsImV4cCI6MjA5NDU2NDQ2MX0.7siuN3HPprF6eRJU7FgylTIlx-hspUvqxPwHwqJRJ4I',
-  CURRENT_VERSION: '2.8.3',
+  CURRENT_VERSION: '2.8.4',
   CACHE_KEY: 'macsus_current_version',
   LAST_CHECK_KEY: 'macsus_version_last_check',
   AUTO_CHECK_INTERVAL: 1 * 1000
