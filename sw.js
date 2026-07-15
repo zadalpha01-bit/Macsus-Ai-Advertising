@@ -1,4 +1,3 @@
-// Service Worker - No Cache (untuk testing)
 self.addEventListener("install", (event) => {
   self.skipWaiting();
 });

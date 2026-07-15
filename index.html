@@ -580,7 +580,7 @@
  <span class="material-symbols-outlined" id="riwayat-view-toggle-icon" style="font-size: 18px;">view_list</span>
  </button>
  <div class="beranda-search" style="position: relative;">
- <input type="text" id="riwayat-search-input" placeholder="Cari riwayat..." oninput="filterBerandaHistory(this.value)" style="background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px 8px 32px; font-size: 12px; color: var(--text-primary); width: 250px; outline: none; font-family: 'Inter', sans-serif;">
+ <input type="text" id="riwayat-search-input" placeholder="Cari riwayat..." oninput="filterBerandaHistory(this.value)" autocomplete="off" style="background: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px 8px 32px; font-size: 12px; color: var(--text-primary); width: 250px; outline: none; font-family: 'Inter', sans-serif;">
  <span class="material-symbols-outlined" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font-size: 16px;">search</span>
  </div>
  </div>
@@ -815,10 +815,10 @@
  <h2 class="font-headline" style="font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:12px;">Messages</h2>
  <div style="position:relative;">
  <i class="fas fa-at" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text-tertiary);"></i>
- <input type="text" id="msg-search-input" placeholder="Search by email..." oninput="searchUsersForChat(this.value)"
- style="width:100%;padding:10px 14px 10px 34px;background:var(--bg-page);border:1px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-primary);outline:none;transition:all 0.2s;box-sizing:border-box;"
- onfocus="this.style.borderColor='var(--accent)'"
- onblur="this.style.borderColor='var(--border)'" />
+<input type="text" id="msg-search-input" placeholder="Search by email..." oninput="searchUsersForChat(this.value)" autocomplete="off"
+  style="width:100%;padding:10px 14px 10px 34px;background:var(--bg-page);border:1px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-primary);outline:none;transition:all 0.2s;box-sizing:border-box;"
+  onfocus="this.style.borderColor='var(--accent)'"
+  onblur="this.style.borderColor='var(--border)'" />
  </div>
  </div>
  <div id="msg-search-results" class="msg-search-results" style="display:none;"></div>
@@ -853,10 +853,10 @@
  <!-- Chat Input Area -->
  <div style="padding:12px 20px;border-top:1px solid var(--border);background:var(--bg-page);flex-shrink:0;">
  <div style="display:flex;align-items:center;gap:8px;background:var(--bg-page);border:1px solid var(--border);border-radius:12px;padding:4px 4px 4px 14px;transition:all 0.2s;">
- <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()"
- style="flex:1;border:none;outline:none;background:none;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-primary);padding:8px 0;"
- onfocus="this.parentElement.style.borderColor='var(--accent)'"
- onblur="this.parentElement.style.borderColor='var(--border)'" />
+<input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()" autocomplete="off"
+  style="flex:1;border:none;outline:none;background:none;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-primary);padding:8px 0;"
+  onfocus="this.parentElement.style.borderColor='var(--accent)'"
+  onblur="this.parentElement.style.borderColor='var(--border)'" />
  <button class="chat-send-btn" onclick="sendMessage()"
  style="width:36px;height:36px;border-radius:10px;border:none;background:linear-gradient(135deg,#094cb2,#3366cc);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;"
  onmousedown="this.style.transform='scale(0.93)'" onmouseup="this.style.transform=''">
